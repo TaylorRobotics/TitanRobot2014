@@ -1,0 +1,6 @@
+MIDlet-Name: TitanRobot2014
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: FIRST
+MIDlet-1: TitanRobot, ,  us.in.k12.taylor.robotics.robot2014.TitanRobot
+MicroEdition-Profile: IMP-1.0
+MicroEdition-Configuration: CLDC-1.1
