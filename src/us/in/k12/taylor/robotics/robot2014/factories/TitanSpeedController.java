@@ -123,9 +123,6 @@ public class TitanSpeedController implements SpeedController {
             speed = 0.0;
         }
         else {
-            if (invertDirection) {
-                speed = -speed;
-            }
             if (speed > 0.0) {
                 if ((forwardLimitSwitch != null) && forwardLimitSwitch.isSwitchOn()) {
                     reachedHardLimit = true;
@@ -143,6 +140,9 @@ public class TitanSpeedController implements SpeedController {
                 else {
                     reachedHardLimit = false;
                 }
+            }
+            if (invertDirection) {
+                speed = -speed;
             }
         }
         return speed;
