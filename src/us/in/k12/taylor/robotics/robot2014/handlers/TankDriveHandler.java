@@ -10,11 +10,11 @@ import us.in.k12.taylor.robotics.robot2014.TitanRobot;
  * @author Taylor Robotics 2014
  */
 public class TankDriveHandler implements RobotParameters {
-    RobotRegistry registry;
-    RobotDrive robotDrive;
+    private final RobotRegistry registry;
+    private final RobotDrive robotDrive;
 
-    Joystick leftDriveJoystick;
-    Joystick rightDriveJoystick;
+    private final Joystick leftDriveJoystick;
+    private final Joystick rightDriveJoystick;
 
     public TankDriveHandler(TitanRobot pRobot) {
         registry = pRobot.getRegistry();

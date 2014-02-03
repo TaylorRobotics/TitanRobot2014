@@ -10,13 +10,13 @@ import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
  * @author Taylor Robotics 2014
  */
 public class DriveSpeedButtonHandler implements RobotParameters {
-    RobotRegistry registry;
-    JoystickButton lowSpeedButton;
-    JoystickButton mediumSpeedButton;
-    JoystickButton highSpeedButton;
-    JoystickButton speedBoostButton;
-    JoystickButton speedDragButton;
-    RobotDrive robotDrive;
+    private final RobotRegistry registry;
+    private final JoystickButton lowSpeedButton;
+    private final JoystickButton mediumSpeedButton;
+    private final JoystickButton highSpeedButton;
+    private final JoystickButton speedBoostButton;
+    private final JoystickButton speedDragButton;
+    private final RobotDrive robotDrive;
 
     public DriveSpeedButtonHandler(TitanRobot pRobot) {
         registry = pRobot.getRegistry();
