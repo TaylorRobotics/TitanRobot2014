@@ -27,7 +27,7 @@ public class PickupButtonHandler implements RobotParameters {
 
     public void run() {
         /* Run pickup motor when pickup button is pressed */
-        if (pickupButton.isButtonPushed()) {
+        if (pickupButton.isSwitchOn()) {
             pickupMotor.setNonTimedOperation();
             pickupMotor.set(PICKUP_MOTOR_SPEED);
             if (pickupMotor.isHardLimitReached()) {

@@ -35,13 +35,13 @@ public class DriveSpeedButtonHandler implements RobotParameters {
         double boostDragSpeed;
  
         /* Check speed buttons and set the drivespeed */
-        if (lowSpeedButton.getStateChange() && lowSpeedButton.isButtonPushed()) {
+        if (lowSpeedButton.isSwitchOn() && lowSpeedButton.getStateChange()) {
             registry.setDriveSpeedMode(LOW_SPEED);
         }
-        else if (mediumSpeedButton.getStateChange() && mediumSpeedButton.isButtonPushed()) {
+        else if (mediumSpeedButton.isSwitchOn() && mediumSpeedButton.getStateChange()) {
             registry.setDriveSpeedMode(MEDIUM_SPEED);
         }
-        else if (highSpeedButton.getStateChange() && highSpeedButton.isButtonPushed()) {
+        else if (highSpeedButton.isSwitchOn() && highSpeedButton.getStateChange()) {
             registry.setDriveSpeedMode(HIGH_SPEED);
         }
 
@@ -58,11 +58,11 @@ public class DriveSpeedButtonHandler implements RobotParameters {
         }
 
         /* Check if boost or drag buttons are pushed */
-        if (speedBoostButton.isButtonPushed()) {
+        if (speedBoostButton.isSwitchOn()) {
             registry.setSpeedBoostDrag(SPEED_BOOST_ON);
             boostDragSpeed = BOOST_SPEED;
         }
-        else if (speedDragButton.isButtonPushed()) {
+        else if (speedDragButton.isSwitchOn()) {
             registry.setSpeedBoostDrag(SPEED_DRAG_ON);
             boostDragSpeed = DRAG_SPEED;
         }

@@ -19,7 +19,7 @@ public class DriveDirectionButtonHandler implements RobotParameters {
 
     public void run() {
         /* Reverse drive direction on button push */
-        if (reverseDirectionButton.getStateChange() && reverseDirectionButton.isButtonPushed()) {
+        if (reverseDirectionButton.isSwitchOn() && reverseDirectionButton.getStateChange()) {
             if (registry.getDriveDirection() == FORWARD) {
                 registry.setDriveDirection(REVERSE);
             }
