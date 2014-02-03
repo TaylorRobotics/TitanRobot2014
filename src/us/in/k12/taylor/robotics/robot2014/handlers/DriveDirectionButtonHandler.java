@@ -1,6 +1,5 @@
 package us.in.k12.taylor.robotics.robot2014.handlers;
 
-import edu.wpi.first.wpilibj.Joystick;
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
 import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
@@ -15,8 +14,7 @@ public class DriveDirectionButtonHandler implements RobotParameters {
 
     public DriveDirectionButtonHandler(TitanRobot pRobot) {
         registry = pRobot.getRegistry();
-        Joystick leftDriveJoystick = registry.getLeftDriveJoystick();
-        reverseDirectionButton = new JoystickButton(leftDriveJoystick, REVERSE_DRIVE_DIRECTION_BUTTON, false);
+        reverseDirectionButton = registry.getReverseDirectionButton();
     }
 
     public void run() {

@@ -1,6 +1,5 @@
 package us.in.k12.taylor.robotics.robot2014.handlers;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
 import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
@@ -22,15 +21,13 @@ public class DriveSpeedButtonHandler implements RobotParameters {
     public DriveSpeedButtonHandler(TitanRobot pRobot) {
         registry = pRobot.getRegistry();
         robotDrive = registry.getRobotDrive();
-        Joystick rightDriveJoystick = registry.getRightDriveJoystick();
-        Joystick leftDriveJoystick = registry.getLeftDriveJoystick();
 
-        speedDragButton = new JoystickButton(leftDriveJoystick, SPEED_DRAG_BUTTON, false);
-        speedBoostButton = new JoystickButton(rightDriveJoystick, SPEED_BOOST_BUTTON, false);
+        speedDragButton = registry.getSpeedDragButton();
+        speedBoostButton = registry.getSpeedBoostButton();
 
-        lowSpeedButton = new JoystickButton(rightDriveJoystick, LOW_SPEED_BUTTON, false);
-        mediumSpeedButton = new JoystickButton(rightDriveJoystick, MEDIUM_SPEED_BUTTON, true);
-        highSpeedButton = new JoystickButton(rightDriveJoystick, HIGH_SPEED_BUTTON, false);
+        lowSpeedButton = registry.getLowSpeedButton();
+        mediumSpeedButton = registry.getMediumSpeedButton();
+        highSpeedButton = registry.getHighSpeedButton();
     }
 
     public void run() {

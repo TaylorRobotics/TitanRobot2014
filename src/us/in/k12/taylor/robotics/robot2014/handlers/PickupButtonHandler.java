@@ -1,6 +1,5 @@
 package us.in.k12.taylor.robotics.robot2014.handlers;
 
-import edu.wpi.first.wpilibj.Joystick;
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
 import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
@@ -12,18 +11,17 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
  * @author Taylor Robtics 2014
  */
 public class PickupButtonHandler implements RobotParameters {
-    RobotRegistry registry;
-    JoystickButton pickupButton;
-    TitanSpeedController pickupMotor;
-    Switch pickupStopSwitch;
-    boolean lastStopSwitchState;
+    private final RobotRegistry registry;
+    private final JoystickButton pickupButton;
+    private final TitanSpeedController pickupMotor;
+    private final Switch pickupStopSwitch;
+    private boolean lastStopSwitchState;
 
     public PickupButtonHandler(TitanRobot pRobot) {
         registry = pRobot.getRegistry();
         pickupMotor = registry.getPickupMotor();
         pickupStopSwitch = registry.getPickupStopSwitch();
-        Joystick operatorJoystick = registry.getOperatorJoystick();
-        pickupButton = new JoystickButton(operatorJoystick, PICKUP_BUTTON, false);
+        pickupButton = registry.getPickupButton();
         lastStopSwitchState = pickupStopSwitch.isSwitchOn();
     }
 
