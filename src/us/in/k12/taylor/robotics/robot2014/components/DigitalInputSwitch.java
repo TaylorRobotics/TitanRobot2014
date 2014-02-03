@@ -6,16 +6,21 @@ import us.in.k12.taylor.robotics.robot2014.RobotParameters;
 /**
  * @author Taylor Robotics 2014
  */
-public class DigitalInputSwitch implements Switch, RobotParameters {
+public class DigitalInputSwitch extends Switch implements RobotParameters {
     private final DigitalInput digitalInput;
     private final int switchMode;
 
     public DigitalInputSwitch(int pChannel, int pSwitchMode) {
+        this(pChannel, pSwitchMode, false);
+    }
+
+    public DigitalInputSwitch(int pChannel, int pSwitchMode, boolean pForceStateChange) {
+        super(pForceStateChange);
         digitalInput = new DigitalInput(pChannel);
         switchMode = pSwitchMode;
     }
 
-    public final boolean isSwitchOn() {
-        return digitalInput.get() == (switchMode == NORMALLY_OPEN);
+    public boolean getSwitchState() {
+        return (digitalInput.get() == (switchMode == NORMALLY_OPEN));
     }
 }
