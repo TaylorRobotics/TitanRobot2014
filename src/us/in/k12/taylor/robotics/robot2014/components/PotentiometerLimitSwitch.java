@@ -9,10 +9,10 @@ public class PotentiometerLimitSwitch extends Switch {
     private final double limitValue;
 
     public PotentiometerLimitSwitch(Potentiometer pPotentiometer, boolean pLowLimit, double pLimitValue, boolean pForceStateChange) {
-        super(pForceStateChange);
         potentiometer = pPotentiometer;
         lowLimit = pLowLimit;
         limitValue = pLimitValue;
+        setForceStateChange(pForceStateChange);
     }
     
     public boolean getSwitchState() {

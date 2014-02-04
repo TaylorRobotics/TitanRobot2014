@@ -14,9 +14,9 @@ public class JoystickButton extends Switch {
     }
 
     public JoystickButton(Joystick pJoystick, int pButtonId, boolean pForceStateChange) {
-        super(pForceStateChange);
         joystick = pJoystick;
         buttonId = pButtonId;
+        setForceStateChange(pForceStateChange);
     }
 
     public boolean getSwitchState() {

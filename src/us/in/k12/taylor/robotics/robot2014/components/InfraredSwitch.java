@@ -17,11 +17,11 @@ public class InfraredSwitch extends Switch implements RobotParameters {
     }
 
     public InfraredSwitch(int pInfraredDetectorChannel, AnalogChannel pAnalogVoltageMeter, double pTriggerLevel, int pOnState, boolean pForceStateChange) {
-        super(pForceStateChange);
         infraredDetector = new AnalogChannel(pInfraredDetectorChannel);
         analogVoltageMeter = pAnalogVoltageMeter;
         triggerLevel = pTriggerLevel;
         onState = pOnState;
+        setForceStateChange(pForceStateChange);
     }
 
     public boolean getSwitchState() {

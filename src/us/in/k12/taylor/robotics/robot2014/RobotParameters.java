@@ -38,16 +38,19 @@ public interface RobotParameters {
     Class LEFT_DRIVE_SPEED_CONTROLLER = Talon.class;
     Class RIGHT_DRIVE_SPEED_CONTROLLER = Talon.class;
     Class PICKUP_SPEED_CONTROLLER = Victor.class;
+    Class SHOULDER_SPEED_CONTROLLER = Victor.class;
 
     /* Motor direction - Change motor direction if wired backwards */
     int LEFT_DRIVE_MOTOR_DIRECTION = FORWARD;
     int RIGHT_DRIVE_MOTOR_DIRECTION = FORWARD;
     int PICKUP_MOTOR_DIRECTION = FORWARD;
+    int SHOULDER_MOTOR_DIRECTION = FORWARD;
 
     /* SpeedController port mapping */
     int LEFT_DRIVE_MOTOR_PORT = 1;
     int RIGHT_DRIVE_MOTOR_PORT = 2;
     int PICKUP_MOTOR_PORT = 3;
+    int SHOULDER_MOTOR_PORT = 4;
 
     /* Joystick mapping */
     int LEFT_DRIVE_JOYSTICK = 1;
@@ -87,4 +90,8 @@ public interface RobotParameters {
     int SPEED_DRAG_ON = 2;
     double BOOST_SPEED = 0.5;
     double DRAG_SPEED = -0.25;
+
+    /* Analog Card constants */
+    int ANALOG_SUPPLY_CHANNEL = 1;
+    int ARM_POTENTIOMETER_CHANNEL = 2;
 }

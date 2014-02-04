@@ -1,10 +1,13 @@
 package us.in.k12.taylor.robotics.robot2014;
 
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import us.in.k12.taylor.robotics.robot2014.components.DigitalInputSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
+import us.in.k12.taylor.robotics.robot2014.components.Potentiometer;
+import us.in.k12.taylor.robotics.robot2014.components.PotentiometerLimitSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.Switch;
 import us.in.k12.taylor.robotics.robot2014.factories.SpeedControllerFactory;
 import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
@@ -38,7 +41,12 @@ public class RobotRegistry implements RobotParameters {
 
     private final Switch leftAutonomousModeSwitch;
     private final Switch rightAutonomousModeSwitch;
-    
+
+    private final AnalogChannel analogVoltageMeter;
+    private final Potentiometer shoulderPotentiometer;
+    private final TitanSpeedController shoulderMotor;
+    private final PotentiometerLimitSwitch shoulderForwardLimitSwitch;
+
     public RobotRegistry() {
         /* Instantiate Drive components */
         leftDriveJoystick = new Joystick(LEFT_DRIVE_JOYSTICK);
@@ -68,6 +76,12 @@ public class RobotRegistry implements RobotParameters {
         /* Instantiate Switch components */
         leftAutonomousModeSwitch = new DigitalInputSwitch(LEFT_AUTONOMOUS_MODE_CHANNEL, NORMALLY_OPEN);
         rightAutonomousModeSwitch = new DigitalInputSwitch(RIGHT_AUTONOMOUS_MODE_CHANNEL, NORMALLY_OPEN);
+
+        /* Shoulder components */
+        analogVoltageMeter = new AnalogChannel(ANALOG_SUPPLY_CHANNEL);
+        shoulderPotentiometer = new Potentiometer(ARM_POTENTIOMETER_CHANNEL, analogVoltageMeter, 1000.0, 0.1, 0.9);
+        shoulderForwardLimitSwitch = new PotentiometerLimitSwitch(shoulderPotentiometer, false, 900.0, false);
+        shoulderMotor = speedControllerFactory.create(SHOULDER_MOTOR_PORT, PICKUP_SPEED_CONTROLLER, shoulderForwardLimitSwitch, null, SHOULDER_MOTOR_DIRECTION==REVERSE);
     }
 
     public Switch getPickupStopSwitch() {
@@ -169,4 +183,21 @@ public class RobotRegistry implements RobotParameters {
     public Switch getRightAutonomousModeSwitch() {
         return rightAutonomousModeSwitch;
     }
+
+    public AnalogChannel getAnalogVoltageMeter() {
+        return analogVoltageMeter;
+    }
+
+    public Potentiometer getShoulderPotentiometer() {
+        return shoulderPotentiometer;
+    }
+
+    public TitanSpeedController getShoulderMotor() {
+        return shoulderMotor;
+    }
+
+    public PotentiometerLimitSwitch getShoulderForwardLimitSwitch() {
+        return shoulderForwardLimitSwitch;
+    }
+
 }

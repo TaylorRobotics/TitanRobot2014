@@ -9,6 +9,7 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 import us.in.k12.taylor.robotics.robot2014.handlers.DriveDirectionButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.DriveSpeedButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.PickupButtonHandler;
+import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderControlHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.TankDriveHandler;
 
 /**
@@ -21,6 +22,7 @@ public class TeleOperatedRunner implements RobotParameters {
     private final DriveDirectionButtonHandler directionButtonHandler;
     private final DriveSpeedButtonHandler speedButtonHandler;
     private final PickupButtonHandler pickupButtonHandler;
+    private final ShoulderControlHandler shoulderControlHandler;
 
     /* Handlers */
     TankDriveHandler tankDriveHandler;
@@ -34,6 +36,7 @@ public class TeleOperatedRunner implements RobotParameters {
         directionButtonHandler = new DriveDirectionButtonHandler(robot);
         speedButtonHandler = new DriveSpeedButtonHandler(robot);
         pickupButtonHandler = new PickupButtonHandler(robot);
+        shoulderControlHandler = new ShoulderControlHandler(robot);
     }
 
     public void run() {
@@ -46,6 +49,8 @@ public class TeleOperatedRunner implements RobotParameters {
 //            tankDriveHandler.run();
 
             pickupButtonHandler.run();
+
+            shoulderControlHandler.run();
 
             /* Feed watchdog to prevent shutdown and then wait */
             Watchdog.getInstance().feed();

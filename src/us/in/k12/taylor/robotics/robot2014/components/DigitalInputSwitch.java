@@ -15,9 +15,9 @@ public class DigitalInputSwitch extends Switch implements RobotParameters {
     }
 
     public DigitalInputSwitch(int pChannel, int pSwitchMode, boolean pForceStateChange) {
-        super(pForceStateChange);
         digitalInput = new DigitalInput(pChannel);
         switchMode = pSwitchMode;
+        setForceStateChange(pForceStateChange);
     }
 
     public boolean getSwitchState() {

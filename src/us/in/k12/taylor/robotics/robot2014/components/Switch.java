@@ -9,12 +9,7 @@ public abstract class Switch {
 
     public abstract boolean getSwitchState();
 
-    public Switch(boolean pForceStateChange) {
-        /* If pForceStateChange is true, the next call to getStateChange() will return true */
-        setForceStateChange(pForceStateChange);
-    }
-
-    private void setForceStateChange(boolean pForceStateChange) {
+    protected void setForceStateChange(boolean pForceStateChange) {
         if (pForceStateChange) {
             currentState = !getSwitchState();
         }

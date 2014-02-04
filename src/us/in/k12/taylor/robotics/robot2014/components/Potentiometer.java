@@ -37,9 +37,10 @@ public class Potentiometer implements RobotParameters {
     }
 
     public double getValue() {
-        double value = getRatio();
+        double value = getRatio() - minValue;
+        double range = maxValue - minValue;
         if (scaled) {
-            value = (maxValue-minValue)/(value-minValue);
+            value = value / range;
             if (value < 0.0) {
                 value = 0.0;
             }
