@@ -27,11 +27,15 @@ public class TankDriveHandler implements RobotParameters {
     public void run() {
         /* Call tank drive after adjusting for drive direction */
         if (registry.getDriveDirection() == REVERSE) {
+            robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
+            robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
             robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);
             robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, true);
             robotDrive.tankDrive(rightDriveJoystick, leftDriveJoystick);
         }
         else {
+            robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, false);
+            robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, false);
             robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, false);
             robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearRight, false);
             robotDrive.tankDrive(leftDriveJoystick, rightDriveJoystick);

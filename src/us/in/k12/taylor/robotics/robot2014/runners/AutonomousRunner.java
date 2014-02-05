@@ -78,8 +78,8 @@ public class AutonomousRunner implements RobotParameters {
     }
 
     private void drive(double pSpeed, int pTurn) {
-        boolean reverseLeftMotor = (LEFT_DRIVE_MOTOR_DIRECTION == REVERSE);
-        boolean reverseRightMotor = (RIGHT_DRIVE_MOTOR_DIRECTION == REVERSE);
+        boolean reverseLeftMotor = (FRONT_LEFT_DRIVE_MOTOR_DIRECTION == REVERSE);
+        boolean reverseRightMotor = (FRONT_RIGHT_DRIVE_MOTOR_DIRECTION == REVERSE);
 
         /* Drive after adjusting for drive direction */
         robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, !reverseLeftMotor);

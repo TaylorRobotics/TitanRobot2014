@@ -16,8 +16,10 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
  * @author Taylor Robotics 2014
  */
 public class RobotRegistry implements RobotParameters {
-    private final SpeedController leftDriveMotor;
-    private final SpeedController rightDriveMotor;
+    private final SpeedController frontLeftDriveMotor;
+    private final SpeedController frontRightDriveMotor;
+    private final SpeedController rearLeftDriveMotor;
+    private final SpeedController rearRightDriveMotor;
     private final RobotDrive robotDrive;
     private final JoystickButton reverseDirectionButton;
     private int driveDirection;
@@ -47,15 +49,21 @@ public class RobotRegistry implements RobotParameters {
     private final TitanSpeedController shoulderMotor;
     private final PotentiometerLimitSwitch shoulderForwardLimitSwitch;
 
+    private final SpeedController triggerMotor;
+    private final JoystickButton triggerFireButton;
+    private final JoystickButton triggerLockButton;
+
     public RobotRegistry() {
         /* Instantiate Drive components */
         leftDriveJoystick = new Joystick(LEFT_DRIVE_JOYSTICK);
         rightDriveJoystick = new Joystick(RIGHT_DRIVE_JOYSTICK);
         operatorJoystick = new Joystick(OPERATOR_JOYSTICK);
         SpeedControllerFactory speedControllerFactory = new SpeedControllerFactory();
-        leftDriveMotor = speedControllerFactory.create(LEFT_DRIVE_MOTOR_PORT, LEFT_DRIVE_SPEED_CONTROLLER, (LEFT_DRIVE_MOTOR_DIRECTION==REVERSE));
-        rightDriveMotor = speedControllerFactory.create(RIGHT_DRIVE_MOTOR_PORT, RIGHT_DRIVE_SPEED_CONTROLLER, (RIGHT_DRIVE_MOTOR_DIRECTION==REVERSE));
-        robotDrive = new RobotDrive(leftDriveMotor, rightDriveMotor);
+        frontLeftDriveMotor = speedControllerFactory.create(FRONT_LEFT_DRIVE_MOTOR_PORT, FRONT_LEFT_DRIVE_SPEED_CONTROLLER, (FRONT_LEFT_DRIVE_MOTOR_DIRECTION==REVERSE));
+        frontRightDriveMotor = speedControllerFactory.create(FRONT_RIGHT_DRIVE_MOTOR_PORT, FRONT_RIGHT_DRIVE_SPEED_CONTROLLER, (FRONT_RIGHT_DRIVE_MOTOR_DIRECTION==REVERSE));
+        rearLeftDriveMotor = speedControllerFactory.create(REAR_LEFT_DRIVE_MOTOR_PORT, REAR_LEFT_DRIVE_SPEED_CONTROLLER, (REAR_LEFT_DRIVE_MOTOR_DIRECTION==REVERSE));
+        rearRightDriveMotor = speedControllerFactory.create(REAR_RIGHT_DRIVE_MOTOR_PORT, REAR_RIGHT_DRIVE_SPEED_CONTROLLER, (REAR_RIGHT_DRIVE_MOTOR_DIRECTION==REVERSE));
+        robotDrive = new RobotDrive(frontLeftDriveMotor, rearLeftDriveMotor, frontRightDriveMotor, rearRightDriveMotor);
         reverseDirectionButton = new JoystickButton(leftDriveJoystick, REVERSE_DRIVE_DIRECTION_BUTTON, false);
         driveDirection = DEFAULT_DRIVE_DIRECTION;
         speedDragButton = new JoystickButton(leftDriveJoystick, SPEED_DRAG_BUTTON, false);
@@ -82,6 +90,12 @@ public class RobotRegistry implements RobotParameters {
         shoulderPotentiometer = new Potentiometer(ARM_POTENTIOMETER_CHANNEL, analogVoltageMeter, 1000.0, 0.1, 0.9);
         shoulderForwardLimitSwitch = new PotentiometerLimitSwitch(shoulderPotentiometer, false, 900.0, false);
         shoulderMotor = speedControllerFactory.create(SHOULDER_MOTOR_PORT, PICKUP_SPEED_CONTROLLER, shoulderForwardLimitSwitch, null, SHOULDER_MOTOR_DIRECTION==REVERSE);
+
+        /* Trigger components */
+        triggerMotor = speedControllerFactory.create(TRIGGER_MOTOR_PORT, TRIGGER_SPEED_CONTROLLER, TRIGGER_MOTOR_DIRECTION==REVERSE);
+        triggerFireButton = new JoystickButton(operatorJoystick, TRIGGER_FIRE_BUTTON, false);
+        triggerLockButton = new JoystickButton(operatorJoystick, TRIGGER_LOCK_BUTTON, false);
+
     }
 
     public Switch getPickupStopSwitch() {
@@ -109,11 +123,11 @@ public class RobotRegistry implements RobotParameters {
     }
 
     public SpeedController getLeftDriveMotor() {
-        return leftDriveMotor;
+        return frontLeftDriveMotor;
     }
 
     public SpeedController getRightDriveMotor() {
-        return rightDriveMotor;
+        return frontRightDriveMotor;
     }
 
     public JoystickButton getReverseDirectionButton() {
@@ -200,4 +214,15 @@ public class RobotRegistry implements RobotParameters {
         return shoulderForwardLimitSwitch;
     }
 
+    public SpeedController getTriggerMotor() {
+        return triggerMotor;
+    }
+
+    public JoystickButton getTriggerFireButton() {
+        return triggerFireButton;
+    }
+
+    public JoystickButton getTriggerLockButton() {
+        return triggerLockButton;
+    }
 }
