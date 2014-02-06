@@ -21,7 +21,7 @@ public class ShoulderControlHandler implements RobotParameters {
     }
 
     public void run() {
-        System.out.println(shoulderPotentiometer.getRatio() + " " + shoulderPotentiometer.getValue());
-        shoulderMotor.set(shoulderPotentiometer.getRatio());
+//        System.out.println(shoulderPotentiometer.getRatio() + " " + shoulderPotentiometer.getValue());
+//        shoulderMotor.set(shoulderPotentiometer.getRatio());
     }
 }
