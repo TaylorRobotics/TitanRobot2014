@@ -109,5 +109,6 @@ public interface RobotParameters {
     /* Shooter Trigger Motor Speeds */
     double TRIGGER_FIRE_SPEED = 0.75;
     double TRIGGER_LOCK_SPEED = -0.75;
-
+    long PICKUP_MOTOR_FIRE_TIME = 2000;
+    double PICKUP_MOTOR_FIRE_SPEED = -0.75;
 }

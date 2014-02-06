@@ -49,9 +49,10 @@ public class RobotRegistry implements RobotParameters {
     private final TitanSpeedController shoulderMotor;
     private final PotentiometerLimitSwitch shoulderForwardLimitSwitch;
 
-    private final SpeedController triggerMotor;
+    private final TitanSpeedController triggerMotor;
     private final JoystickButton triggerFireButton;
     private final JoystickButton triggerLockButton;
+    private boolean fireMode;
 
     public RobotRegistry() {
         /* Instantiate Drive components */
@@ -95,6 +96,7 @@ public class RobotRegistry implements RobotParameters {
         triggerMotor = speedControllerFactory.create(TRIGGER_MOTOR_PORT, TRIGGER_SPEED_CONTROLLER, TRIGGER_MOTOR_DIRECTION==REVERSE);
         triggerFireButton = new JoystickButton(operatorJoystick, TRIGGER_FIRE_BUTTON, false);
         triggerLockButton = new JoystickButton(operatorJoystick, TRIGGER_LOCK_BUTTON, false);
+        fireMode = false;
 
     }
 
@@ -108,6 +110,14 @@ public class RobotRegistry implements RobotParameters {
 
     public void setKeepBallMode(boolean keepBallMode) {
         this.keepBallMode = keepBallMode;
+    }
+
+    public boolean isFireMode() {
+        return fireMode;
+    }
+
+    public void setFireMode(boolean fireMode) {
+        this.fireMode = fireMode;
     }
 
     public JoystickButton getPickupButton() {
@@ -214,7 +224,7 @@ public class RobotRegistry implements RobotParameters {
         return shoulderForwardLimitSwitch;
     }
 
-    public SpeedController getTriggerMotor() {
+    public TitanSpeedController getTriggerMotor() {
         return triggerMotor;
     }
 
