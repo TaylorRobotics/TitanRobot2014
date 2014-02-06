@@ -93,7 +93,7 @@ public class RobotRegistry implements RobotParameters {
         shoulderPotentiometer = new Potentiometer(ARM_POTENTIOMETER_CHANNEL, analogVoltageMeter, 1000.0, 0.1, 0.9);
         shoulderForwardLimitSwitch = new PotentiometerLimitSwitch(shoulderPotentiometer, false, 900.0, false);
         shoulderMotor = speedControllerFactory.create(SHOULDER_MOTOR_PORT, PICKUP_SPEED_CONTROLLER, shoulderForwardLimitSwitch, null, SHOULDER_MOTOR_DIRECTION==REVERSE);
-        shoulderPositionTarget = 0.0;
+        shoulderPositionTarget = -1.0;
 
         /* Trigger components */
         triggerMotor = speedControllerFactory.create(TRIGGER_MOTOR_PORT, TRIGGER_SPEED_CONTROLLER, TRIGGER_MOTOR_DIRECTION==REVERSE);

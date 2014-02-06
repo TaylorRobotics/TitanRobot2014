@@ -29,7 +29,6 @@ public class ShoulderServoHandler implements RobotParameters {
         lastTimeCheck = 0;
         nextTimeCheck = 0;
         lastPosition = shoulderPotentiometer.getValue();
-//        registry.setShoulderPositionTarget(lastPosition);  // current location, -1.0, just leave for default (set to -1.0 in registry)?
     }
  
 // Change ShoulderControllerHandler to direct drive from Joystick (If in servo mode, Joystick adjusts target position)

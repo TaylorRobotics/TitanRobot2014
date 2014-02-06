@@ -10,6 +10,7 @@ import us.in.k12.taylor.robotics.robot2014.handlers.DriveDirectionButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.DriveSpeedButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.PickupButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderControlHandler;
+import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderServoHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.TankDriveHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.TriggerButtonHandler;
 
@@ -26,6 +27,7 @@ public class TeleOperatedRunner implements RobotParameters {
     private final DriveSpeedButtonHandler speedButtonHandler;
     private final PickupButtonHandler pickupButtonHandler;
     private final ShoulderControlHandler shoulderControlHandler;
+    private final ShoulderServoHandler shoulderServoHandler;
     private final TriggerButtonHandler triggerButtonHandler;
 
     public TeleOperatedRunner(TitanRobot pRobot) {
@@ -38,10 +40,12 @@ public class TeleOperatedRunner implements RobotParameters {
         speedButtonHandler = new DriveSpeedButtonHandler(robot);
         pickupButtonHandler = new PickupButtonHandler(robot);
         shoulderControlHandler = new ShoulderControlHandler(robot);
+        shoulderServoHandler = new ShoulderServoHandler(robot);
         triggerButtonHandler = new TriggerButtonHandler(robot);
     }
 
     public void run() {
+        registry.setShoulderPositionTarget((500.0));
         /* Run in teleoperated loop as long as robot is enabled */
         while (robot.isOperatorControl() && robot.isEnabled()) {
             /* Handle operations */
@@ -53,6 +57,7 @@ public class TeleOperatedRunner implements RobotParameters {
             pickupButtonHandler.run();
 
             shoulderControlHandler.run();
+            shoulderServoHandler.run();
 
             triggerButtonHandler.run();
 
