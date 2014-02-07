@@ -120,4 +120,7 @@ public interface RobotParameters {
     double MINIMUM_SHOULDER_SPEED = 0.35;
     double TARGET_ARM_SPEED = 50;
     double MAXIMUM_SHOULDER_SPEED = 0.80;
+
+    /* Digital Output Channel Mapping */
+    int INDICATOR_LIGHTS_CHANNEL = 4;
 }

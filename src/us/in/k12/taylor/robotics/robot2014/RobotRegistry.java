@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import us.in.k12.taylor.robotics.robot2014.components.DigitalInputSwitch;
+import us.in.k12.taylor.robotics.robot2014.components.DualSpikeRelay;
 import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
 import us.in.k12.taylor.robotics.robot2014.components.Potentiometer;
 import us.in.k12.taylor.robotics.robot2014.components.PotentiometerLimitSwitch;
@@ -56,6 +57,8 @@ public class RobotRegistry implements RobotParameters {
 
     private double shoulderPositionTarget;
 
+    private final DualSpikeRelay indicatorLights;
+
     public RobotRegistry() {
         /* Instantiate Drive components */
         leftDriveJoystick = new Joystick(LEFT_DRIVE_JOYSTICK);
@@ -101,6 +104,8 @@ public class RobotRegistry implements RobotParameters {
         triggerLockButton = new JoystickButton(operatorJoystick, TRIGGER_LOCK_BUTTON, false);
         fireMode = false;
 
+        /* Indicator light components */
+        indicatorLights = new DualSpikeRelay(INDICATOR_LIGHTS_CHANNEL);
     }
 
     public Switch getPickupStopSwitch() {
@@ -246,4 +251,9 @@ public class RobotRegistry implements RobotParameters {
     public JoystickButton getTriggerLockButton() {
         return triggerLockButton;
     }
+
+    public DualSpikeRelay getIndicatorLights() {
+        return indicatorLights;
+    }
+
 }
