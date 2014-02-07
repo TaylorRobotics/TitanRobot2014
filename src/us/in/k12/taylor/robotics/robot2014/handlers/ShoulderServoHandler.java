@@ -37,51 +37,65 @@ public class ShoulderServoHandler implements RobotParameters {
         long currentTimeCheck = System.currentTimeMillis();
         if (currentTimeCheck > nextTimeCheck) {
             double position = shoulderPotentiometer.getValue();
-            double travel = registry.getShoulderPositionTarget() - position;
+            double distanceToTarget = registry.getShoulderPositionTarget() - position;
             if ((safetyTime > 0) && (currentTimeCheck > safetyTime)) {
                 /* Safety time limit reached */
                 stopMovingToTarget(position);
-                registry.setShoulderPositionTarget(lastPosition);
+//                registry.setShoulderPositionTarget(lastPosition);
             }
-            else if (Math.abs(travel) < SHOULDER_POSITION_TOLERANCE) {
+            else if (Math.abs(distanceToTarget) <= SHOULDER_POSITION_TOLERANCE) {
                 /* Reached target position */
                 stopMovingToTarget(position);
             }
             else if (lastTimeCheck == 0) {
-                startMovingToTarget(currentTimeCheck, travel, position);
+                startMovingToTarget(currentTimeCheck, distanceToTarget, position);
             }
             else if (currentTimeCheck >= nextTimeCheck) {
                 /* Continue moving toward target */
-                moveToTarget(travel, position, currentTimeCheck);
+                moveToTarget(distanceToTarget, position, currentTimeCheck);
+        System.out.println("Speed: " + motorSpeed);
             }
         }
         shoulderMotor.set(motorSpeed);
     }
     }
  
-    private void startMovingToTarget(long pCurrentTimeCheck, double pTravel, double pPosition) {
+    private void startMovingToTarget(long pCurrentTimeCheck, double pDistanceToTarget, double pPosition) {
         safetyTime = pCurrentTimeCheck + SHOULDER_SAFETY_TIME_LIMIT;
-        if (pTravel < 0.0) {
-            motorSpeed = -SHOULDER_SPEED_INCREMENT;
+        if (pDistanceToTarget < 0.0) {
+            motorSpeed = -MINIMUM_SHOULDER_SPEED;
         }
        else {
-            motorSpeed = SHOULDER_SPEED_INCREMENT;
+            motorSpeed = MINIMUM_SHOULDER_SPEED;
         }
         lastTimeCheck = pCurrentTimeCheck;
         nextTimeCheck = pCurrentTimeCheck + SHOULDER_SPEED_INTERVAL;
         lastPosition = pPosition;
     }
  
-    private void moveToTarget(double pTravel, double pPosition, long pCurrentTimeCheck) {
-        double armSpeed = (pPosition - lastPosition) / (pCurrentTimeCheck + lastTimeCheck);
+    private void moveToTarget(double pDistanceToTarget, double pPosition, long pCurrentTimeCheck) {
+        System.out.println("Travel: " + pDistanceToTarget);
+        System.out.println("Position: " + pPosition);
+        double armSpeed = (pPosition - lastPosition) / (pCurrentTimeCheck - lastTimeCheck) * 1000;
+        System.out.println("Arm Speed " + armSpeed);
         lastTimeCheck = pCurrentTimeCheck;
-        if ((armSpeed < 0.0) && (pTravel > 0.0)) {
-            motorSpeed = motorSpeed + SHOULDER_SPEED_INCREMENT;
+        if ((armSpeed < 0.0) && (pDistanceToTarget > 0.0)) {
+            if (motorSpeed < 0.0) {
+                motorSpeed = MINIMUM_SHOULDER_SPEED;
+            }
+            else {
+                motorSpeed = motorSpeed + SHOULDER_SPEED_INCREMENT;
+            }
         }
-        else if ((armSpeed > 0.0) && (pTravel < 0.0)) {
-            motorSpeed = motorSpeed - SHOULDER_SPEED_INCREMENT;
+        else if ((armSpeed > 0.0) && (pDistanceToTarget < 0.0)) {
+            if (motorSpeed > 0.0) {
+                motorSpeed = -MINIMUM_SHOULDER_SPEED;
+            }
+            else {
+                motorSpeed = motorSpeed - SHOULDER_SPEED_INCREMENT;
+            }
         }
-        else if (pTravel > 0.0) {
+        else if (pDistanceToTarget > 0.0) {
             if (armSpeed < TARGET_ARM_SPEED) {
                 motorSpeed = motorSpeed + SHOULDER_SPEED_INCREMENT;
             }
@@ -89,15 +103,15 @@ public class ShoulderServoHandler implements RobotParameters {
                 motorSpeed = motorSpeed - SHOULDER_SPEED_INCREMENT;
             }
         }
-        else if (pTravel < 0.0) {
+        else if (pDistanceToTarget < 0.0) {
             if (armSpeed < -TARGET_ARM_SPEED) {
-                motorSpeed = motorSpeed - SHOULDER_SPEED_INCREMENT;
-            }
-            else if (armSpeed > -TARGET_ARM_SPEED) {
                 motorSpeed = motorSpeed + SHOULDER_SPEED_INCREMENT;
             }
+            else if (armSpeed > -TARGET_ARM_SPEED) {
+                motorSpeed = motorSpeed - SHOULDER_SPEED_INCREMENT;
+            }
         }
-        motorSpeed = getLimitedSpeed(motorSpeed, pTravel);
+        motorSpeed = getLimitedSpeed(motorSpeed, pDistanceToTarget);
         lastTimeCheck = pCurrentTimeCheck;
         nextTimeCheck = pCurrentTimeCheck + SHOULDER_SPEED_INTERVAL;
         lastPosition = pPosition;
@@ -111,9 +125,9 @@ public class ShoulderServoHandler implements RobotParameters {
         lastPosition = pPosition;
     }
  
-    private double getLimitedSpeed(double pSpeed, double pTravel) {
+    private double getLimitedSpeed(double pSpeed, double pDistanceToTarget) {
         double speed = pSpeed;
-        if (pTravel < 0.0) {
+        if (pDistanceToTarget < 0.0) {
             if (speed < -MAXIMUM_SHOULDER_SPEED) {
                 speed = -MAXIMUM_SHOULDER_SPEED;
             }
@@ -121,7 +135,7 @@ public class ShoulderServoHandler implements RobotParameters {
                 speed = -MINIMUM_SHOULDER_SPEED;
             }
         }
-        else if (pTravel > 0.0) {
+        else if (pDistanceToTarget > 0.0) {
             if (speed > MAXIMUM_SHOULDER_SPEED) {
                 speed = MAXIMUM_SHOULDER_SPEED;
             }

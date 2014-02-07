@@ -113,11 +113,11 @@ public interface RobotParameters {
     double PICKUP_MOTOR_FIRE_SPEED = -0.75;
 
     /* Shoulder motor constants */
-    double SHOULDER_POSITION_TOLERANCE = 10.0;
+    double SHOULDER_POSITION_TOLERANCE = 30.0;
     double SHOULDER_SPEED_INCREMENT = 0.05; // Increment speed by this amount
     long SHOULDER_SPEED_INTERVAL = 100; // Check speed every 100 ms
     long SHOULDER_SAFETY_TIME_LIMIT = 6000; // Cancel servo if cannot reach target in 6000 ms
-    double MINIMUM_SHOULDER_SPEED = 0.35;
-    double TARGET_ARM_SPEED = 50;
-    double MAXIMUM_SHOULDER_SPEED = 0.80;
+    double MINIMUM_SHOULDER_SPEED = 0.05;
+    double TARGET_ARM_SPEED = 7;
+    double MAXIMUM_SHOULDER_SPEED = 0.50;
 }
