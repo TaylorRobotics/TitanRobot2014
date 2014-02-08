@@ -7,9 +7,12 @@ import edu.wpi.first.wpilibj.SpeedController;
 import us.in.k12.taylor.robotics.robot2014.components.DigitalInputSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.DualSpikeRelay;
 import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
+import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSensor;
+import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.Potentiometer;
 import us.in.k12.taylor.robotics.robot2014.components.PotentiometerLimitSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.Switch;
+import us.in.k12.taylor.robotics.robot2014.components.TriggerLockedSwitch;
 import us.in.k12.taylor.robotics.robot2014.factories.SpeedControllerFactory;
 import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 
@@ -49,13 +52,24 @@ public class RobotRegistry implements RobotParameters {
     private final Potentiometer shoulderPotentiometer;
     private final TitanSpeedController shoulderMotor;
     private final PotentiometerLimitSwitch shoulderForwardLimitSwitch;
+    private final PotentiometerLimitSwitch shoulderReverseLimitSwitch;
+    private double shoulderPositionTarget;
+    private int shoulderPositionMode;
+    private final JoystickButton pickupPositionButton;
+    private final JoystickButton lowShotPositionButton;
+    private final JoystickButton highShotPositionButton;
+    private final JoystickButton seekShotButton;
+    private final JoystickButton startPositionButton;
+    private final JoystickButton manualPositionButton;
+    private final MaxSonarDistanceSensor distanceSensor;
+    private final MaxSonarDistanceSwitch shootingDistanceSwitch;
 
     private final TitanSpeedController triggerMotor;
     private final JoystickButton triggerFireButton;
     private final JoystickButton triggerLockButton;
-    private boolean fireMode;
-
-    private double shoulderPositionTarget;
+    private final Switch triggerLockedSwitch;
+    private boolean shooting;
+    private final JoystickButton autoShootButton;
 
     private final DualSpikeRelay indicatorLights;
 
@@ -95,14 +109,27 @@ public class RobotRegistry implements RobotParameters {
         analogVoltageMeter = new AnalogChannel(ANALOG_SUPPLY_CHANNEL);
         shoulderPotentiometer = new Potentiometer(ARM_POTENTIOMETER_CHANNEL, analogVoltageMeter, 1000.0, 0.1, 0.9);
         shoulderForwardLimitSwitch = new PotentiometerLimitSwitch(shoulderPotentiometer, false, 900.0, false);
-        shoulderMotor = speedControllerFactory.create(SHOULDER_MOTOR_PORT, PICKUP_SPEED_CONTROLLER, shoulderForwardLimitSwitch, null, SHOULDER_MOTOR_DIRECTION==REVERSE);
+        shoulderReverseLimitSwitch = new PotentiometerLimitSwitch(shoulderPotentiometer, true, 100.0, false);
+// Replace with correct limit switches
+        shoulderMotor = speedControllerFactory.create(SHOULDER_MOTOR_PORT, PICKUP_SPEED_CONTROLLER, shoulderReverseLimitSwitch, shoulderForwardLimitSwitch, SHOULDER_MOTOR_DIRECTION==REVERSE);
         shoulderPositionTarget = -1.0;
+        shoulderPositionMode = SHOULDER_JOYSTICK_MODE;
+        pickupPositionButton = new JoystickButton(operatorJoystick, SHOULDER_PICKUP_POSITION_BUTTON, false);
+        lowShotPositionButton = new JoystickButton(operatorJoystick, SHOULDER_LOW_SHOT_POSITION_BUTTON, false);
+        highShotPositionButton = new JoystickButton(operatorJoystick, SHOULDER_HIGH_SHOT_POSITION_BUTTON, false);
+        seekShotButton = new JoystickButton(operatorJoystick, SHOULDER_SEEK_SHOT_BUTTON, false);
+        startPositionButton = new JoystickButton(operatorJoystick, SHOULDER_START_POSITION_BUTTON, false);
+        manualPositionButton = new JoystickButton(operatorJoystick, SHOULDER_MANUAL_MODE_BUTTON, false);
+        distanceSensor = new MaxSonarDistanceSensor(DISTANCE_SENSOR_CHANNEL, analogVoltageMeter);
+        shootingDistanceSwitch = new MaxSonarDistanceSwitch(distanceSensor, AUTO_SHOOT_DISTANCE, AUTO_SHOOT_DISTANCE_TOLERANCE, false);
 
         /* Trigger components */
         triggerMotor = speedControllerFactory.create(TRIGGER_MOTOR_PORT, TRIGGER_SPEED_CONTROLLER, TRIGGER_MOTOR_DIRECTION==REVERSE);
         triggerFireButton = new JoystickButton(operatorJoystick, TRIGGER_FIRE_BUTTON, false);
         triggerLockButton = new JoystickButton(operatorJoystick, TRIGGER_LOCK_BUTTON, false);
-        fireMode = false;
+        triggerLockedSwitch = new TriggerLockedSwitch(); // Pass any component switches needed
+        shooting = false;
+        autoShootButton = new JoystickButton(operatorJoystick, AUTO_SHOOT_BUTTON, false);
 
         /* Indicator light components */
         indicatorLights = new DualSpikeRelay(INDICATOR_LIGHTS_CHANNEL);
@@ -120,12 +147,12 @@ public class RobotRegistry implements RobotParameters {
         this.keepBallMode = keepBallMode;
     }
 
-    public boolean isFireMode() {
-        return fireMode;
+    public boolean isShooting() {
+        return shooting;
     }
 
-    public void setFireMode(boolean fireMode) {
-        this.fireMode = fireMode;
+    public void setShooting(boolean shooting) {
+        this.shooting = shooting;
     }
 
     public JoystickButton getPickupButton() {
@@ -240,12 +267,48 @@ public class RobotRegistry implements RobotParameters {
         this.shoulderPositionTarget = shoulderPositionTarget;
     }
 
+    public int getShoulderPositionMode() {
+        return shoulderPositionMode;
+    }
+
+    public void setShoulderPositionMode(int shoulderPositionMode) {
+        this.shoulderPositionMode = shoulderPositionMode;
+    }
+
+    public JoystickButton getPickupPositionButton() {
+        return pickupPositionButton;
+    }
+
+    public JoystickButton getLowShotPositionButton() {
+        return lowShotPositionButton;
+    }
+
+    public JoystickButton getHighShotPositionButton() {
+        return highShotPositionButton;
+    }
+
+    public JoystickButton getSeekShotButton() {
+        return seekShotButton;
+    }
+
+    public JoystickButton getStartPositionButton() {
+        return startPositionButton;
+    }
+
+    public JoystickButton getManualPositionButton() {
+        return manualPositionButton;
+    }
+
     public TitanSpeedController getTriggerMotor() {
         return triggerMotor;
     }
 
     public JoystickButton getTriggerFireButton() {
         return triggerFireButton;
+    }
+
+    public JoystickButton getAutoShootButton() {
+        return autoShootButton;
     }
 
     public JoystickButton getTriggerLockButton() {
@@ -256,4 +319,15 @@ public class RobotRegistry implements RobotParameters {
         return indicatorLights;
     }
 
+    public Switch getTriggerLockedSwitch() {
+        return triggerLockedSwitch;
+    }
+
+    public MaxSonarDistanceSensor getDistanceSensor() {
+        return distanceSensor;
+    }
+
+    public MaxSonarDistanceSwitch getShootingDistanceSwitch() {
+        return shootingDistanceSwitch;
+    }
 }

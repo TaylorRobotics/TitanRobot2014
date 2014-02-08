@@ -80,6 +80,13 @@ public interface RobotParameters {
     int TRIGGER_FIRE_BUTTON = 1;
     int PICKUP_BUTTON = 2;
     int TRIGGER_LOCK_BUTTON = 4;
+    int SHOULDER_PICKUP_POSITION_BUTTON = 7;
+    int SHOULDER_LOW_SHOT_POSITION_BUTTON = 8;
+    int SHOULDER_HIGH_SHOT_POSITION_BUTTON = 9;
+    int SHOULDER_SEEK_SHOT_BUTTON = 11;
+    int SHOULDER_START_POSITION_BUTTON = 10;
+    int SHOULDER_MANUAL_MODE_BUTTON = 3;
+    int AUTO_SHOOT_BUTTON = 6;
 
     /* Pickup Motor constants */
     double PICKUP_MOTOR_SPEED = 0.5;
@@ -105,12 +112,17 @@ public interface RobotParameters {
     /* Analog Card constants */
     int ANALOG_SUPPLY_CHANNEL = 1;
     int ARM_POTENTIOMETER_CHANNEL = 2;
+    int DISTANCE_SENSOR_CHANNEL = 3;
 
     /* Shooter Trigger Motor Speeds */
     double TRIGGER_FIRE_SPEED = 0.75;
     double TRIGGER_LOCK_SPEED = -0.75;
     long PICKUP_MOTOR_FIRE_TIME = 2000;
     double PICKUP_MOTOR_FIRE_SPEED = -0.75;
+
+    /* Auto Shoot mode constants */
+    double AUTO_SHOOT_DISTANCE = 35.0;
+    double AUTO_SHOOT_DISTANCE_TOLERANCE = 1.0;
 
     /* Shoulder motor constants */
     double SHOULDER_POSITION_TOLERANCE = 30.0;
@@ -123,4 +135,14 @@ public interface RobotParameters {
 
     /* Digital Output Channel Mapping */
     int INDICATOR_LIGHTS_CHANNEL = 4;
+
+    int SHOULDER_JOYSTICK_MODE = 0;
+    int SHOULDER_SERVO_MODE = 1;
+    int SHOULDER_SEEK_MODE = 2;
+
+    /* Shoulder position constants */
+    double SHOULDER_PICKUP_POSITION = 200.0;
+    double SHOULDER_LOW_SHOT_POSITION = 300.0;
+    double SHOULDER_HIGH_SHOT_POSITION = 500.0;
+    double SHOULDER_START_POSITION = 800.0;
 }

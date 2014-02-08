@@ -6,10 +6,14 @@ import us.in.k12.taylor.robotics.robot2014.RobotParameters;
 import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
 import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
+import us.in.k12.taylor.robotics.robot2014.handlers.AutoShootHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.DriveDirectionButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.DriveSpeedButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.PickupButtonHandler;
-import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderControlHandler;
+import us.in.k12.taylor.robotics.robot2014.handlers.ShootingHandler;
+import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderButtonHandler;
+import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderManualPositionHandler;
+import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderSeekPositionHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderServoHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.TankDriveHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.TriggerButtonHandler;
@@ -26,9 +30,13 @@ public class TeleOperatedRunner implements RobotParameters {
     private final DriveDirectionButtonHandler directionButtonHandler;
     private final DriveSpeedButtonHandler speedButtonHandler;
     private final PickupButtonHandler pickupButtonHandler;
-    private final ShoulderControlHandler shoulderControlHandler;
+    private final ShoulderButtonHandler shoulderButtonHandler;
+    private final ShoulderSeekPositionHandler shoulderSeekPositionHandler;
+    private final ShoulderManualPositionHandler shoulderManualPositionHandler;
     private final ShoulderServoHandler shoulderServoHandler;
     private final TriggerButtonHandler triggerButtonHandler;
+    private final AutoShootHandler autoShootHandler;
+    private final ShootingHandler shootingHandler;
 
     public TeleOperatedRunner(TitanRobot pRobot) {
         robot = pRobot;
@@ -39,13 +47,16 @@ public class TeleOperatedRunner implements RobotParameters {
         directionButtonHandler = new DriveDirectionButtonHandler(robot);
         speedButtonHandler = new DriveSpeedButtonHandler(robot);
         pickupButtonHandler = new PickupButtonHandler(robot);
-        shoulderControlHandler = new ShoulderControlHandler(robot);
+        shoulderButtonHandler = new ShoulderButtonHandler(robot);
+        shoulderSeekPositionHandler = new ShoulderSeekPositionHandler(robot);
+        shoulderManualPositionHandler = new ShoulderManualPositionHandler(robot);
         shoulderServoHandler = new ShoulderServoHandler(robot);
         triggerButtonHandler = new TriggerButtonHandler(robot);
+        autoShootHandler = new AutoShootHandler(robot);
+        shootingHandler = new ShootingHandler(robot);
     }
 
     public void run() {
-        registry.setShoulderPositionTarget((500.0));
         /* Run in teleoperated loop as long as robot is enabled */
         while (robot.isOperatorControl() && robot.isEnabled()) {
             /* Handle operations */
@@ -56,10 +67,16 @@ public class TeleOperatedRunner implements RobotParameters {
 
             pickupButtonHandler.run();
 
-            shoulderControlHandler.run();
+            /* Handle shoulder operations - order of handlers is important */
+            shoulderButtonHandler.run();
+            shoulderManualPositionHandler.run();
+            shoulderSeekPositionHandler.run();
             shoulderServoHandler.run();
 
+            /* Handle shooting operations */
             triggerButtonHandler.run();
+            autoShootHandler.run();
+            shootingHandler.run();
 
             /* Feed watchdog to prevent shutdown and then wait */
             Watchdog.getInstance().feed();

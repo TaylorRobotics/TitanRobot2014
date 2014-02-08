@@ -31,7 +31,8 @@ public class ShoulderServoHandler implements RobotParameters {
  
 // Change ShoulderControllerHandler to direct drive from Joystick (If in servo mode, Joystick adjusts target position)
     public void run() {
-        if (registry.getShoulderPositionTarget() >= 0.0) {  // targetPosition < 0.0 means no target
+        if ((registry.getShoulderPositionMode() == SHOULDER_SERVO_MODE) ||
+                (registry.getShoulderPositionMode() == SHOULDER_SEEK_MODE)) {
             long currentTimeCheck = System.currentTimeMillis();
             if (currentTimeCheck > nextTimeCheck) {
                 double position = shoulderPotentiometer.getValue();
@@ -46,11 +47,10 @@ public class ShoulderServoHandler implements RobotParameters {
                 else if (currentTimeCheck >= nextTimeCheck) {
                     /* Continue moving toward target */
                     moveToTarget(distanceToTarget, position, currentTimeCheck);
-System.out.println("Speed: " + motorSpeed);
+            System.out.println("Speed: " + motorSpeed);
                 }
-                shoulderMotor.set(motorSpeed);
             }
-//            shoulderMotor.set(motorSpeed);
+            shoulderMotor.set(motorSpeed); // Need to do more often than check?
         }
     }
  
