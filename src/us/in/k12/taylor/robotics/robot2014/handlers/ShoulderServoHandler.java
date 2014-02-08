@@ -14,7 +14,6 @@ public class ShoulderServoHandler implements RobotParameters {
     private final Potentiometer shoulderPotentiometer;
     private final TitanSpeedController shoulderMotor;
  
-    private long safetyTime;
     private double motorSpeed;
     private long lastTimeCheck;
     private long nextTimeCheck;
@@ -24,7 +23,6 @@ public class ShoulderServoHandler implements RobotParameters {
         registry = pRobot.getRegistry();
         shoulderPotentiometer = registry.getShoulderPotentiometer();
         shoulderMotor = registry.getShoulderMotor();
-        safetyTime = 0;
         motorSpeed = 0.0;
         lastTimeCheck = 0;
         nextTimeCheck = 0;
@@ -34,34 +32,29 @@ public class ShoulderServoHandler implements RobotParameters {
 // Change ShoulderControllerHandler to direct drive from Joystick (If in servo mode, Joystick adjusts target position)
     public void run() {
         if (registry.getShoulderPositionTarget() >= 0.0) {  // targetPosition < 0.0 means no target
-        long currentTimeCheck = System.currentTimeMillis();
-        if (currentTimeCheck > nextTimeCheck) {
-            double position = shoulderPotentiometer.getValue();
-            double distanceToTarget = registry.getShoulderPositionTarget() - position;
-            if ((safetyTime > 0) && (currentTimeCheck > safetyTime)) {
-                /* Safety time limit reached */
-                stopMovingToTarget(position);
-//                registry.setShoulderPositionTarget(lastPosition);
+            long currentTimeCheck = System.currentTimeMillis();
+            if (currentTimeCheck > nextTimeCheck) {
+                double position = shoulderPotentiometer.getValue();
+                double distanceToTarget = registry.getShoulderPositionTarget() - position;
+                if (Math.abs(distanceToTarget) <= SHOULDER_POSITION_TOLERANCE) {
+                    /* Reached target position */
+                    stopMovingToTarget(position);
+                }
+                else if (lastTimeCheck == 0) {
+                    startMovingToTarget(currentTimeCheck, distanceToTarget, position);
+                }
+                else if (currentTimeCheck >= nextTimeCheck) {
+                    /* Continue moving toward target */
+                    moveToTarget(distanceToTarget, position, currentTimeCheck);
+System.out.println("Speed: " + motorSpeed);
+                }
+                shoulderMotor.set(motorSpeed);
             }
-            else if (Math.abs(distanceToTarget) <= SHOULDER_POSITION_TOLERANCE) {
-                /* Reached target position */
-                stopMovingToTarget(position);
-            }
-            else if (lastTimeCheck == 0) {
-                startMovingToTarget(currentTimeCheck, distanceToTarget, position);
-            }
-            else if (currentTimeCheck >= nextTimeCheck) {
-                /* Continue moving toward target */
-                moveToTarget(distanceToTarget, position, currentTimeCheck);
-        System.out.println("Speed: " + motorSpeed);
-            }
+//            shoulderMotor.set(motorSpeed);
         }
-        shoulderMotor.set(motorSpeed);
-    }
     }
  
     private void startMovingToTarget(long pCurrentTimeCheck, double pDistanceToTarget, double pPosition) {
-        safetyTime = pCurrentTimeCheck + SHOULDER_SAFETY_TIME_LIMIT;
         if (pDistanceToTarget < 0.0) {
             motorSpeed = -MINIMUM_SHOULDER_SPEED;
         }
@@ -118,7 +111,6 @@ public class ShoulderServoHandler implements RobotParameters {
     }
  
     private void stopMovingToTarget(double pPosition) {
-        safetyTime = 0;
         motorSpeed = 0.0;
         lastTimeCheck = 0;
         nextTimeCheck = 0;
