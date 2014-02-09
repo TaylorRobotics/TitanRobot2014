@@ -3,6 +3,7 @@ package us.in.k12.taylor.robotics.robot2014.handlers;
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
 import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
+import us.in.k12.taylor.robotics.robot2014.components.SimpleRelay;
 import us.in.k12.taylor.robotics.robot2014.components.Switch;
 
 /**
@@ -11,16 +12,16 @@ import us.in.k12.taylor.robotics.robot2014.components.Switch;
 public class ShootingDistanceLightHandler implements RobotParameters {
     private final RobotRegistry registry;
     private final Switch distanceSwitch;
-    private final DualSpikeRelay lightRelay;
+    private final SimpleRelay shootDistanceLightRelay;
 
     public ShootingDistanceLightHandler(TitanRobot pRobot) {
         registry = pRobot.getRegistry();
         distanceSwitch = registry.getShootingDistanceSwitch();
-        lightRelay = registry.get...
+        shootDistanceLightRelay = registry.getShootDistanceLightRelay();
     }
 
     public void run() {
         // Consider putting in a time check (only check every x milisecons
-        relay.setFirstRelay(distanceSwitch.isSwitchOn());
+        shootDistanceLightRelay.set(distanceSwitch.isSwitchOn());
     }
 }

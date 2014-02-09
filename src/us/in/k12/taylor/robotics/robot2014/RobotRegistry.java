@@ -2,10 +2,11 @@ package us.in.k12.taylor.robotics.robot2014;
 
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import us.in.k12.taylor.robotics.robot2014.components.DigitalInputSwitch;
-import us.in.k12.taylor.robotics.robot2014.components.DualSpikeRelay;
+import us.in.k12.taylor.robotics.robot2014.components.SimpleRelay;
 import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
 import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSensor;
 import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSwitch;
@@ -71,7 +72,8 @@ public class RobotRegistry implements RobotParameters {
     private boolean shooting;
     private final JoystickButton autoShootButton;
 
-    private final DualSpikeRelay indicatorLights;
+    private final SimpleRelay shootDistanceLightRelay;
+    private final SimpleRelay triggerLockedLightRelay;
 
     public RobotRegistry() {
         /* Instantiate Drive components */
@@ -132,7 +134,9 @@ public class RobotRegistry implements RobotParameters {
         autoShootButton = new JoystickButton(operatorJoystick, AUTO_SHOOT_BUTTON, false);
 
         /* Indicator light components */
-        indicatorLights = new DualSpikeRelay(INDICATOR_LIGHTS_CHANNEL);
+        Relay indicatorLightsSpikeRelay = new Relay(INDICATOR_LIGHTS_CHANNEL);
+        shootDistanceLightRelay = new SimpleRelay(indicatorLightsSpikeRelay, SHOOT_DISTANCE_LIGHT_RELAY);
+        triggerLockedLightRelay = new SimpleRelay(indicatorLightsSpikeRelay, TRIGGER_LOCKED_LIGHT_RELAY);
     }
 
     public Switch getPickupStopSwitch() {
@@ -315,8 +319,12 @@ public class RobotRegistry implements RobotParameters {
         return triggerLockButton;
     }
 
-    public DualSpikeRelay getIndicatorLights() {
-        return indicatorLights;
+    public SimpleRelay getShootDistanceLightRelay() {
+        return shootDistanceLightRelay;
+    }
+
+    public SimpleRelay getTriggerLockedLightRelay() {
+        return triggerLockedLightRelay;
     }
 
     public Switch getTriggerLockedSwitch() {

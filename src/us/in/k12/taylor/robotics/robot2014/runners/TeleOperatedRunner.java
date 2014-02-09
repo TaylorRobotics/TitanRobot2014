@@ -10,6 +10,7 @@ import us.in.k12.taylor.robotics.robot2014.handlers.AutoShootHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.DriveDirectionButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.DriveSpeedButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.PickupButtonHandler;
+import us.in.k12.taylor.robotics.robot2014.handlers.ShootingDistanceLightHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.ShootingHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderManualPositionHandler;
@@ -17,6 +18,7 @@ import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderSeekPositionHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderServoHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.TankDriveHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.TriggerButtonHandler;
+import us.in.k12.taylor.robotics.robot2014.handlers.TriggerLockedLightHandler;
 
 /**
  * @author Taylor Robotics 2014
@@ -37,6 +39,8 @@ public class TeleOperatedRunner implements RobotParameters {
     private final TriggerButtonHandler triggerButtonHandler;
     private final AutoShootHandler autoShootHandler;
     private final ShootingHandler shootingHandler;
+    private final ShootingDistanceLightHandler shootingDistanceLightHandler;
+    private final TriggerLockedLightHandler triggerLockedLightHandler;
 
     public TeleOperatedRunner(TitanRobot pRobot) {
         robot = pRobot;
@@ -54,6 +58,8 @@ public class TeleOperatedRunner implements RobotParameters {
         triggerButtonHandler = new TriggerButtonHandler(robot);
         autoShootHandler = new AutoShootHandler(robot);
         shootingHandler = new ShootingHandler(robot);
+        shootingDistanceLightHandler = new ShootingDistanceLightHandler(robot);
+        triggerLockedLightHandler = new TriggerLockedLightHandler(robot);
     }
 
     public void run() {
@@ -77,6 +83,10 @@ public class TeleOperatedRunner implements RobotParameters {
             triggerButtonHandler.run();
             autoShootHandler.run();
             shootingHandler.run();
+
+            /* Update indicator lights */
+            shootingDistanceLightHandler.run();
+            triggerLockedLightHandler.run();
 
             /* Feed watchdog to prevent shutdown and then wait */
             Watchdog.getInstance().feed();

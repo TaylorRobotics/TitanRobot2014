@@ -2,6 +2,7 @@ package us.in.k12.taylor.robotics.robot2014;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
+import us.in.k12.taylor.robotics.robot2014.components.SimpleRelay;
 
 /**
  * @author Taylor Robotics 2014
@@ -135,6 +136,10 @@ public interface RobotParameters {
 
     /* Digital Output Channel Mapping */
     int INDICATOR_LIGHTS_CHANNEL = 4;
+
+    /* Indicator light relays */
+    int SHOOT_DISTANCE_LIGHT_RELAY = SimpleRelay.LEFT_RELAY;
+    int TRIGGER_LOCKED_LIGHT_RELAY = SimpleRelay.RIGHT_RELAY;
 
     int SHOULDER_JOYSTICK_MODE = 0;
     int SHOULDER_SERVO_MODE = 1;
