@@ -32,7 +32,7 @@ public class AutonomousRunner implements RobotParameters {
             int autonomousMode = getAutonomousMode();
             switch (autonomousMode) {
                 case 0:
-                    runAutonomousMode1();
+                    runDeadAutonomousMode();
                     break;
                 case 1:
                     runAutonomousMode2();
@@ -58,7 +58,19 @@ public class AutonomousRunner implements RobotParameters {
         return autonomousMode;
     }
 
-    private void runAutonomousMode1() {
+    private void runDeadAutonomousMode() {
+        // Dead mode, do nothing
+    }
+
+    private void runAutonomousMode2() {
+        
+    }
+
+    private void runAutonomousMode3() {
+        
+    }
+
+    private void runAutonomousMode4() {
         /* Drive 0.75 for 3 seconds */
         TimeLimit timeLimit = new TimeLimit(300);
         while (robot.isEnabled() && !timeLimit.isTimeLimitReached()) {
@@ -87,17 +99,5 @@ public class AutonomousRunner implements RobotParameters {
 
         robotDrive.drive(pSpeed, pTurn);
         Watchdog.getInstance().feed();
-    }
-
-    private void runAutonomousMode2() {
-        
-    }
-
-    private void runAutonomousMode3() {
-        
-    }
-
-    private void runAutonomousMode4() {
-        
     }
 }
