@@ -55,12 +55,12 @@ public interface RobotParameters {
 
     /* SpeedController port mapping */
     int FRONT_LEFT_DRIVE_MOTOR_PORT = 1;
-    int FRONT_RIGHT_DRIVE_MOTOR_PORT = 2;
+    int FRONT_RIGHT_DRIVE_MOTOR_PORT = 8;
     int REAR_LEFT_DRIVE_MOTOR_PORT = 6;
     int REAR_RIGHT_DRIVE_MOTOR_PORT = 7;
-    int PICKUP_MOTOR_PORT = 3;
-    int SHOULDER_MOTOR_PORT = 4;
-    int TRIGGER_MOTOR_PORT = 5;
+    int PICKUP_MOTOR_PORT = 4;
+    int SHOULDER_MOTOR_PORT = 3;
+    int TRIGGER_MOTOR_PORT = 2;
 
     /* Joystick mapping */
     int LEFT_DRIVE_JOYSTICK = 1;
@@ -88,6 +88,7 @@ public interface RobotParameters {
     int SHOULDER_START_POSITION_BUTTON = 10;
     int SHOULDER_MANUAL_MODE_BUTTON = 3;
     int AUTO_SHOOT_BUTTON = 6;
+    int FORCE_TRIGGER_FIRE_BUTTON = 5;
 
     /* Pickup Motor constants */
     double PICKUP_MOTOR_SPEED = 0.5;
@@ -120,6 +121,7 @@ public interface RobotParameters {
     double TRIGGER_LOCK_SPEED = -0.75;
     long PICKUP_MOTOR_FIRE_TIME = 2000;
     double PICKUP_MOTOR_FIRE_SPEED = -0.75;
+    double TRIGGER_FIRE_LIMIT = 400.0;
 
     /* Auto Shoot mode constants */
     double AUTO_SHOOT_DISTANCE = 35.0;

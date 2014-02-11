@@ -65,7 +65,6 @@ public class TeleOperatedRunner implements RobotParameters {
     public void run() {
         /* Run in teleoperated loop as long as robot is enabled */
         while (robot.isOperatorControl() && robot.isEnabled()) {
-            long startTime = System.currentTimeMillis();
             /* Handle operations */
             directionButtonHandler.run();
             speedButtonHandler.run();
@@ -82,7 +81,7 @@ public class TeleOperatedRunner implements RobotParameters {
 
             /* Handle shooting operations */
             triggerButtonHandler.run();
-            autoShootHandler.run();
+//            autoShootHandler.run();
             shootingHandler.run();
 
             /* Update indicator lights */
@@ -90,8 +89,6 @@ public class TeleOperatedRunner implements RobotParameters {
             triggerLockedLightHandler.run();
 
             /* Feed watchdog to prevent shutdown and then wait */
-            long elapsedTime = System.currentTimeMillis() - startTime;
-            System.out.println("Loop operation time (ms): " + elapsedTime);
             Watchdog.getInstance().feed();
             Timer.delay(TELEOPERATED_LOOP_DELAY);
         }

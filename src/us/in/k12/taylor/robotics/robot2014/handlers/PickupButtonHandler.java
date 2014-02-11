@@ -54,7 +54,7 @@ public class PickupButtonHandler implements RobotParameters {
                 pickupMotor.set(0.0);
             }
         }
-        else {
+        else if (pickupButton.getStateChange()) {
             pickupMotor.setNonTimedOperation();
             pickupMotor.set(0.0);
         }

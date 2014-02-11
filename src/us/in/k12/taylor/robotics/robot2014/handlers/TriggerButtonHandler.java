@@ -25,13 +25,19 @@ public class TriggerButtonHandler implements RobotParameters {
     public void run() {
         /* Run trigger motor based upon trigger buttons */
         if (triggerFireButton.isSwitchOn()) {
-            registry.setShooting(true);
+            if (triggerFireButton.getStateChange()) {
+                registry.setShooting(true);
+            }
         }
-        else if (triggerLockButton.isSwitchOn()) {
+        else if (triggerFireButton.getStateChange()) {
+                registry.setShooting(false);
+        }
+        if (triggerLockButton.isSwitchOn()) {
             triggerMotor.set(TRIGGER_LOCK_SPEED);
-        }
-        else if (triggerFireButton.getStateChange() || triggerLockButton.getStateChange()){
             registry.setShooting(false);
+        }
+        else if (triggerLockButton.getStateChange()) {
+            triggerMotor.set(0.0);
         }
     }
 }

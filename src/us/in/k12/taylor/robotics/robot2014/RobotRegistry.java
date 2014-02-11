@@ -71,6 +71,7 @@ public class RobotRegistry implements RobotParameters {
     private final Switch triggerLockedSwitch;
     private boolean shooting;
     private final JoystickButton autoShootButton;
+    private final JoystickButton forceTriggerFireButton;
 
     private final SimpleRelay shootDistanceLightRelay;
     private final SimpleRelay triggerLockedLightRelay;
@@ -132,6 +133,7 @@ public class RobotRegistry implements RobotParameters {
         triggerLockedSwitch = new TriggerLockedSwitch(); // Pass any component switches needed
         shooting = false;
         autoShootButton = new JoystickButton(operatorJoystick, AUTO_SHOOT_BUTTON, false);
+        forceTriggerFireButton = new JoystickButton(operatorJoystick, FORCE_TRIGGER_FIRE_BUTTON, false);
 
         /* Indicator light components */
         Relay indicatorLightsSpikeRelay = new Relay(INDICATOR_LIGHTS_CHANNEL);
@@ -329,6 +331,10 @@ public class RobotRegistry implements RobotParameters {
 
     public Switch getTriggerLockedSwitch() {
         return triggerLockedSwitch;
+    }
+
+    public JoystickButton getForceTriggerFireButton() {
+        return forceTriggerFireButton;
     }
 
     public MaxSonarDistanceSensor getDistanceSensor() {
