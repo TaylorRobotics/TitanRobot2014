@@ -73,22 +73,22 @@ public interface RobotParameters {
 
     /* Right drive joystick button mapping */
     int SPEED_BOOST_BUTTON = 1;
-    int LOW_SPEED_BUTTON = 4;
     int MEDIUM_SPEED_BUTTON = 2;
+    int LOW_SPEED_BUTTON = 4;
     int HIGH_SPEED_BUTTON = 5;
 
     /* Operator Joystick button mapping */
     int TRIGGER_FIRE_BUTTON = 1;
     int PICKUP_BUTTON = 2;
+    int SHOULDER_MANUAL_MODE_BUTTON = 3;
     int TRIGGER_LOCK_BUTTON = 4;
+    int FORCE_TRIGGER_FIRE_BUTTON = 5;
+    int AUTO_SHOOT_BUTTON = 6;
     int SHOULDER_PICKUP_POSITION_BUTTON = 7;
     int SHOULDER_LOW_SHOT_POSITION_BUTTON = 8;
     int SHOULDER_HIGH_SHOT_POSITION_BUTTON = 9;
-    int SHOULDER_SEEK_SHOT_BUTTON = 11;
     int SHOULDER_START_POSITION_BUTTON = 10;
-    int SHOULDER_MANUAL_MODE_BUTTON = 3;
-    int AUTO_SHOOT_BUTTON = 6;
-    int FORCE_TRIGGER_FIRE_BUTTON = 5;
+    int SHOULDER_SEEK_SHOT_BUTTON = 11;
 
     /* Pickup Motor constants */
     double PICKUP_MOTOR_SPEED = 0.5;

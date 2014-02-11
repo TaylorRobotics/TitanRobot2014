@@ -44,7 +44,6 @@ public class ShootingHandler implements RobotParameters {
         }
         else if (lastShootingMode) {
             /* Stop shooting process */
-            System.out.println("Stop");
             triggerMotor.set(0.0);
             pickupMotor.set(0.0);
             pickupMotor.setNonTimedOperation();
