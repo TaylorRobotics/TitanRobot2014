@@ -110,7 +110,7 @@ public class RobotRegistry implements RobotParameters {
 
         /* Shoulder components */
         analogVoltageMeter = new AnalogChannel(ANALOG_SUPPLY_CHANNEL);
-        shoulderPotentiometer = new Potentiometer(ARM_POTENTIOMETER_CHANNEL, analogVoltageMeter, 1000.0, 0.1, 0.9);
+        shoulderPotentiometer = new Potentiometer(ARM_POTENTIOMETER_CHANNEL, analogVoltageMeter, SHOULDER_POTENTIOMETER_DIRECTION==REVERSE, SHOULDER_POTENTIOMETER_SCALE, SHOULDER_POTENTIOMETER_MINIMUM_EDGE, SHOULDER_POTENTIOMETER_MAXIMUM_EDGE);
         shoulderForwardLimitSwitch = new PotentiometerLimitSwitch(shoulderPotentiometer, false, 900.0, false);
         shoulderReverseLimitSwitch = new PotentiometerLimitSwitch(shoulderPotentiometer, true, 100.0, false);
 // Replace with correct limit switches

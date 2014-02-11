@@ -147,6 +147,12 @@ public interface RobotParameters {
     int SHOULDER_SERVO_MODE = 1;
     int SHOULDER_SEEK_MODE = 2;
 
+    /* Shoulder potentiometer constants */
+    int SHOULDER_POTENTIOMETER_DIRECTION = FORWARD;
+    double SHOULDER_POTENTIOMETER_MINIMUM_EDGE = 0.1;
+    double SHOULDER_POTENTIOMETER_MAXIMUM_EDGE = 0.9;
+    double SHOULDER_POTENTIOMETER_SCALE = 1000.0;
+
     /* Shoulder position constants */
     double SHOULDER_PICKUP_POSITION = 200.0;
     double SHOULDER_LOW_SHOT_POSITION = 300.0;
