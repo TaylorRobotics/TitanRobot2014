@@ -25,7 +25,7 @@ import us.in.k12.taylor.robotics.robot2014.handlers.TriggerLockedLightHandler;
  */
 public class TeleOperatedRunner implements RobotParameters {
     private final TitanRobot robot;
-    private final ComponentRegistry registry;
+    private final ComponentRegistry ComponentRegistry;
 
     /* Handlers */
     TankDriveHandler tankDriveHandler;
@@ -44,7 +44,7 @@ public class TeleOperatedRunner implements RobotParameters {
 
     public TeleOperatedRunner(TitanRobot pRobot) {
         robot = pRobot;
-        registry = robot.getComponentRegistry();
+        ComponentRegistry = robot.getComponentRegistry();
 
         /* Create handlers */
         tankDriveHandler = new TankDriveHandler(robot);
@@ -68,7 +68,7 @@ public class TeleOperatedRunner implements RobotParameters {
             /* Handle operations */
             directionButtonHandler.run();
             speedButtonHandler.run();
-            registry.getRobotDrive().drive(0.0, 0);
+            ComponentRegistry.getRobotDrive().drive(0.0, 0);
             tankDriveHandler.run();
 
             pickupButtonHandler.run();
@@ -92,6 +92,6 @@ public class TeleOperatedRunner implements RobotParameters {
             Watchdog.getInstance().feed();
             Timer.delay(TELEOPERATED_LOOP_DELAY);
         }
-        registry.getRobotDrive().drive(0.0, 0);
+        ComponentRegistry.getRobotDrive().drive(0.0, 0);
     }
 }

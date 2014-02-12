@@ -14,17 +14,17 @@ import us.in.k12.taylor.robotics.robot2014.components.TimeLimit;
  */
 public class AutonomousRunner implements RobotParameters {
     private final TitanRobot robot;
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final Switch leftToggleSwitch;
     private final Switch rightToggleSwitch;
     private final RobotDrive robotDrive;
 
     public AutonomousRunner(TitanRobot pRobot) {
         robot = pRobot;
-        registry = robot.getComponentRegistry();
-        leftToggleSwitch = registry.getLeftAutonomousModeSwitch();
-        rightToggleSwitch = registry.getRightAutonomousModeSwitch();
-        robotDrive = registry.getRobotDrive();
+        componentRegistry = robot.getComponentRegistry();
+        leftToggleSwitch = componentRegistry.getLeftAutonomousModeSwitch();
+        rightToggleSwitch = componentRegistry.getRightAutonomousModeSwitch();
+        robotDrive = componentRegistry.getRobotDrive();
     }
 
     public void run() {
