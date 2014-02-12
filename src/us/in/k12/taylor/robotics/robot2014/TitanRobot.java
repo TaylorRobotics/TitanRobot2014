@@ -11,7 +11,7 @@ import us.in.k12.taylor.robotics.robot2014.runners.TestRunner;
  */
 public class TitanRobot extends SimpleRobot implements RobotParameters {
     private static TitanRobot robotInstance;
-    private final ComponentRegistry robotRegistry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final TeleOperatedRunner teleOperatedRunner;
     private final AutonomousRunner autonomousRunner;
@@ -22,7 +22,7 @@ public class TitanRobot extends SimpleRobot implements RobotParameters {
      */
     public TitanRobot() {
         System.out.println("Creating TitanRobot instance for 2014.");
-        robotRegistry = new ComponentRegistry();
+        componentRegistry = new ComponentRegistry();
         stateRegistry = new StateRegistry();
         autonomousRunner = new AutonomousRunner(this);
         teleOperatedRunner = new TeleOperatedRunner(this);
@@ -41,20 +41,23 @@ public class TitanRobot extends SimpleRobot implements RobotParameters {
 
     /**
      * Gets the Singleton instance of the TitanRobot object.
+     * @return The Singleton TitanRobot instance
      */
     public static TitanRobot getInstance() {
         return robotInstance;
     }
 
     /**
-     * Gets the RobotRegistry used to store robot components.
+     * Gets the ComponentRegistry used to store robot components.
+     * @return The Singleton instance of the ComponentRegistry
      */
     public ComponentRegistry getComponentRegistry() {
-        return robotRegistry;
+        return componentRegistry;
     }
 
     /**
      * Gets the StateRegistry used to store robot state information.
+     * @return The Singleton instance of the StateRegistry
      */
     public StateRegistry getStateRegistry() {
         return stateRegistry;
