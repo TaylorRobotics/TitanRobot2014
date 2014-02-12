@@ -10,14 +10,14 @@ import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
  * @author Taylor Robtics 2014
  */
 public class ParkButtonHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final JoystickButton parkButton;
 
     public ParkButtonHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        parkButton = registry.getParkRobotButton();
+        parkButton = componentRegistry.getParkRobotButton();
     }
 
     public void run() {

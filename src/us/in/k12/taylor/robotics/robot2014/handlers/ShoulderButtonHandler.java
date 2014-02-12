@@ -10,7 +10,7 @@ import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
  * @author Taylor Robtics 2014
  */
 public class ShoulderButtonHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final JoystickButton pickupPositionButton;
     private final JoystickButton lowShotPositionButton;
@@ -20,14 +20,14 @@ public class ShoulderButtonHandler implements RobotParameters {
     private final JoystickButton manualPositionButton;
 
     public ShoulderButtonHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        pickupPositionButton = registry.getPickupPositionButton();
-        lowShotPositionButton = registry.getLowShotPositionButton();
-        highShotPositionButton = registry.getHighShotPositionButton();
-        seekShotButton = registry.getSeekShotButton();
-        startPositionButton = registry.getStartPositionButton();
-        manualPositionButton = registry.getManualPositionButton();
+        pickupPositionButton = componentRegistry.getPickupPositionButton();
+        lowShotPositionButton = componentRegistry.getLowShotPositionButton();
+        highShotPositionButton = componentRegistry.getHighShotPositionButton();
+        seekShotButton = componentRegistry.getSeekShotButton();
+        startPositionButton = componentRegistry.getStartPositionButton();
+        manualPositionButton = componentRegistry.getManualPositionButton();
     }
 
     public void run() {

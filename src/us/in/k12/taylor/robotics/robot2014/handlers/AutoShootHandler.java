@@ -11,16 +11,16 @@ import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSensor;
  * @author Taylor Robtics 2014
  */
 public class AutoShootHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final JoystickButton autoShootButton;
     private final MaxSonarDistanceSensor distanceSensor;
 
     public AutoShootHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        autoShootButton = registry.getAutoShootButton();
-        distanceSensor = registry.getDistanceSensor();
+        autoShootButton = componentRegistry.getAutoShootButton();
+        distanceSensor = componentRegistry.getDistanceSensor();
     }
 
     public void run() {

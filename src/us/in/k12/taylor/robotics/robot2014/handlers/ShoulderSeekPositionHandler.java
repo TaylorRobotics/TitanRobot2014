@@ -10,14 +10,14 @@ import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSensor;
  * @author Taylor Robotics 2014
  */
 public class ShoulderSeekPositionHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final MaxSonarDistanceSensor distanceSensor;
 
     public ShoulderSeekPositionHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        distanceSensor = registry.getDistanceSensor();
+        distanceSensor = componentRegistry.getDistanceSensor();
     }
 
     public void run() {

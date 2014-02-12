@@ -11,7 +11,7 @@ import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
  * @author Taylor Robotics 2014
  */
 public class DriveSpeedButtonHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final JoystickButton lowSpeedButton;
     private final JoystickButton mediumSpeedButton;
@@ -21,16 +21,16 @@ public class DriveSpeedButtonHandler implements RobotParameters {
     private final RobotDrive robotDrive;
 
     public DriveSpeedButtonHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        robotDrive = registry.getRobotDrive();
+        robotDrive = componentRegistry.getRobotDrive();
 
-        speedDragButton = registry.getSpeedDragButton();
-        speedBoostButton = registry.getSpeedBoostButton();
+        speedDragButton = componentRegistry.getSpeedDragButton();
+        speedBoostButton = componentRegistry.getSpeedBoostButton();
 
-        lowSpeedButton = registry.getLowSpeedButton();
-        mediumSpeedButton = registry.getMediumSpeedButton();
-        highSpeedButton = registry.getHighSpeedButton();
+        lowSpeedButton = componentRegistry.getLowSpeedButton();
+        mediumSpeedButton = componentRegistry.getMediumSpeedButton();
+        highSpeedButton = componentRegistry.getHighSpeedButton();
     }
 
     public void run() {

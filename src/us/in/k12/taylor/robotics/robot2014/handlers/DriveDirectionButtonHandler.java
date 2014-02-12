@@ -10,14 +10,14 @@ import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
  * @author Taylor Robotics 2014
  */
 public class DriveDirectionButtonHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final JoystickButton reverseDirectionButton;
 
     public DriveDirectionButtonHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        reverseDirectionButton = registry.getReverseDirectionButton();
+        reverseDirectionButton = componentRegistry.getReverseDirectionButton();
     }
 
     public void run() {

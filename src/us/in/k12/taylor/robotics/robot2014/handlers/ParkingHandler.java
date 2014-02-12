@@ -9,12 +9,12 @@ import us.in.k12.taylor.robotics.robot2014.TitanRobot;
  * @author Taylor Robotics 2014
  */
 public class ParkingHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private boolean lastParkingMode;
 
     public ParkingHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
         lastParkingMode = false;
     }
