@@ -1,7 +1,6 @@
 package us.in.k12.taylor.robotics.robot2014;
 
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Victor;
 import us.in.k12.taylor.robotics.robot2014.components.SimpleRelay;
 
 /**
@@ -40,9 +39,9 @@ public interface RobotParameters {
     Class FRONT_RIGHT_DRIVE_SPEED_CONTROLLER = Talon.class;
     Class REAR_LEFT_DRIVE_SPEED_CONTROLLER = Talon.class;
     Class REAR_RIGHT_DRIVE_SPEED_CONTROLLER = Talon.class;
-    Class PICKUP_SPEED_CONTROLLER = Victor.class;
-    Class SHOULDER_SPEED_CONTROLLER = Victor.class;
-    Class TRIGGER_SPEED_CONTROLLER = Victor.class;
+    Class PICKUP_SPEED_CONTROLLER = Talon.class;
+    Class SHOULDER_SPEED_CONTROLLER = Talon.class;
+    Class LATCH_SPEED_CONTROLLER = Talon.class;
 
     /* Motor direction - Change motor direction if wired backwards */
     int FRONT_LEFT_DRIVE_MOTOR_DIRECTION = FORWARD;
@@ -51,16 +50,16 @@ public interface RobotParameters {
     int REAR_RIGHT_DRIVE_MOTOR_DIRECTION = FORWARD;
     int PICKUP_MOTOR_DIRECTION = FORWARD;
     int SHOULDER_MOTOR_DIRECTION = FORWARD;
-    int TRIGGER_MOTOR_DIRECTION = FORWARD;
+    int LATCH_MOTOR_DIRECTION = FORWARD;
 
     /* SpeedController port mapping */
-    int FRONT_LEFT_DRIVE_MOTOR_PORT = 1;
-    int FRONT_RIGHT_DRIVE_MOTOR_PORT = 8;
-    int REAR_LEFT_DRIVE_MOTOR_PORT = 6;
-    int REAR_RIGHT_DRIVE_MOTOR_PORT = 7;
-    int PICKUP_MOTOR_PORT = 4;
-    int SHOULDER_MOTOR_PORT = 3;
-    int TRIGGER_MOTOR_PORT = 2;
+    int SHOULDER_MOTOR_PORT = 1;
+    int LATCH_MOTOR_PORT = 2;
+    int PICKUP_MOTOR_PORT = 3;
+    int FRONT_RIGHT_DRIVE_MOTOR_PORT = 4;
+    int REAR_RIGHT_DRIVE_MOTOR_PORT = 5;
+    int FRONT_LEFT_DRIVE_MOTOR_PORT = 6;
+    int REAR_LEFT_DRIVE_MOTOR_PORT = 7;
 
     /* Joystick mapping */
     int LEFT_DRIVE_JOYSTICK = 1;
@@ -79,11 +78,11 @@ public interface RobotParameters {
     int PARK_ROBOT_BUTTON = 11;
 
     /* Operator Joystick button mapping */
-    int TRIGGER_FIRE_BUTTON = 1;
+    int HAMMER_FIRE_BUTTON = 1;
     int PICKUP_BUTTON = 2;
     int SHOULDER_MANUAL_MODE_BUTTON = 3;
-    int TRIGGER_LOCK_BUTTON = 4;
-    int FORCE_TRIGGER_FIRE_BUTTON = 5;
+    int LATCH_LOCK_BUTTON = 4;
+    int FORCE_HAMMER_FIRE_BUTTON = 5;
     int AUTO_SHOOT_BUTTON = 6;
     int SHOULDER_PICKUP_POSITION_BUTTON = 7;
     int SHOULDER_LOW_SHOT_POSITION_BUTTON = 8;
@@ -117,12 +116,12 @@ public interface RobotParameters {
     int ARM_POTENTIOMETER_CHANNEL = 2;
     int DISTANCE_SENSOR_CHANNEL = 3;
 
-    /* Shooter Trigger Motor Speeds */
-    double TRIGGER_FIRE_SPEED = 0.75;
-    double TRIGGER_LOCK_SPEED = -0.75;
+    /* Shooter Hammer Motor Speeds */
+    double HAMMER_FIRE_SPEED = 0.75;
+    double HAMMER_LATCH_SPEED = -0.75;
     long PICKUP_MOTOR_FIRE_TIME = 2000;
     double PICKUP_MOTOR_FIRE_SPEED = -0.75;
-    double TRIGGER_FIRE_LIMIT = 400.0;
+    double HAMMER_FIRE_LIMIT = 400.0;
 
     /* Auto Shoot mode constants */
     double AUTO_SHOOT_DISTANCE = 35.0;
@@ -142,7 +141,7 @@ public interface RobotParameters {
 
     /* Indicator light relays */
     int SHOOT_DISTANCE_LIGHT_RELAY = SimpleRelay.LEFT_RELAY;
-    int TRIGGER_LOCKED_LIGHT_RELAY = SimpleRelay.RIGHT_RELAY;
+    int LATCH_LOCKED_LIGHT_RELAY = SimpleRelay.RIGHT_RELAY;
 
     int SHOULDER_JOYSTICK_MODE = 0;
     int SHOULDER_SERVO_MODE = 1;

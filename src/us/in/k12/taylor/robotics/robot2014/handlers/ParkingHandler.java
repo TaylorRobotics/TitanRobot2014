@@ -19,7 +19,7 @@ public class ParkingHandler implements RobotParameters {
         lastParkingMode = false;
     }
 
-    // Tasks = lower, lock trigger, raise to start position
+    // Tasks = lower, lock hammer, raise to start position
     public void run() {
         if (stateRegistry.isParking()) {
             if (lastParkingMode) {

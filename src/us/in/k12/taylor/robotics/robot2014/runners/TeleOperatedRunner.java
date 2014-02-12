@@ -17,8 +17,8 @@ import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderManualPositionHandle
 import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderSeekPositionHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderServoHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.TankDriveHandler;
-import us.in.k12.taylor.robotics.robot2014.handlers.TriggerButtonHandler;
-import us.in.k12.taylor.robotics.robot2014.handlers.TriggerLockedLightHandler;
+import us.in.k12.taylor.robotics.robot2014.handlers.HammerButtonHandler;
+import us.in.k12.taylor.robotics.robot2014.handlers.HammerLatchedLightHandler;
 
 /**
  * @author Taylor Robotics 2014
@@ -36,11 +36,11 @@ public class TeleOperatedRunner implements RobotParameters {
     private final ShoulderSeekPositionHandler shoulderSeekPositionHandler;
     private final ShoulderManualPositionHandler shoulderManualPositionHandler;
     private final ShoulderServoHandler shoulderServoHandler;
-    private final TriggerButtonHandler triggerButtonHandler;
+    private final HammerButtonHandler hammerButtonHandler;
     private final AutoShootHandler autoShootHandler;
     private final ShootingHandler shootingHandler;
     private final ShootingDistanceLightHandler shootingDistanceLightHandler;
-    private final TriggerLockedLightHandler triggerLockedLightHandler;
+    private final HammerLatchedLightHandler hammerLatchedLightHandler;
 
     public TeleOperatedRunner(TitanRobot pRobot) {
         robot = pRobot;
@@ -55,11 +55,11 @@ public class TeleOperatedRunner implements RobotParameters {
         shoulderSeekPositionHandler = new ShoulderSeekPositionHandler(robot);
         shoulderManualPositionHandler = new ShoulderManualPositionHandler(robot);
         shoulderServoHandler = new ShoulderServoHandler(robot);
-        triggerButtonHandler = new TriggerButtonHandler(robot);
+        hammerButtonHandler = new HammerButtonHandler(robot);
         autoShootHandler = new AutoShootHandler(robot);
         shootingHandler = new ShootingHandler(robot);
         shootingDistanceLightHandler = new ShootingDistanceLightHandler(robot);
-        triggerLockedLightHandler = new TriggerLockedLightHandler(robot);
+        hammerLatchedLightHandler = new HammerLatchedLightHandler(robot);
     }
 
     public void run() {
@@ -80,13 +80,13 @@ public class TeleOperatedRunner implements RobotParameters {
             shoulderServoHandler.run();
 
             /* Handle shooting operations */
-            triggerButtonHandler.run();
+            hammerButtonHandler.run();
 //            autoShootHandler.run();
             shootingHandler.run();
 
             /* Update indicator lights */
             shootingDistanceLightHandler.run();
-            triggerLockedLightHandler.run();
+            hammerLatchedLightHandler.run();
 
             /* Feed watchdog to prevent shutdown and then wait */
             Watchdog.getInstance().feed();

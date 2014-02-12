@@ -13,7 +13,7 @@ import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.Potentiometer;
 import us.in.k12.taylor.robotics.robot2014.components.PotentiometerLimitSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.Switch;
-import us.in.k12.taylor.robotics.robot2014.components.TriggerLockedSwitch;
+import us.in.k12.taylor.robotics.robot2014.components.HammerLatchedSwitch;
 import us.in.k12.taylor.robotics.robot2014.factories.SpeedControllerFactory;
 import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 
@@ -58,15 +58,15 @@ public class ComponentRegistry implements RobotParameters {
     private final MaxSonarDistanceSensor distanceSensor;
     private final MaxSonarDistanceSwitch shootingDistanceSwitch;
 
-    private final TitanSpeedController triggerMotor;
-    private final JoystickButton triggerFireButton;
-    private final JoystickButton triggerLockButton;
-    private final Switch triggerLockedSwitch;
+    private final TitanSpeedController hammerMotor;
+    private final JoystickButton hammerFireButton;
+    private final JoystickButton hammerLatchButton;
+    private final Switch hammerLatchedSwitch;
     private final JoystickButton autoShootButton;
-    private final JoystickButton forceTriggerFireButton;
+    private final JoystickButton forceHammerFireButton;
 
     private final SimpleRelay shootDistanceLightRelay;
-    private final SimpleRelay triggerLockedLightRelay;
+    private final SimpleRelay hammerLatchedLightRelay;
 
     private final JoystickButton parkRobotButton;
 
@@ -113,18 +113,18 @@ public class ComponentRegistry implements RobotParameters {
         distanceSensor = new MaxSonarDistanceSensor(DISTANCE_SENSOR_CHANNEL, analogVoltageMeter);
         shootingDistanceSwitch = new MaxSonarDistanceSwitch(distanceSensor, AUTO_SHOOT_DISTANCE, AUTO_SHOOT_DISTANCE_TOLERANCE, false);
 
-        /* Trigger components */
-        triggerMotor = speedControllerFactory.create(TRIGGER_MOTOR_PORT, TRIGGER_SPEED_CONTROLLER, TRIGGER_MOTOR_DIRECTION==REVERSE);
-        triggerFireButton = new JoystickButton(operatorJoystick, TRIGGER_FIRE_BUTTON, false);
-        triggerLockButton = new JoystickButton(operatorJoystick, TRIGGER_LOCK_BUTTON, false);
-        triggerLockedSwitch = new TriggerLockedSwitch(); // Pass any component switches needed
+        /* Hammer components */
+        hammerMotor = speedControllerFactory.create(LATCH_MOTOR_PORT, LATCH_SPEED_CONTROLLER, LATCH_MOTOR_DIRECTION==REVERSE);
+        hammerFireButton = new JoystickButton(operatorJoystick, HAMMER_FIRE_BUTTON, false);
+        hammerLatchButton = new JoystickButton(operatorJoystick, LATCH_LOCK_BUTTON, false);
+        hammerLatchedSwitch = new HammerLatchedSwitch(); // Pass any component switches needed
         autoShootButton = new JoystickButton(operatorJoystick, AUTO_SHOOT_BUTTON, false);
-        forceTriggerFireButton = new JoystickButton(operatorJoystick, FORCE_TRIGGER_FIRE_BUTTON, false);
+        forceHammerFireButton = new JoystickButton(operatorJoystick, FORCE_HAMMER_FIRE_BUTTON, false);
 
         /* Indicator light components */
         Relay indicatorLightsSpikeRelay = new Relay(INDICATOR_LIGHTS_CHANNEL);
         shootDistanceLightRelay = new SimpleRelay(indicatorLightsSpikeRelay, SHOOT_DISTANCE_LIGHT_RELAY);
-        triggerLockedLightRelay = new SimpleRelay(indicatorLightsSpikeRelay, TRIGGER_LOCKED_LIGHT_RELAY);
+        hammerLatchedLightRelay = new SimpleRelay(indicatorLightsSpikeRelay, LATCH_LOCKED_LIGHT_RELAY);
 
         parkRobotButton = new JoystickButton(rightDriveJoystick, PARK_ROBOT_BUTTON, false);
     }
@@ -237,36 +237,36 @@ public class ComponentRegistry implements RobotParameters {
         return manualPositionButton;
     }
 
-    public TitanSpeedController getTriggerMotor() {
-        return triggerMotor;
+    public TitanSpeedController getHammerMotor() {
+        return hammerMotor;
     }
 
-    public JoystickButton getTriggerFireButton() {
-        return triggerFireButton;
+    public JoystickButton getHammerFireButton() {
+        return hammerFireButton;
     }
 
     public JoystickButton getAutoShootButton() {
         return autoShootButton;
     }
 
-    public JoystickButton getTriggerLockButton() {
-        return triggerLockButton;
+    public JoystickButton getHammerLatchButton() {
+        return hammerLatchButton;
     }
 
     public SimpleRelay getShootDistanceLightRelay() {
         return shootDistanceLightRelay;
     }
 
-    public SimpleRelay getTriggerLockedLightRelay() {
-        return triggerLockedLightRelay;
+    public SimpleRelay getHammerLatchedLightRelay() {
+        return hammerLatchedLightRelay;
     }
 
-    public Switch getTriggerLockedSwitch() {
-        return triggerLockedSwitch;
+    public Switch getHammerLatchedSwitch() {
+        return hammerLatchedSwitch;
     }
 
-    public JoystickButton getForceTriggerFireButton() {
-        return forceTriggerFireButton;
+    public JoystickButton getForceHammerFireButton() {
+        return forceHammerFireButton;
     }
 
     public MaxSonarDistanceSensor getDistanceSensor() {

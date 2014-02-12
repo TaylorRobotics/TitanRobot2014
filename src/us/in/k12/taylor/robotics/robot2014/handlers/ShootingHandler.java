@@ -14,19 +14,19 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 public class ShootingHandler implements RobotParameters {
     private final ComponentRegistry registry;
     private final StateRegistry stateRegistry;
-    private final TitanSpeedController triggerMotor;
+    private final TitanSpeedController hammerMotor;
     private final TitanSpeedController pickupMotor;
     private final Potentiometer shoulderPotentiometer;
-    private final JoystickButton forceTriggerFireButton;
+    private final JoystickButton forceHammerFireButton;
     private boolean lastShootingMode;
 
     public ShootingHandler(TitanRobot pRobot) {
         registry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        triggerMotor = registry.getTriggerMotor();
+        hammerMotor = registry.getHammerMotor();
         pickupMotor = registry.getPickupMotor();
         shoulderPotentiometer = registry.getShoulderPotentiometer();
-        forceTriggerFireButton = registry.getForceTriggerFireButton();
+        forceHammerFireButton = registry.getForceHammerFireButton();
         lastShootingMode = false;
     }
 
@@ -40,14 +40,14 @@ public class ShootingHandler implements RobotParameters {
                 /* Start shooting process, and cancel keep ball when shooting */
                 pickupMotor.setTimedOperation(PICKUP_MOTOR_FIRE_TIME);
                 pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
-                if (forceTriggerFireButton.isSwitchOn() || (shoulderPotentiometer.getValue() >= TRIGGER_FIRE_LIMIT)) {
-                    triggerMotor.set(TRIGGER_FIRE_SPEED);
+                if (forceHammerFireButton.isSwitchOn() || (shoulderPotentiometer.getValue() >= HAMMER_FIRE_LIMIT)) {
+                    hammerMotor.set(HAMMER_FIRE_SPEED);
                 }
             }
         }
         else if (lastShootingMode) {
             /* Stop shooting process */
-            triggerMotor.set(0.0);
+            hammerMotor.set(0.0);
             pickupMotor.set(0.0);
             pickupMotor.setNonTimedOperation();
         }
