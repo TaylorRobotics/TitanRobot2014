@@ -15,6 +15,7 @@ public class StateRegistry implements RobotParameters {
     private boolean parking;
 
     public StateRegistry() {
+        /* Set intitial/default states */
         driveDirection = DEFAULT_DRIVE_DIRECTION;
         driveSpeedMode = HIGH_SPEED;
         speedBoostDrag = SPEED_BOOST_DRAG_OFF;
