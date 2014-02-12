@@ -3,7 +3,7 @@ package us.in.k12.taylor.robotics.robot2014.runners;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
-import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
+import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
 import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 import us.in.k12.taylor.robotics.robot2014.handlers.AutoShootHandler;
@@ -25,7 +25,7 @@ import us.in.k12.taylor.robotics.robot2014.handlers.TriggerLockedLightHandler;
  */
 public class TeleOperatedRunner implements RobotParameters {
     private final TitanRobot robot;
-    private final RobotRegistry registry;
+    private final ComponentRegistry registry;
 
     /* Handlers */
     TankDriveHandler tankDriveHandler;
@@ -44,7 +44,7 @@ public class TeleOperatedRunner implements RobotParameters {
 
     public TeleOperatedRunner(TitanRobot pRobot) {
         robot = pRobot;
-        registry = robot.getRegistry();
+        registry = robot.getComponentRegistry();
 
         /* Create handlers */
         tankDriveHandler = new TankDriveHandler(robot);

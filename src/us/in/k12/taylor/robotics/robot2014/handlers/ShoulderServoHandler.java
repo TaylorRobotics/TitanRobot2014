@@ -1,7 +1,8 @@
 package us.in.k12.taylor.robotics.robot2014.handlers;
  
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
-import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
+import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
+import us.in.k12.taylor.robotics.robot2014.StateRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
 import us.in.k12.taylor.robotics.robot2014.components.Potentiometer;
 import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
@@ -10,7 +11,8 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 * @author Taylor Robotics 2014
 */
 public class ShoulderServoHandler implements RobotParameters {
-    private final RobotRegistry registry;
+    private final ComponentRegistry registry;
+    private final StateRegistry stateRegistry;
     private final Potentiometer shoulderPotentiometer;
     private final TitanSpeedController shoulderMotor;
  
@@ -20,7 +22,8 @@ public class ShoulderServoHandler implements RobotParameters {
     private double lastPosition;
  
     public ShoulderServoHandler(TitanRobot pRobot) {
-        registry = pRobot.getRegistry();
+        registry = pRobot.getComponentRegistry();
+        stateRegistry = pRobot.getStateRegistry();
         shoulderPotentiometer = registry.getShoulderPotentiometer();
         shoulderMotor = registry.getShoulderMotor();
         motorSpeed = 0.0;
@@ -31,12 +34,12 @@ public class ShoulderServoHandler implements RobotParameters {
  
 // Change ShoulderControllerHandler to direct drive from Joystick (If in servo mode, Joystick adjusts target position)
     public void run() {
-        if ((registry.getShoulderPositionMode() == SHOULDER_SERVO_MODE) ||
-                (registry.getShoulderPositionMode() == SHOULDER_SEEK_MODE)) {
+        if ((stateRegistry.getShoulderPositionMode() == SHOULDER_SERVO_MODE) ||
+                (stateRegistry.getShoulderPositionMode() == SHOULDER_SEEK_MODE)) {
             long currentTimeCheck = System.currentTimeMillis();
             if (currentTimeCheck > nextTimeCheck) {
                 double position = shoulderPotentiometer.getValue();
-                double distanceToTarget = registry.getShoulderPositionTarget() - position;
+                double distanceToTarget = stateRegistry.getShoulderPositionTarget() - position;
                 if (Math.abs(distanceToTarget) <= SHOULDER_POSITION_TOLERANCE) {
                     /* Reached target position */
                     stopMovingToTarget(position);

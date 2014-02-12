@@ -20,26 +20,21 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 /**
  * @author Taylor Robotics 2014
  */
-public class RobotRegistry implements RobotParameters {
+public class ComponentRegistry implements RobotParameters {
     private final SpeedController frontLeftDriveMotor;
     private final SpeedController frontRightDriveMotor;
     private final SpeedController rearLeftDriveMotor;
     private final SpeedController rearRightDriveMotor;
     private final RobotDrive robotDrive;
     private final JoystickButton reverseDirectionButton;
-    private int driveDirection;
     private final JoystickButton lowSpeedButton;
     private final JoystickButton mediumSpeedButton;
     private final JoystickButton highSpeedButton;
     private final JoystickButton speedBoostButton;
     private final JoystickButton speedDragButton;
 
-    private int driveSpeedMode; // Modes = LOW_SPEED, MEDIUM_SPEED, HIGH_SPEED (default)
-    private int speedBoostDrag; // Modes = SPEED_BOOST_ON, SPEED_DRAG_ON, SPEED_BOOST_DRAG_OFF (default)
-
     private final TitanSpeedController pickupMotor;
     private final Switch pickupStopSwitch;
-    private boolean keepBallMode;
     private final JoystickButton pickupButton;
 
     private final Joystick leftDriveJoystick;
@@ -54,8 +49,6 @@ public class RobotRegistry implements RobotParameters {
     private final TitanSpeedController shoulderMotor;
     private final PotentiometerLimitSwitch shoulderForwardLimitSwitch;
     private final PotentiometerLimitSwitch shoulderReverseLimitSwitch;
-    private double shoulderPositionTarget;
-    private int shoulderPositionMode;
     private final JoystickButton pickupPositionButton;
     private final JoystickButton lowShotPositionButton;
     private final JoystickButton highShotPositionButton;
@@ -69,14 +62,15 @@ public class RobotRegistry implements RobotParameters {
     private final JoystickButton triggerFireButton;
     private final JoystickButton triggerLockButton;
     private final Switch triggerLockedSwitch;
-    private boolean shooting;
     private final JoystickButton autoShootButton;
     private final JoystickButton forceTriggerFireButton;
 
     private final SimpleRelay shootDistanceLightRelay;
     private final SimpleRelay triggerLockedLightRelay;
 
-    public RobotRegistry() {
+    private final JoystickButton parkRobotButton;
+
+    public ComponentRegistry() {
         /* Instantiate Drive components */
         leftDriveJoystick = new Joystick(LEFT_DRIVE_JOYSTICK);
         rightDriveJoystick = new Joystick(RIGHT_DRIVE_JOYSTICK);
@@ -88,20 +82,15 @@ public class RobotRegistry implements RobotParameters {
         rearRightDriveMotor = speedControllerFactory.create(REAR_RIGHT_DRIVE_MOTOR_PORT, REAR_RIGHT_DRIVE_SPEED_CONTROLLER, (REAR_RIGHT_DRIVE_MOTOR_DIRECTION==REVERSE));
         robotDrive = new RobotDrive(frontLeftDriveMotor, rearLeftDriveMotor, frontRightDriveMotor, rearRightDriveMotor);
         reverseDirectionButton = new JoystickButton(leftDriveJoystick, REVERSE_DRIVE_DIRECTION_BUTTON, false);
-        driveDirection = DEFAULT_DRIVE_DIRECTION;
         speedDragButton = new JoystickButton(leftDriveJoystick, SPEED_DRAG_BUTTON, false);
         speedBoostButton = new JoystickButton(rightDriveJoystick, SPEED_BOOST_BUTTON, false);
         lowSpeedButton = new JoystickButton(rightDriveJoystick, LOW_SPEED_BUTTON, false);
         mediumSpeedButton = new JoystickButton(rightDriveJoystick, MEDIUM_SPEED_BUTTON, true);
         highSpeedButton = new JoystickButton(rightDriveJoystick, HIGH_SPEED_BUTTON, false);
 
-        driveSpeedMode = HIGH_SPEED;
-        speedBoostDrag = SPEED_BOOST_DRAG_OFF;
-
         /* Pickup components */
         pickupStopSwitch = new DigitalInputSwitch(1, NORMALLY_CLOSED);
         pickupMotor = speedControllerFactory.create(PICKUP_MOTOR_PORT, PICKUP_SPEED_CONTROLLER, pickupStopSwitch, null, PICKUP_MOTOR_DIRECTION==REVERSE);
-        keepBallMode = false;
         pickupButton = new JoystickButton(operatorJoystick, PICKUP_BUTTON, false);
 
         /* Instantiate Switch components */
@@ -115,8 +104,6 @@ public class RobotRegistry implements RobotParameters {
         shoulderReverseLimitSwitch = new PotentiometerLimitSwitch(shoulderPotentiometer, true, 100.0, false);
 // Replace with correct limit switches
         shoulderMotor = speedControllerFactory.create(SHOULDER_MOTOR_PORT, PICKUP_SPEED_CONTROLLER, shoulderReverseLimitSwitch, shoulderForwardLimitSwitch, SHOULDER_MOTOR_DIRECTION==REVERSE);
-        shoulderPositionTarget = -1.0;
-        shoulderPositionMode = SHOULDER_JOYSTICK_MODE;
         pickupPositionButton = new JoystickButton(operatorJoystick, SHOULDER_PICKUP_POSITION_BUTTON, false);
         lowShotPositionButton = new JoystickButton(operatorJoystick, SHOULDER_LOW_SHOT_POSITION_BUTTON, false);
         highShotPositionButton = new JoystickButton(operatorJoystick, SHOULDER_HIGH_SHOT_POSITION_BUTTON, false);
@@ -131,7 +118,6 @@ public class RobotRegistry implements RobotParameters {
         triggerFireButton = new JoystickButton(operatorJoystick, TRIGGER_FIRE_BUTTON, false);
         triggerLockButton = new JoystickButton(operatorJoystick, TRIGGER_LOCK_BUTTON, false);
         triggerLockedSwitch = new TriggerLockedSwitch(); // Pass any component switches needed
-        shooting = false;
         autoShootButton = new JoystickButton(operatorJoystick, AUTO_SHOOT_BUTTON, false);
         forceTriggerFireButton = new JoystickButton(operatorJoystick, FORCE_TRIGGER_FIRE_BUTTON, false);
 
@@ -139,26 +125,12 @@ public class RobotRegistry implements RobotParameters {
         Relay indicatorLightsSpikeRelay = new Relay(INDICATOR_LIGHTS_CHANNEL);
         shootDistanceLightRelay = new SimpleRelay(indicatorLightsSpikeRelay, SHOOT_DISTANCE_LIGHT_RELAY);
         triggerLockedLightRelay = new SimpleRelay(indicatorLightsSpikeRelay, TRIGGER_LOCKED_LIGHT_RELAY);
+
+        parkRobotButton = new JoystickButton(rightDriveJoystick, PARK_ROBOT_BUTTON, false);
     }
 
     public Switch getPickupStopSwitch() {
         return pickupStopSwitch;
-    }
-
-    public boolean isKeepBallMode() {
-        return keepBallMode;
-    }
-
-    public void setKeepBallMode(boolean keepBallMode) {
-        this.keepBallMode = keepBallMode;
-    }
-
-    public boolean isShooting() {
-        return shooting;
-    }
-
-    public void setShooting(boolean shooting) {
-        this.shooting = shooting;
     }
 
     public JoystickButton getPickupButton() {
@@ -205,30 +177,6 @@ public class RobotRegistry implements RobotParameters {
         return speedDragButton;
     }
 
-    public int getDriveDirection() {
-        return driveDirection;
-    }
-
-    public void setDriveDirection(int driveDirection) {
-        this.driveDirection = driveDirection;
-    }
-
-    public int getDriveSpeedMode() {
-        return driveSpeedMode;
-    }
-
-    public void setDriveSpeedMode(int driveSpeedMode) {
-        this.driveSpeedMode = driveSpeedMode;
-    }
-
-    public int getSpeedBoostDrag() {
-        return speedBoostDrag;
-    }
-
-    public void setSpeedBoostDrag(int speedBoostDrag) {
-        this.speedBoostDrag = speedBoostDrag;
-    }
-
     public Joystick getLeftDriveJoystick() {
         return leftDriveJoystick;
     }
@@ -263,22 +211,6 @@ public class RobotRegistry implements RobotParameters {
 
     public PotentiometerLimitSwitch getShoulderForwardLimitSwitch() {
         return shoulderForwardLimitSwitch;
-    }
-
-    public double getShoulderPositionTarget() {
-        return shoulderPositionTarget;
-    }
-
-    public void setShoulderPositionTarget(double shoulderPositionTarget) {
-        this.shoulderPositionTarget = shoulderPositionTarget;
-    }
-
-    public int getShoulderPositionMode() {
-        return shoulderPositionMode;
-    }
-
-    public void setShoulderPositionMode(int shoulderPositionMode) {
-        this.shoulderPositionMode = shoulderPositionMode;
     }
 
     public JoystickButton getPickupPositionButton() {
@@ -344,4 +276,9 @@ public class RobotRegistry implements RobotParameters {
     public MaxSonarDistanceSwitch getShootingDistanceSwitch() {
         return shootingDistanceSwitch;
     }
+
+    public JoystickButton getParkRobotButton() {
+        return parkRobotButton;
+    }
+
 }

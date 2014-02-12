@@ -3,21 +3,24 @@ package us.in.k12.taylor.robotics.robot2014.handlers;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
-import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
+import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
+import us.in.k12.taylor.robotics.robot2014.StateRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
 
 /**
  * @author Taylor Robotics 2014
  */
 public class TankDriveHandler implements RobotParameters {
-    private final RobotRegistry registry;
+    private final ComponentRegistry registry;
+    private final StateRegistry stateRegistry;
     private final RobotDrive robotDrive;
 
     private final Joystick leftDriveJoystick;
     private final Joystick rightDriveJoystick;
 
     public TankDriveHandler(TitanRobot pRobot) {
-        registry = pRobot.getRegistry();
+        registry = pRobot.getComponentRegistry();
+        stateRegistry = pRobot.getStateRegistry();
         robotDrive = registry.getRobotDrive();
 
         leftDriveJoystick = registry.getLeftDriveJoystick();
@@ -26,7 +29,7 @@ public class TankDriveHandler implements RobotParameters {
 
     public void run() {
         /* Call tank drive after adjusting for drive direction */
-        if (registry.getDriveDirection() == REVERSE) {
+        if (stateRegistry.getDriveDirection() == REVERSE) {
             robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontLeft, true);
             robotDrive.setInvertedMotor(RobotDrive.MotorType.kFrontRight, true);
             robotDrive.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);

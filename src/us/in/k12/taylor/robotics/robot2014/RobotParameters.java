@@ -76,6 +76,7 @@ public interface RobotParameters {
     int MEDIUM_SPEED_BUTTON = 2;
     int LOW_SPEED_BUTTON = 4;
     int HIGH_SPEED_BUTTON = 5;
+    int PARK_ROBOT_BUTTON = 11;
 
     /* Operator Joystick button mapping */
     int TRIGGER_FIRE_BUTTON = 1;

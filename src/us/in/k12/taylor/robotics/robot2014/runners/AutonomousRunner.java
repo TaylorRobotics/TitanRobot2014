@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
-import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
+import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
 import us.in.k12.taylor.robotics.robot2014.components.Switch;
 import us.in.k12.taylor.robotics.robot2014.components.TimeLimit;
@@ -14,14 +14,14 @@ import us.in.k12.taylor.robotics.robot2014.components.TimeLimit;
  */
 public class AutonomousRunner implements RobotParameters {
     private final TitanRobot robot;
-    private final RobotRegistry registry;
+    private final ComponentRegistry registry;
     private final Switch leftToggleSwitch;
     private final Switch rightToggleSwitch;
     private final RobotDrive robotDrive;
 
     public AutonomousRunner(TitanRobot pRobot) {
         robot = pRobot;
-        registry = robot.getRegistry();
+        registry = robot.getComponentRegistry();
         leftToggleSwitch = registry.getLeftAutonomousModeSwitch();
         rightToggleSwitch = registry.getRightAutonomousModeSwitch();
         robotDrive = registry.getRobotDrive();
@@ -63,11 +63,17 @@ public class AutonomousRunner implements RobotParameters {
     }
 
     private void runAutonomousMode2() {
-        
+        // Set keep mode
+        // Lower arm to shoot position
+        // Turn on auto shoot
+        // Move forward for x seconds or until ball out
     }
 
     private void runAutonomousMode3() {
-        
+        // Set keep mode
+        // Move forward for x seconds
+        // Lower arm to shoot position
+        // Shoot
     }
 
     private void runAutonomousMode4() {

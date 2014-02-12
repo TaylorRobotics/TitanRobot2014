@@ -2,7 +2,8 @@ package us.in.k12.taylor.robotics.robot2014.handlers;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
-import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
+import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
+import us.in.k12.taylor.robotics.robot2014.StateRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
 import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
 
@@ -10,7 +11,8 @@ import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
  * @author Taylor Robotics 2014
  */
 public class DriveSpeedButtonHandler implements RobotParameters {
-    private final RobotRegistry registry;
+    private final ComponentRegistry registry;
+    private final StateRegistry stateRegistry;
     private final JoystickButton lowSpeedButton;
     private final JoystickButton mediumSpeedButton;
     private final JoystickButton highSpeedButton;
@@ -19,7 +21,8 @@ public class DriveSpeedButtonHandler implements RobotParameters {
     private final RobotDrive robotDrive;
 
     public DriveSpeedButtonHandler(TitanRobot pRobot) {
-        registry = pRobot.getRegistry();
+        registry = pRobot.getComponentRegistry();
+        stateRegistry = pRobot.getStateRegistry();
         robotDrive = registry.getRobotDrive();
 
         speedDragButton = registry.getSpeedDragButton();
@@ -36,16 +39,16 @@ public class DriveSpeedButtonHandler implements RobotParameters {
  
         /* Check speed buttons and set the drivespeed */
         if (lowSpeedButton.isSwitchOn() && lowSpeedButton.getStateChange()) {
-            registry.setDriveSpeedMode(LOW_SPEED);
+            stateRegistry.setDriveSpeedMode(LOW_SPEED);
         }
         else if (mediumSpeedButton.isSwitchOn() && mediumSpeedButton.getStateChange()) {
-            registry.setDriveSpeedMode(MEDIUM_SPEED);
+            stateRegistry.setDriveSpeedMode(MEDIUM_SPEED);
         }
         else if (highSpeedButton.isSwitchOn() && highSpeedButton.getStateChange()) {
-            registry.setDriveSpeedMode(HIGH_SPEED);
+            stateRegistry.setDriveSpeedMode(HIGH_SPEED);
         }
 
-        switch (registry.getDriveSpeedMode()) {
+        switch (stateRegistry.getDriveSpeedMode()) {
             case LOW_SPEED:
                 maxDriveSpeed = MAX_LOW_SPEED;
                 break;
@@ -59,15 +62,15 @@ public class DriveSpeedButtonHandler implements RobotParameters {
 
         /* Check if boost or drag buttons are pushed */
         if (speedBoostButton.isSwitchOn()) {
-            registry.setSpeedBoostDrag(SPEED_BOOST_ON);
+            stateRegistry.setSpeedBoostDrag(SPEED_BOOST_ON);
             boostDragSpeed = BOOST_SPEED;
         }
         else if (speedDragButton.isSwitchOn()) {
-            registry.setSpeedBoostDrag(SPEED_DRAG_ON);
+            stateRegistry.setSpeedBoostDrag(SPEED_DRAG_ON);
             boostDragSpeed = DRAG_SPEED;
         }
         else {
-            registry.setSpeedBoostDrag(SPEED_BOOST_DRAG_OFF);
+            stateRegistry.setSpeedBoostDrag(SPEED_BOOST_DRAG_OFF);
             boostDragSpeed = 0.0;
         }
         robotDrive.setMaxOutput(maxDriveSpeed + boostDragSpeed);

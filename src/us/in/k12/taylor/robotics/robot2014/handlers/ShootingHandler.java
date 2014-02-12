@@ -1,7 +1,8 @@
 package us.in.k12.taylor.robotics.robot2014.handlers;
 
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
-import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
+import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
+import us.in.k12.taylor.robotics.robot2014.StateRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
 import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
 import us.in.k12.taylor.robotics.robot2014.components.Potentiometer;
@@ -11,7 +12,8 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
  * @author Taylor Robotics 2014
  */
 public class ShootingHandler implements RobotParameters {
-    private final RobotRegistry registry;
+    private final ComponentRegistry registry;
+    private final StateRegistry stateRegistry;
     private final TitanSpeedController triggerMotor;
     private final TitanSpeedController pickupMotor;
     private final Potentiometer shoulderPotentiometer;
@@ -19,7 +21,8 @@ public class ShootingHandler implements RobotParameters {
     private boolean lastShootingMode;
 
     public ShootingHandler(TitanRobot pRobot) {
-        registry = pRobot.getRegistry();
+        registry = pRobot.getComponentRegistry();
+        stateRegistry = pRobot.getStateRegistry();
         triggerMotor = registry.getTriggerMotor();
         pickupMotor = registry.getPickupMotor();
         shoulderPotentiometer = registry.getShoulderPotentiometer();
@@ -28,7 +31,7 @@ public class ShootingHandler implements RobotParameters {
     }
 
     public void run() {
-        if (registry.isShooting()) {
+        if (stateRegistry.isShooting()) {
             if (lastShootingMode) {
                 /* In shooting process.  Run motor until time limit reached */
                 pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
@@ -48,6 +51,6 @@ public class ShootingHandler implements RobotParameters {
             pickupMotor.set(0.0);
             pickupMotor.setNonTimedOperation();
         }
-        lastShootingMode = registry.isShooting();
+        lastShootingMode = stateRegistry.isShooting();
     }
 }

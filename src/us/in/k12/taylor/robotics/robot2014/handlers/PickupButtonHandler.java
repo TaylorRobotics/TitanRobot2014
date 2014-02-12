@@ -1,7 +1,8 @@
 package us.in.k12.taylor.robotics.robot2014.handlers;
 
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
-import us.in.k12.taylor.robotics.robot2014.RobotRegistry;
+import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
+import us.in.k12.taylor.robotics.robot2014.StateRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
 import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
 import us.in.k12.taylor.robotics.robot2014.components.Switch;
@@ -11,14 +12,18 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
  * @author Taylor Robtics 2014
  */
 public class PickupButtonHandler implements RobotParameters {
-    private final RobotRegistry registry;
+    private final ComponentRegistry registry;
+    private final StateRegistry stateRegistry;
+
     private final JoystickButton pickupButton;
     private final TitanSpeedController pickupMotor;
     private final Switch pickupStopSwitch;
     private boolean lastStopSwitchState;
 
     public PickupButtonHandler(TitanRobot pRobot) {
-        registry = pRobot.getRegistry();
+        registry = pRobot.getComponentRegistry();
+        stateRegistry = pRobot.getStateRegistry();
+
         pickupMotor = registry.getPickupMotor();
         pickupStopSwitch = registry.getPickupStopSwitch();
         pickupButton = registry.getPickupButton();
@@ -31,15 +36,15 @@ public class PickupButtonHandler implements RobotParameters {
             pickupMotor.setNonTimedOperation();
             pickupMotor.set(PICKUP_MOTOR_SPEED);
             if (pickupMotor.isHardLimitReached()) {
-                registry.setKeepBallMode(true);
+                stateRegistry.setKeepBallMode(true);
                 lastStopSwitchState = true;
             }
             else {
-                registry.setKeepBallMode(false);
+                stateRegistry.setKeepBallMode(false);
                 lastStopSwitchState = false;
             }
         }
-        else if (registry.isKeepBallMode()) {
+        else if (stateRegistry.isKeepBallMode()) {
             if (!pickupStopSwitch.isSwitchOn() && lastStopSwitchState) {
                 pickupMotor.setTimedOperation(PICKUP_TRY_TIME);
                 lastStopSwitchState = false;
@@ -48,7 +53,7 @@ public class PickupButtonHandler implements RobotParameters {
             if (pickupMotor.isLimitReached()) {
                 lastStopSwitchState = true;
                 if (pickupMotor.isTimeLimitReached()) {
-                    registry.setKeepBallMode(false);
+                    stateRegistry.setKeepBallMode(false);
                 }
                 pickupMotor.setNonTimedOperation();
                 pickupMotor.set(0.0);
