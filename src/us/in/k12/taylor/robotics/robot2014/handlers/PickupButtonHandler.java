@@ -12,7 +12,7 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
  * @author Taylor Robtics 2014
  */
 public class PickupButtonHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
 
     private final JoystickButton pickupButton;
@@ -21,12 +21,12 @@ public class PickupButtonHandler implements RobotParameters {
     private boolean lastStopSwitchState;
 
     public PickupButtonHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
 
-        pickupMotor = registry.getPickupMotor();
-        pickupStopSwitch = registry.getPickupStopSwitch();
-        pickupButton = registry.getPickupButton();
+        pickupMotor = componentRegistry.getPickupMotor();
+        pickupStopSwitch = componentRegistry.getPickupStopSwitch();
+        pickupButton = componentRegistry.getPickupButton();
         lastStopSwitchState = pickupStopSwitch.isSwitchOn();
     }
 

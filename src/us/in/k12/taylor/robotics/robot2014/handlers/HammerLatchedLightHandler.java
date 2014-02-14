@@ -10,14 +10,14 @@ import us.in.k12.taylor.robotics.robot2014.components.Switch;
  * @author Taylor Robotics 2014
  */
 public class HammerLatchedLightHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final Switch hammerLatchedSwitch;
     private final SimpleRelay hammerLatchedLightRelay;
 
     public HammerLatchedLightHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
-        hammerLatchedSwitch = registry.getHammerLatchedSwitch();
-        hammerLatchedLightRelay = registry.getHammerLatchedLightRelay();
+        componentRegistry = pRobot.getComponentRegistry();
+        hammerLatchedSwitch = componentRegistry.getHammerLatchedSwitch();
+        hammerLatchedLightRelay = componentRegistry.getHammerLatchedLightRelay();
     }
 
     public void run() {

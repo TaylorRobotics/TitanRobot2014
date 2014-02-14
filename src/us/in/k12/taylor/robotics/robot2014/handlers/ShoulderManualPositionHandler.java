@@ -11,17 +11,17 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
  * @author Taylor Robotics 2014
  */
 public class ShoulderManualPositionHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final TitanSpeedController shoulderMotor;
     private final Joystick operationJoystick;
     private boolean stopped;
 
     public ShoulderManualPositionHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        operationJoystick = registry.getOperatorJoystick();
-        shoulderMotor = registry.getShoulderMotor();
+        operationJoystick = componentRegistry.getOperatorJoystick();
+        shoulderMotor = componentRegistry.getShoulderMotor();
         stopped = true;
     }
 

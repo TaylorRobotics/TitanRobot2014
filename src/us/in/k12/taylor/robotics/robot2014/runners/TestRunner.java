@@ -10,11 +10,11 @@ import us.in.k12.taylor.robotics.robot2014.TitanRobot;
 public class TestRunner implements RobotParameters {
 
     private final TitanRobot robot;
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
 
     public TestRunner(TitanRobot pRobot) {
         robot = pRobot;
-        registry = robot.getComponentRegistry();
+        componentRegistry = robot.getComponentRegistry();
     }
 
     public void run() {

@@ -11,18 +11,18 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
  * @author Taylor Robotics 2014
  */
 public class HammerButtonHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final JoystickButton hammerFireButton;
     private final JoystickButton hammerLatchButton;
     private final TitanSpeedController hammerMotor;
 
     public HammerButtonHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        hammerMotor = registry.getHammerMotor();
-        hammerFireButton = registry.getHammerFireButton();
-        hammerLatchButton = registry.getHammerLatchButton();
+        hammerMotor = componentRegistry.getHammerMotor();
+        hammerFireButton = componentRegistry.getHammerFireButton();
+        hammerLatchButton = componentRegistry.getHammerLatchButton();
     }
 
     public void run() {

@@ -11,7 +11,7 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 * @author Taylor Robotics 2014
 */
 public class ShoulderServoHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final Potentiometer shoulderPotentiometer;
     private final TitanSpeedController shoulderMotor;
@@ -22,10 +22,10 @@ public class ShoulderServoHandler implements RobotParameters {
     private double lastPosition;
  
     public ShoulderServoHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        shoulderPotentiometer = registry.getShoulderPotentiometer();
-        shoulderMotor = registry.getShoulderMotor();
+        shoulderPotentiometer = componentRegistry.getShoulderPotentiometer();
+        shoulderMotor = componentRegistry.getShoulderMotor();
         motorSpeed = 0.0;
         lastTimeCheck = 0;
         nextTimeCheck = 0;

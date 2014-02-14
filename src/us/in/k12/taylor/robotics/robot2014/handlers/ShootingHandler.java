@@ -12,7 +12,7 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
  * @author Taylor Robotics 2014
  */
 public class ShootingHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final StateRegistry stateRegistry;
     private final TitanSpeedController hammerMotor;
     private final TitanSpeedController pickupMotor;
@@ -21,12 +21,12 @@ public class ShootingHandler implements RobotParameters {
     private boolean lastShootingMode;
 
     public ShootingHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
+        componentRegistry = pRobot.getComponentRegistry();
         stateRegistry = pRobot.getStateRegistry();
-        hammerMotor = registry.getHammerMotor();
-        pickupMotor = registry.getPickupMotor();
-        shoulderPotentiometer = registry.getShoulderPotentiometer();
-        forceHammerFireButton = registry.getForceHammerFireButton();
+        hammerMotor = componentRegistry.getHammerMotor();
+        pickupMotor = componentRegistry.getPickupMotor();
+        shoulderPotentiometer = componentRegistry.getShoulderPotentiometer();
+        forceHammerFireButton = componentRegistry.getForceHammerFireButton();
         lastShootingMode = false;
     }
 

@@ -10,14 +10,14 @@ import us.in.k12.taylor.robotics.robot2014.components.Switch;
  * @author Taylor Robotics 2014
  */
 public class ShootingDistanceLightHandler implements RobotParameters {
-    private final ComponentRegistry registry;
+    private final ComponentRegistry componentRegistry;
     private final Switch distanceSwitch;
     private final SimpleRelay shootDistanceLightRelay;
 
     public ShootingDistanceLightHandler(TitanRobot pRobot) {
-        registry = pRobot.getComponentRegistry();
-        distanceSwitch = registry.getShootingDistanceSwitch();
-        shootDistanceLightRelay = registry.getShootDistanceLightRelay();
+        componentRegistry = pRobot.getComponentRegistry();
+        distanceSwitch = componentRegistry.getShootingDistanceSwitch();
+        shootDistanceLightRelay = componentRegistry.getShootDistanceLightRelay();
     }
 
     public void run() {
