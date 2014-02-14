@@ -11,9 +11,9 @@ import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
 import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSensor;
 import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.Potentiometer;
-import us.in.k12.taylor.robotics.robot2014.components.PotentiometerLimitSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.Switch;
 import us.in.k12.taylor.robotics.robot2014.components.HammerLatchedSwitch;
+import us.in.k12.taylor.robotics.robot2014.components.MessageDisplay;
 import us.in.k12.taylor.robotics.robot2014.factories.SpeedControllerFactory;
 import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 
@@ -21,6 +21,7 @@ import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
  * @author Taylor Robotics 2014
  */
 public class ComponentRegistry implements RobotParameters {
+    private final MessageDisplay messageDisplay;
     private final SpeedController frontLeftDriveMotor;
     private final SpeedController frontRightDriveMotor;
     private final SpeedController rearLeftDriveMotor;
@@ -47,8 +48,8 @@ public class ComponentRegistry implements RobotParameters {
     private final AnalogChannel analogVoltageMeter;
     private final Potentiometer shoulderPotentiometer;
     private final TitanSpeedController shoulderMotor;
-    private final PotentiometerLimitSwitch shoulderForwardLimitSwitch;
-    private final PotentiometerLimitSwitch shoulderReverseLimitSwitch;
+    private final Switch armUpLimitSwitch;
+    private final Switch armDownLimitSwitch;
     private final JoystickButton pickupPositionButton;
     private final JoystickButton lowShotPositionButton;
     private final JoystickButton highShotPositionButton;
@@ -71,6 +72,8 @@ public class ComponentRegistry implements RobotParameters {
     private final JoystickButton parkRobotButton;
 
     public ComponentRegistry() {
+        messageDisplay = new MessageDisplay();
+
         /* Instantiate Drive components */
         leftDriveJoystick = new Joystick(LEFT_DRIVE_JOYSTICK);
         rightDriveJoystick = new Joystick(RIGHT_DRIVE_JOYSTICK);
@@ -89,7 +92,7 @@ public class ComponentRegistry implements RobotParameters {
         highSpeedButton = new JoystickButton(rightDriveJoystick, HIGH_SPEED_BUTTON, false);
 
         /* Pickup components */
-        pickupStopSwitch = new DigitalInputSwitch(1, NORMALLY_CLOSED);
+        pickupStopSwitch = new DigitalInputSwitch(BALL_STOP_SWITCH_CHANNEL, NORMALLY_CLOSED);
         pickupMotor = speedControllerFactory.create(PICKUP_MOTOR_PORT, PICKUP_SPEED_CONTROLLER, pickupStopSwitch, null, PICKUP_MOTOR_DIRECTION==REVERSE);
         pickupButton = new JoystickButton(operatorJoystick, PICKUP_BUTTON, false);
 
@@ -100,10 +103,9 @@ public class ComponentRegistry implements RobotParameters {
         /* Shoulder components */
         analogVoltageMeter = new AnalogChannel(ANALOG_SUPPLY_CHANNEL);
         shoulderPotentiometer = new Potentiometer(ARM_POTENTIOMETER_CHANNEL, analogVoltageMeter, SHOULDER_POTENTIOMETER_DIRECTION==REVERSE, SHOULDER_POTENTIOMETER_SCALE, SHOULDER_POTENTIOMETER_MINIMUM_EDGE, SHOULDER_POTENTIOMETER_MAXIMUM_EDGE);
-        shoulderForwardLimitSwitch = new PotentiometerLimitSwitch(shoulderPotentiometer, false, 900.0, false);
-        shoulderReverseLimitSwitch = new PotentiometerLimitSwitch(shoulderPotentiometer, true, 100.0, false);
-// Replace with correct limit switches
-        shoulderMotor = speedControllerFactory.create(SHOULDER_MOTOR_PORT, PICKUP_SPEED_CONTROLLER, shoulderReverseLimitSwitch, shoulderForwardLimitSwitch, SHOULDER_MOTOR_DIRECTION==REVERSE);
+        armUpLimitSwitch = new DigitalInputSwitch(ARM_UP_LIMIT_SWITCH_CHANNEL, NORMALLY_CLOSED);
+        armDownLimitSwitch = new DigitalInputSwitch(ARM_DOWN_LIMIT_SWITCH_CHANNEL, NORMALLY_CLOSED);
+        shoulderMotor = speedControllerFactory.create(SHOULDER_MOTOR_PORT, PICKUP_SPEED_CONTROLLER, armUpLimitSwitch, armDownLimitSwitch, SHOULDER_MOTOR_DIRECTION==REVERSE);
         pickupPositionButton = new JoystickButton(operatorJoystick, SHOULDER_PICKUP_POSITION_BUTTON, false);
         lowShotPositionButton = new JoystickButton(operatorJoystick, SHOULDER_LOW_SHOT_POSITION_BUTTON, false);
         highShotPositionButton = new JoystickButton(operatorJoystick, SHOULDER_HIGH_SHOT_POSITION_BUTTON, false);
@@ -127,6 +129,10 @@ public class ComponentRegistry implements RobotParameters {
         hammerLatchedLightRelay = new SimpleRelay(indicatorLightsSpikeRelay, LATCH_LOCKED_LIGHT_RELAY);
 
         parkRobotButton = new JoystickButton(rightDriveJoystick, PARK_ROBOT_BUTTON, false);
+    }
+
+    public MessageDisplay getMessageDisplay() {
+        return messageDisplay;
     }
 
     public Switch getPickupStopSwitch() {
@@ -207,10 +213,6 @@ public class ComponentRegistry implements RobotParameters {
 
     public TitanSpeedController getShoulderMotor() {
         return shoulderMotor;
-    }
-
-    public PotentiometerLimitSwitch getShoulderForwardLimitSwitch() {
-        return shoulderForwardLimitSwitch;
     }
 
     public JoystickButton getPickupPositionButton() {

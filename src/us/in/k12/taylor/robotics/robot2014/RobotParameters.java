@@ -18,7 +18,10 @@ public interface RobotParameters {
     int ON_HIGH = 0;
     int ON_LOW = 1;
 
-    /* Autonomous mode toggle switches */
+    /* Digital Input Mapping */
+    int ARM_UP_LIMIT_SWITCH_CHANNEL = 1;
+    int ARM_DOWN_LIMIT_SWITCH_CHANNEL = 2;
+    int BALL_STOP_SWITCH_CHANNEL = 3;
     int LEFT_AUTONOMOUS_MODE_CHANNEL = 9;
     int RIGHT_AUTONOMOUS_MODE_CHANNEL = 10;
 
@@ -44,10 +47,10 @@ public interface RobotParameters {
     Class LATCH_SPEED_CONTROLLER = Talon.class;
 
     /* Motor direction - Change motor direction if wired backwards */
-    int FRONT_LEFT_DRIVE_MOTOR_DIRECTION = FORWARD;
-    int FRONT_RIGHT_DRIVE_MOTOR_DIRECTION = FORWARD;
-    int REAR_LEFT_DRIVE_MOTOR_DIRECTION = FORWARD;
-    int REAR_RIGHT_DRIVE_MOTOR_DIRECTION = FORWARD;
+    int FRONT_LEFT_DRIVE_MOTOR_DIRECTION = REVERSE;
+    int FRONT_RIGHT_DRIVE_MOTOR_DIRECTION = REVERSE;
+    int REAR_LEFT_DRIVE_MOTOR_DIRECTION = REVERSE;
+    int REAR_RIGHT_DRIVE_MOTOR_DIRECTION = REVERSE;
     int PICKUP_MOTOR_DIRECTION = FORWARD;
     int SHOULDER_MOTOR_DIRECTION = FORWARD;
     int LATCH_MOTOR_DIRECTION = FORWARD;

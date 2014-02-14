@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Watchdog;
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
 import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
+import us.in.k12.taylor.robotics.robot2014.components.MessageDisplay;
 import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 import us.in.k12.taylor.robotics.robot2014.handlers.AutoShootHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.DriveDirectionButtonHandler;
@@ -19,16 +20,22 @@ import us.in.k12.taylor.robotics.robot2014.handlers.ShoulderServoHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.TankDriveHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.HammerButtonHandler;
 import us.in.k12.taylor.robotics.robot2014.handlers.HammerLatchedLightHandler;
+import us.in.k12.taylor.robotics.robot2014.monitors.ArmPositionMonitor;
+import us.in.k12.taylor.robotics.robot2014.monitors.DistanceMonitor;
 
 /**
  * @author Taylor Robotics 2014
  */
 public class TeleOperatedRunner implements RobotParameters {
     private final TitanRobot robot;
-    private final ComponentRegistry ComponentRegistry;
+    private final ComponentRegistry componentRegistry;
 
     /* Handlers */
-    TankDriveHandler tankDriveHandler;
+    private final MessageDisplay messageDisplay;
+    private final DistanceMonitor distanceMonitor;
+    private final ArmPositionMonitor armPositionMonitor;
+
+    private final TankDriveHandler tankDriveHandler;
     private final DriveDirectionButtonHandler directionButtonHandler;
     private final DriveSpeedButtonHandler speedButtonHandler;
     private final PickupButtonHandler pickupButtonHandler;
@@ -44,7 +51,11 @@ public class TeleOperatedRunner implements RobotParameters {
 
     public TeleOperatedRunner(TitanRobot pRobot) {
         robot = pRobot;
-        ComponentRegistry = robot.getComponentRegistry();
+        componentRegistry = robot.getComponentRegistry();
+
+        messageDisplay = componentRegistry.getMessageDisplay();
+        armPositionMonitor = new ArmPositionMonitor(robot);
+        distanceMonitor = new DistanceMonitor(robot);
 
         /* Create handlers */
         tankDriveHandler = new TankDriveHandler(robot);
@@ -68,7 +79,7 @@ public class TeleOperatedRunner implements RobotParameters {
             /* Handle operations */
             directionButtonHandler.run();
             speedButtonHandler.run();
-            ComponentRegistry.getRobotDrive().drive(0.0, 0);
+            componentRegistry.getRobotDrive().drive(0.0, 0);
             tankDriveHandler.run();
 
             pickupButtonHandler.run();
@@ -88,10 +99,17 @@ public class TeleOperatedRunner implements RobotParameters {
             shootingDistanceLightHandler.run();
             hammerLatchedLightHandler.run();
 
+            /* Update Messages */
+            boolean updateNeeded = armPositionMonitor.update();
+            updateNeeded |= distanceMonitor.update();
+            if (updateNeeded) {
+                messageDisplay.update();
+            }
+
             /* Feed watchdog to prevent shutdown and then wait */
             Watchdog.getInstance().feed();
             Timer.delay(TELEOPERATED_LOOP_DELAY);
         }
-        ComponentRegistry.getRobotDrive().drive(0.0, 0);
+        componentRegistry.getRobotDrive().drive(0.0, 0);
     }
 }
