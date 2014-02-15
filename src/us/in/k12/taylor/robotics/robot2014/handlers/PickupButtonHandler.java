@@ -16,6 +16,7 @@ public class PickupButtonHandler implements RobotParameters {
     private final StateRegistry stateRegistry;
 
     private final JoystickButton pickupButton;
+    private final JoystickButton reversePickupButton;
     private final TitanSpeedController pickupMotor;
     private final Switch pickupStopSwitch;
     private boolean lastStopSwitchState;
@@ -27,12 +28,23 @@ public class PickupButtonHandler implements RobotParameters {
         pickupMotor = componentRegistry.getPickupMotor();
         pickupStopSwitch = componentRegistry.getPickupStopSwitch();
         pickupButton = componentRegistry.getPickupButton();
+        reversePickupButton = componentRegistry.getReversePickupButton();
         lastStopSwitchState = pickupStopSwitch.isSwitchOn();
     }
 
     public void run() {
+        /* Reverse pickup motor when reverse pickup button is pressed */
+        if (reversePickupButton.isSwitchOn()) {
+            pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
+            stateRegistry.setKeepBallMode(false);
+            lastStopSwitchState = false;
+        }
+        else if (reversePickupButton.getStateChange()) {
+            // Just released so stop motor
+            pickupMotor.set(0.0);
+        }
         /* Run pickup motor when pickup button is pressed */
-        if (pickupButton.isSwitchOn()) {
+        else if (pickupButton.isSwitchOn()) {
             pickupMotor.setNonTimedOperation();
             pickupMotor.set(PICKUP_MOTOR_SPEED);
             if (pickupMotor.isHardLimitReached()) {

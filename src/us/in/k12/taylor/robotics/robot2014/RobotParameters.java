@@ -85,7 +85,7 @@ public interface RobotParameters {
     int PICKUP_BUTTON = 2;
     int SHOULDER_MANUAL_MODE_BUTTON = 3;
     int LATCH_LOCK_BUTTON = 4;
-    int FORCE_HAMMER_FIRE_BUTTON = 5;
+    int REVERSE_PICKUP_BUTTON = 5;
     int AUTO_SHOOT_BUTTON = 6;
     int SHOULDER_PICKUP_POSITION_BUTTON = 7;
     int SHOULDER_LOW_SHOT_POSITION_BUTTON = 8;
@@ -120,10 +120,10 @@ public interface RobotParameters {
     int DISTANCE_SENSOR_CHANNEL = 3;
 
     /* Shooter Hammer Motor Speeds */
-    double HAMMER_FIRE_SPEED = 0.75;
+    double HAMMER_FIRE_SPEED = 1.0;
     double HAMMER_LATCH_SPEED = -0.75;
     long PICKUP_MOTOR_FIRE_TIME = 2000;
-    double PICKUP_MOTOR_FIRE_SPEED = -0.75;
+    double PICKUP_MOTOR_FIRE_SPEED = -1.0;
     double HAMMER_FIRE_LIMIT = 400.0;
 
     /* Auto Shoot mode constants */
@@ -151,7 +151,7 @@ public interface RobotParameters {
     int SHOULDER_SEEK_MODE = 2;
 
     /* Shoulder potentiometer constants */
-    int SHOULDER_POTENTIOMETER_DIRECTION = FORWARD;
+    int SHOULDER_POTENTIOMETER_DIRECTION = REVERSE;
     double SHOULDER_POTENTIOMETER_MINIMUM_EDGE = 0.1;
     double SHOULDER_POTENTIOMETER_MAXIMUM_EDGE = 0.9;
     double SHOULDER_POTENTIOMETER_SCALE = 1000.0;

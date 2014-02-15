@@ -64,7 +64,7 @@ public class ComponentRegistry implements RobotParameters {
     private final JoystickButton hammerLatchButton;
     private final Switch hammerLatchedSwitch;
     private final JoystickButton autoShootButton;
-    private final JoystickButton forceHammerFireButton;
+    private final JoystickButton reversePickupButton;
 
     private final SimpleRelay shootDistanceLightRelay;
     private final SimpleRelay hammerLatchedLightRelay;
@@ -121,7 +121,7 @@ public class ComponentRegistry implements RobotParameters {
         hammerLatchButton = new JoystickButton(operatorJoystick, LATCH_LOCK_BUTTON, false);
         hammerLatchedSwitch = new HammerLatchedSwitch(); // Pass any component switches needed
         autoShootButton = new JoystickButton(operatorJoystick, AUTO_SHOOT_BUTTON, false);
-        forceHammerFireButton = new JoystickButton(operatorJoystick, FORCE_HAMMER_FIRE_BUTTON, false);
+        reversePickupButton = new JoystickButton(operatorJoystick, REVERSE_PICKUP_BUTTON, false);
 
         /* Indicator light components */
         Relay indicatorLightsSpikeRelay = new Relay(INDICATOR_LIGHTS_CHANNEL);
@@ -267,8 +267,8 @@ public class ComponentRegistry implements RobotParameters {
         return hammerLatchedSwitch;
     }
 
-    public JoystickButton getForceHammerFireButton() {
-        return forceHammerFireButton;
+    public JoystickButton getReversePickupButton() {
+        return reversePickupButton;
     }
 
     public MaxSonarDistanceSensor getDistanceSensor() {

@@ -4,8 +4,6 @@ import us.in.k12.taylor.robotics.robot2014.RobotParameters;
 import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
 import us.in.k12.taylor.robotics.robot2014.StateRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
-import us.in.k12.taylor.robotics.robot2014.components.JoystickButton;
-import us.in.k12.taylor.robotics.robot2014.components.Potentiometer;
 import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 
 /**
@@ -16,8 +14,6 @@ public class ShootingHandler implements RobotParameters {
     private final StateRegistry stateRegistry;
     private final TitanSpeedController hammerMotor;
     private final TitanSpeedController pickupMotor;
-    private final Potentiometer shoulderPotentiometer;
-    private final JoystickButton forceHammerFireButton;
     private boolean lastShootingMode;
 
     public ShootingHandler(TitanRobot pRobot) {
@@ -25,8 +21,6 @@ public class ShootingHandler implements RobotParameters {
         stateRegistry = pRobot.getStateRegistry();
         hammerMotor = componentRegistry.getHammerMotor();
         pickupMotor = componentRegistry.getPickupMotor();
-        shoulderPotentiometer = componentRegistry.getShoulderPotentiometer();
-        forceHammerFireButton = componentRegistry.getForceHammerFireButton();
         lastShootingMode = false;
     }
 
@@ -40,9 +34,7 @@ public class ShootingHandler implements RobotParameters {
                 /* Start shooting process, and cancel keep ball when shooting */
                 pickupMotor.setTimedOperation(PICKUP_MOTOR_FIRE_TIME);
                 pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
-                if (forceHammerFireButton.isSwitchOn() || (shoulderPotentiometer.getValue() >= HAMMER_FIRE_LIMIT)) {
-                    hammerMotor.set(HAMMER_FIRE_SPEED);
-                }
+                hammerMotor.set(HAMMER_FIRE_SPEED);
             }
         }
         else if (lastShootingMode) {

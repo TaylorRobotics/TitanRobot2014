@@ -21,7 +21,6 @@ public class HammerLatchedLightHandler implements RobotParameters {
     }
 
     public void run() {
-        // Consider putting in a time check (only check every x milisecons
         hammerLatchedLightRelay.set(hammerLatchedSwitch.isSwitchOn());
     }
 }
