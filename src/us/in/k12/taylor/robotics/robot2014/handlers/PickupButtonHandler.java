@@ -61,7 +61,7 @@ public class PickupButtonHandler implements RobotParameters {
                 pickupMotor.setTimedOperation(PICKUP_TRY_TIME);
                 lastStopSwitchState = false;
             }
-            pickupMotor.set(PICKUP_MOTOR_SPEED);
+            pickupMotor.set(PICKUP_MOTOR_KEEP_BALL_SPEED);
             if (pickupMotor.isLimitReached()) {
                 lastStopSwitchState = true;
                 if (pickupMotor.isTimeLimitReached()) {

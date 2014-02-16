@@ -3,7 +3,6 @@ package us.in.k12.taylor.robotics.robot2014.monitors;
 import us.in.k12.taylor.robotics.robot2014.RobotParameters;
 import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
-import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSensor;
 import us.in.k12.taylor.robotics.robot2014.components.MessageDisplay;
 import us.in.k12.taylor.robotics.robot2014.components.Potentiometer;
 
@@ -29,9 +28,10 @@ public class ArmPositionMonitor implements RobotParameters {
 
     private boolean update(boolean pForce) {
         boolean changed = false;
-        double currentPosition = shoulderPotentiometer.getValue();
+        double currentPosition = ((int)(shoulderPotentiometer.getValue() * 100)) / 100.0;
+        double currentRatio = ((int)(shoulderPotentiometer.getRatio()* 1000)) / 1000.0;
         if (pForce || (lastPosition != currentPosition)) {
-            messageDisplay.setLine(4, "Arm position: " + currentPosition);
+            messageDisplay.setLine(4, "Arm position: " + currentPosition + " (" + currentRatio + ")   ");
             lastPosition = currentPosition;
             changed = true;
         }
