@@ -12,7 +12,6 @@ import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSensor;
 import us.in.k12.taylor.robotics.robot2014.components.MaxSonarDistanceSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.Potentiometer;
 import us.in.k12.taylor.robotics.robot2014.components.Switch;
-import us.in.k12.taylor.robotics.robot2014.components.HammerLatchedSwitch;
 import us.in.k12.taylor.robotics.robot2014.components.MessageDisplay;
 import us.in.k12.taylor.robotics.robot2014.factories.SpeedControllerFactory;
 import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
@@ -63,6 +62,7 @@ public class ComponentRegistry implements RobotParameters {
     private final JoystickButton hammerFireButton;
     private final JoystickButton hammerLatchButton;
     private final Switch hammerLatchedSwitch;
+    private final Switch hammerLockedSwitch;
     private final JoystickButton autoShootButton;
     private final JoystickButton reversePickupButton;
 
@@ -119,7 +119,8 @@ public class ComponentRegistry implements RobotParameters {
         hammerMotor = speedControllerFactory.create(LATCH_MOTOR_PORT, LATCH_SPEED_CONTROLLER, LATCH_MOTOR_DIRECTION==REVERSE);
         hammerFireButton = new JoystickButton(operatorJoystick, HAMMER_FIRE_BUTTON, false);
         hammerLatchButton = new JoystickButton(operatorJoystick, LATCH_LOCK_BUTTON, false);
-        hammerLatchedSwitch = new HammerLatchedSwitch(); // Pass any component switches needed
+        hammerLatchedSwitch = new DigitalInputSwitch(HAMMER_LATCHED_SWITCH_CHANNEL, NORMALLY_CLOSED);
+        hammerLockedSwitch = new DigitalInputSwitch(HAMMER_LOCKED_SWITCH_CHANNEL, NORMALLY_CLOSED);
         autoShootButton = new JoystickButton(operatorJoystick, AUTO_SHOOT_BUTTON, false);
         reversePickupButton = new JoystickButton(operatorJoystick, REVERSE_PICKUP_BUTTON, false);
 
@@ -265,6 +266,10 @@ public class ComponentRegistry implements RobotParameters {
 
     public Switch getHammerLatchedSwitch() {
         return hammerLatchedSwitch;
+    }
+
+    public Switch getHammerLockedSwitch() {
+        return hammerLockedSwitch;
     }
 
     public JoystickButton getReversePickupButton() {

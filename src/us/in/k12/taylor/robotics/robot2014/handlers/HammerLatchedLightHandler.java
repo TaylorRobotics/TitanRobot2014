@@ -12,15 +12,18 @@ import us.in.k12.taylor.robotics.robot2014.components.Switch;
 public class HammerLatchedLightHandler implements RobotParameters {
     private final ComponentRegistry componentRegistry;
     private final Switch hammerLatchedSwitch;
+    private final Switch hammerLockedSwitch;
     private final SimpleRelay hammerLatchedLightRelay;
 
     public HammerLatchedLightHandler(TitanRobot pRobot) {
         componentRegistry = pRobot.getComponentRegistry();
         hammerLatchedSwitch = componentRegistry.getHammerLatchedSwitch();
+        hammerLockedSwitch = componentRegistry.getHammerLockedSwitch();
         hammerLatchedLightRelay = componentRegistry.getHammerLatchedLightRelay();
     }
 
     public void run() {
-        hammerLatchedLightRelay.set(hammerLatchedSwitch.isSwitchOn());
+        boolean latchedAndLocked = hammerLatchedSwitch.isSwitchOn() && hammerLockedSwitch.isSwitchOn();
+        hammerLatchedLightRelay.set(latchedAndLocked);
     }
 }
