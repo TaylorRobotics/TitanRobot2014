@@ -29,7 +29,7 @@ public class DistanceMonitor implements RobotParameters {
         boolean changed = false;
         int currentDistance = distanceSensor.getDistance();
         if (pForce || (lastDistance != currentDistance)) {
-            messageDisplay.setLine(5, "Distance: " + currentDistance);
+            messageDisplay.setLine(5, "Distance: " + currentDistance + "   ");
             lastDistance = currentDistance;
             changed = true;
         }

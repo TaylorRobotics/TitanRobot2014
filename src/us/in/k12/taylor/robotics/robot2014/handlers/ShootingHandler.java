@@ -35,6 +35,7 @@ public class ShootingHandler implements RobotParameters {
                 pickupMotor.setTimedOperation(PICKUP_MOTOR_FIRE_TIME);
                 pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
                 hammerMotor.set(HAMMER_FIRE_SPEED);
+                stateRegistry.setKeepBallMode(false);
             }
         }
         else if (lastShootingMode) {

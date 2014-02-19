@@ -130,16 +130,16 @@ public interface RobotParameters {
     double HAMMER_FIRE_LIMIT = 400.0;
 
     /* Auto Shoot mode constants */
-    double AUTO_SHOOT_DISTANCE = 35.0;
-    double AUTO_SHOOT_DISTANCE_TOLERANCE = 1.0;
+    double AUTO_SHOOT_DISTANCE = 100.0;
+    double AUTO_SHOOT_DISTANCE_TOLERANCE = 6.0;
 
     /* Shoulder motor constants */
-    double SHOULDER_POSITION_TOLERANCE = 30.0;
+    double SHOULDER_POSITION_TOLERANCE = 10.0;
     double SHOULDER_SPEED_INCREMENT = 0.05; // Increment speed by this amount
     long SHOULDER_SPEED_INTERVAL = 100; // Check speed every 100 ms
     long SHOULDER_SAFETY_TIME_LIMIT = 6000; // Cancel servo if cannot reach target in 6000 ms
-    double MINIMUM_SHOULDER_SPEED = 0.05;
-    double TARGET_ARM_SPEED = 7;
+    double MINIMUM_SHOULDER_SPEED = 0.1;
+    double TARGET_ARM_SPEED = 15;
     double MAXIMUM_SHOULDER_SPEED = 0.50;
 
     /* Digital Output Channel Mapping */
@@ -154,14 +154,14 @@ public interface RobotParameters {
     int SHOULDER_SEEK_MODE = 2;
 
     /* Shoulder potentiometer constants */
-    int SHOULDER_POTENTIOMETER_DIRECTION = REVERSE;
-    double SHOULDER_POTENTIOMETER_MINIMUM_EDGE = 0.0;
-    double SHOULDER_POTENTIOMETER_MAXIMUM_EDGE = 1.0;
+    int SHOULDER_POTENTIOMETER_DIRECTION = FORWARD;
+    double SHOULDER_POTENTIOMETER_MINIMUM_EDGE = 0.015;
+    double SHOULDER_POTENTIOMETER_MAXIMUM_EDGE = 0.985;
     double SHOULDER_POTENTIOMETER_SCALE = 1000.0;
 
     /* Shoulder position constants */
     double SHOULDER_PICKUP_POSITION = 200.0;
     double SHOULDER_LOW_SHOT_POSITION = 300.0;
-    double SHOULDER_HIGH_SHOT_POSITION = 500.0;
-    double SHOULDER_START_POSITION = 800.0;
+    double SHOULDER_HIGH_SHOT_POSITION = 980.0;
+    double SHOULDER_START_POSITION = 980.0;
 }

@@ -31,7 +31,7 @@ public class ArmPositionMonitor implements RobotParameters {
         double currentPosition = ((int)(shoulderPotentiometer.getValue() * 100)) / 100.0;
         double currentRatio = ((int)(shoulderPotentiometer.getRatio()* 1000)) / 1000.0;
         if (pForce || (lastPosition != currentPosition)) {
-            messageDisplay.setLine(4, "Arm position: " + currentPosition + " (" + currentRatio + ")   ");
+            messageDisplay.setLine(4, "Arm: " + currentPosition + " (" + currentRatio + ")   ");
             lastPosition = currentPosition;
             changed = true;
         }

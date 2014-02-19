@@ -8,6 +8,7 @@ import us.in.k12.taylor.robotics.robot2014.ComponentRegistry;
 import us.in.k12.taylor.robotics.robot2014.TitanRobot;
 import us.in.k12.taylor.robotics.robot2014.components.Switch;
 import us.in.k12.taylor.robotics.robot2014.components.TimeLimit;
+import us.in.k12.taylor.robotics.robot2014.factories.TitanSpeedController;
 
 /**
  * @author Taylor Robotics 2014
@@ -18,6 +19,8 @@ public class AutonomousRunner implements RobotParameters {
     private final Switch leftToggleSwitch;
     private final Switch rightToggleSwitch;
     private final RobotDrive robotDrive;
+    private final TitanSpeedController pickupMotor;
+    private final TitanSpeedController hammerMotor;
 
     public AutonomousRunner(TitanRobot pRobot) {
         robot = pRobot;
@@ -25,6 +28,8 @@ public class AutonomousRunner implements RobotParameters {
         leftToggleSwitch = componentRegistry.getLeftAutonomousModeSwitch();
         rightToggleSwitch = componentRegistry.getRightAutonomousModeSwitch();
         robotDrive = componentRegistry.getRobotDrive();
+        pickupMotor = componentRegistry.getPickupMotor();
+        hammerMotor = componentRegistry.getHammerMotor();
     }
 
     public void run() {
@@ -63,10 +68,38 @@ public class AutonomousRunner implements RobotParameters {
     }
 
     private void runAutonomousMode2() {
-        // Set keep mode
-        // Lower arm to shoot position
-        // Turn on auto shoot
-        // Move forward for x seconds or until ball out
+        for (int count = 0; count < 1000; count++) {
+            pickupMotor.set(PICKUP_MOTOR_SPEED);
+            if (pickupMotor.isHardLimitReached()) {
+                break;
+            }
+
+            /* Feed watchdog to prevent shutdown and then wait */
+            Watchdog.getInstance().feed();
+            Timer.delay(AUTONOMOUS_LOOP_DELAY);
+        }
+
+        for (int count = 0; count < 1000; count++) {
+            pickupMotor.set(PICKUP_MOTOR_SPEED);
+            robotDrive.drive(0.5, 1);
+
+            /* Feed watchdog to prevent shutdown and then wait */
+            Watchdog.getInstance().feed();
+            Timer.delay(AUTONOMOUS_LOOP_DELAY);
+        }
+        robotDrive.drive(0.0, 1);
+
+        for (int count = 0; count < 500; count++) {
+            pickupMotor.setTimedOperation(PICKUP_MOTOR_FIRE_TIME);
+            pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
+            hammerMotor.set(HAMMER_FIRE_SPEED);
+
+            /* Feed watchdog to prevent shutdown and then wait */
+            Watchdog.getInstance().feed();
+            Timer.delay(AUTONOMOUS_LOOP_DELAY);
+        }
+        hammerMotor.set(0.0);
+        pickupMotor.set(0.0);
     }
 
     private void runAutonomousMode3() {
