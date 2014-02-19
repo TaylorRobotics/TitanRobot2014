@@ -68,28 +68,35 @@ public class AutonomousRunner implements RobotParameters {
     }
 
     private void runAutonomousMode2() {
-        for (int count = 0; count < 1000; count++) {
+        for (int count = 0; count < 500; count++) {
             pickupMotor.set(PICKUP_MOTOR_SPEED);
             if (pickupMotor.isHardLimitReached()) {
                 break;
             }
+            robotDrive.drive(0.0, 0.0);
 
             /* Feed watchdog to prevent shutdown and then wait */
             Watchdog.getInstance().feed();
             Timer.delay(AUTONOMOUS_LOOP_DELAY);
         }
 
-        for (int count = 0; count < 1000; count++) {
+        for (int count = 0; count < 175; count++) {
+            if (!robot.isAutonomous() || !robot.isEnabled()) {
+                break;
+            }
             pickupMotor.set(PICKUP_MOTOR_SPEED);
-            robotDrive.drive(0.5, 1);
+            robotDrive.drive(-0.4, 0.0);
 
             /* Feed watchdog to prevent shutdown and then wait */
             Watchdog.getInstance().feed();
             Timer.delay(AUTONOMOUS_LOOP_DELAY);
         }
-        robotDrive.drive(0.0, 1);
 
-        for (int count = 0; count < 500; count++) {
+        for (int count = 0; count < 75; count++) {
+            if (!robot.isAutonomous() || !robot.isEnabled()) {
+                break;
+            }
+            robotDrive.drive(0.0, 0.0);
             pickupMotor.setTimedOperation(PICKUP_MOTOR_FIRE_TIME);
             pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
             hammerMotor.set(HAMMER_FIRE_SPEED);
@@ -98,15 +105,66 @@ public class AutonomousRunner implements RobotParameters {
             Watchdog.getInstance().feed();
             Timer.delay(AUTONOMOUS_LOOP_DELAY);
         }
-        hammerMotor.set(0.0);
-        pickupMotor.set(0.0);
+
+        while (robot.isAutonomous() && robot.isEnabled()) {
+            robotDrive.drive(0.0, 0.0);
+            hammerMotor.set(0.0);
+            pickupMotor.set(0.0);
+
+            /* Feed watchdog to prevent shutdown and then wait */
+            Watchdog.getInstance().feed();
+            Timer.delay(AUTONOMOUS_LOOP_DELAY);
+        }
     }
 
     private void runAutonomousMode3() {
-        // Set keep mode
-        // Move forward for x seconds
-        // Lower arm to shoot position
-        // Shoot
+        for (int count = 0; count < 500; count++) {
+            pickupMotor.set(PICKUP_MOTOR_SPEED);
+            if (pickupMotor.isHardLimitReached()) {
+                break;
+            }
+            robotDrive.drive(0.0, 0.0);
+
+            /* Feed watchdog to prevent shutdown and then wait */
+            Watchdog.getInstance().feed();
+            Timer.delay(AUTONOMOUS_LOOP_DELAY);
+        }
+
+        for (int count = 0; count < 500; count++) {
+            if (!robot.isAutonomous() || !robot.isEnabled()) {
+                break;
+            }
+            pickupMotor.set(PICKUP_MOTOR_SPEED);
+            robotDrive.drive(-0.4, 0.0);
+
+            /* Feed watchdog to prevent shutdown and then wait */
+            Watchdog.getInstance().feed();
+            Timer.delay(AUTONOMOUS_LOOP_DELAY);
+        }
+
+        for (int count = 0; count < 75; count++) {
+            if (!robot.isAutonomous() || !robot.isEnabled()) {
+                break;
+            }
+            robotDrive.drive(0.0, 0.0);
+            pickupMotor.setTimedOperation(PICKUP_MOTOR_FIRE_TIME);
+            pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
+            hammerMotor.set(HAMMER_FIRE_SPEED);
+
+            /* Feed watchdog to prevent shutdown and then wait */
+            Watchdog.getInstance().feed();
+            Timer.delay(AUTONOMOUS_LOOP_DELAY);
+        }
+
+        while (robot.isAutonomous() && robot.isEnabled()) {
+            robotDrive.drive(0.0, 0.0);
+            hammerMotor.set(0.0);
+            pickupMotor.set(0.0);
+
+            /* Feed watchdog to prevent shutdown and then wait */
+            Watchdog.getInstance().feed();
+            Timer.delay(AUTONOMOUS_LOOP_DELAY);
+        }
     }
 
     private void runAutonomousMode4() {

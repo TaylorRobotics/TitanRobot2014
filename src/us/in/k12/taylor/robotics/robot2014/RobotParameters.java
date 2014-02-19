@@ -72,14 +72,14 @@ public interface RobotParameters {
     int OPERATOR_JOYSTICK = 3;
 
     /* Left drive joystick button mapping */
-    int SPEED_DRAG_BUTTON = 1;
-    int REVERSE_DRIVE_DIRECTION_BUTTON = 3;
+    int SPEED_BOOST_BUTTON = 1;
+    int REVERSE_DRIVE_DIRECTION_BUTTON = 2;
+    int LOW_SPEED_BUTTON = 3;
+    int MEDIUM_SPEED_BUTTON = 4;
+    int HIGH_SPEED_BUTTON = 5;
 
     /* Right drive joystick button mapping */
-    int SPEED_BOOST_BUTTON = 1;
-    int MEDIUM_SPEED_BUTTON = 2;
-    int LOW_SPEED_BUTTON = 4;
-    int HIGH_SPEED_BUTTON = 5;
+    int SPEED_DRAG_BUTTON = 1;
     int PARK_ROBOT_BUTTON = 11;
 
     /* Operator Joystick button mapping */

@@ -19,7 +19,7 @@ public class ShootingDistanceLightHandler implements RobotParameters {
         componentRegistry = pRobot.getComponentRegistry();
         distanceSwitch = componentRegistry.getShootingDistanceSwitch();
         shootDistanceLightRelay = componentRegistry.getShootDistanceLightRelay();
-        hitCounter = 15;
+        hitCounter = 10;
     }
 
     public void run() {

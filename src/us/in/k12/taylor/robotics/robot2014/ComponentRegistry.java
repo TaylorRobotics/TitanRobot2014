@@ -85,11 +85,11 @@ public class ComponentRegistry implements RobotParameters {
         rearRightDriveMotor = speedControllerFactory.create(REAR_RIGHT_DRIVE_MOTOR_PORT, REAR_RIGHT_DRIVE_SPEED_CONTROLLER, (REAR_RIGHT_DRIVE_MOTOR_DIRECTION==REVERSE));
         robotDrive = new RobotDrive(frontLeftDriveMotor, rearLeftDriveMotor, frontRightDriveMotor, rearRightDriveMotor);
         reverseDirectionButton = new JoystickButton(leftDriveJoystick, REVERSE_DRIVE_DIRECTION_BUTTON, false);
-        speedDragButton = new JoystickButton(leftDriveJoystick, SPEED_DRAG_BUTTON, false);
-        speedBoostButton = new JoystickButton(rightDriveJoystick, SPEED_BOOST_BUTTON, false);
-        lowSpeedButton = new JoystickButton(rightDriveJoystick, LOW_SPEED_BUTTON, false);
-        mediumSpeedButton = new JoystickButton(rightDriveJoystick, MEDIUM_SPEED_BUTTON, true);
-        highSpeedButton = new JoystickButton(rightDriveJoystick, HIGH_SPEED_BUTTON, false);
+        speedDragButton = new JoystickButton(rightDriveJoystick, SPEED_DRAG_BUTTON, false);
+        speedBoostButton = new JoystickButton(leftDriveJoystick, SPEED_BOOST_BUTTON, false);
+        lowSpeedButton = new JoystickButton(leftDriveJoystick, LOW_SPEED_BUTTON, false);
+        mediumSpeedButton = new JoystickButton(leftDriveJoystick, MEDIUM_SPEED_BUTTON, true);
+        highSpeedButton = new JoystickButton(leftDriveJoystick, HIGH_SPEED_BUTTON, false);
 
         /* Pickup components */
         pickupStopSwitch = new DigitalInputSwitch(BALL_STOP_SWITCH_CHANNEL, NORMALLY_CLOSED);
@@ -97,8 +97,8 @@ public class ComponentRegistry implements RobotParameters {
         pickupButton = new JoystickButton(operatorJoystick, PICKUP_BUTTON, false);
 
         /* Instantiate Switch components */
-        leftAutonomousModeSwitch = new DigitalInputSwitch(LEFT_AUTONOMOUS_MODE_CHANNEL, NORMALLY_OPEN);
-        rightAutonomousModeSwitch = new DigitalInputSwitch(RIGHT_AUTONOMOUS_MODE_CHANNEL, NORMALLY_OPEN);
+        leftAutonomousModeSwitch = new DigitalInputSwitch(LEFT_AUTONOMOUS_MODE_CHANNEL, NORMALLY_CLOSED);
+        rightAutonomousModeSwitch = new DigitalInputSwitch(RIGHT_AUTONOMOUS_MODE_CHANNEL, NORMALLY_CLOSED);
 
         /* Shoulder components */
         analogVoltageMeter = new AnalogChannel(ANALOG_SUPPLY_CHANNEL);

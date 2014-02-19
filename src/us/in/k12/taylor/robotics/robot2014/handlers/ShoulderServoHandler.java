@@ -78,6 +78,7 @@ public class ShoulderServoHandler implements RobotParameters {
         if ((armSpeed < 0.0) && (pDistanceToTarget > 0.0)) {
             if (motorSpeed < 0.0) {
                 motorSpeed = MINIMUM_SHOULDER_SPEED;
+                motorSpeed = 0.3;
             }
             else {
                 motorSpeed = motorSpeed + SHOULDER_SPEED_INCREMENT;
@@ -86,9 +87,11 @@ public class ShoulderServoHandler implements RobotParameters {
         else if ((armSpeed > 0.0) && (pDistanceToTarget < 0.0)) {
             if (motorSpeed > 0.0) {
                 motorSpeed = -MINIMUM_SHOULDER_SPEED;
+                motorSpeed = -0.01;
             }
             else {
                 motorSpeed = motorSpeed - SHOULDER_SPEED_INCREMENT;
+                motorSpeed = motorSpeed - 0.01;
             }
         }
         else if (pDistanceToTarget > 0.0) {
