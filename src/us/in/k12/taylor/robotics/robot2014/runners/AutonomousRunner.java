@@ -40,10 +40,10 @@ public class AutonomousRunner implements RobotParameters {
                     runDeadAutonomousMode();
                     break;
                 case 1:
-                    runAutonomousMode2();
+                    runAutonomousMode2(true);
                     break;
                 case 2:
-                    runAutonomousMode3();
+                    runAutonomousMode2(false);
                     break;
                 case 3:
                     runAutonomousMode4();
@@ -67,8 +67,9 @@ public class AutonomousRunner implements RobotParameters {
         // Dead mode, do nothing
     }
 
-    private void runAutonomousMode2() {
-        for (int count = 0; count < 500; count++) {
+    private void runAutonomousMode2(boolean pShoot) {
+        // was 550
+        for (int count = 0; count < 550; count++) {
             pickupMotor.set(PICKUP_MOTOR_SPEED);
             if (pickupMotor.isHardLimitReached()) {
                 break;
@@ -79,8 +80,8 @@ public class AutonomousRunner implements RobotParameters {
             Watchdog.getInstance().feed();
             Timer.delay(AUTONOMOUS_LOOP_DELAY);
         }
-
-        for (int count = 0; count < 175; count++) {
+// was 175
+        for (int count = 0; count < 300; count++) {
             if (!robot.isAutonomous() || !robot.isEnabled()) {
                 break;
             }
@@ -97,9 +98,11 @@ public class AutonomousRunner implements RobotParameters {
                 break;
             }
             robotDrive.drive(0.0, 0.0);
+            if (pShoot) {
             pickupMotor.setTimedOperation(PICKUP_MOTOR_FIRE_TIME);
             pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
             hammerMotor.set(HAMMER_FIRE_SPEED);
+            }
 
             /* Feed watchdog to prevent shutdown and then wait */
             Watchdog.getInstance().feed();

@@ -17,7 +17,7 @@ public class StateRegistry implements RobotParameters {
     public StateRegistry() {
         /* Set intitial/default states */
         driveDirection = DEFAULT_DRIVE_DIRECTION;
-        driveSpeedMode = HIGH_SPEED;
+        driveSpeedMode = MEDIUM_SPEED;
         speedBoostDrag = SPEED_BOOST_DRAG_OFF;
         keepBallMode = false;
         shoulderPositionTarget = -1.0;

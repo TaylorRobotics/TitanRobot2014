@@ -60,7 +60,7 @@ public interface RobotParameters {
     /* SpeedController port mapping */
     int SHOULDER_MOTOR_PORT = 1;
     int LATCH_MOTOR_PORT = 2;
-    int PICKUP_MOTOR_PORT = 3;
+    int PICKUP_MOTOR_PORT = 8;
     int FRONT_RIGHT_DRIVE_MOTOR_PORT = 4;
     int REAR_RIGHT_DRIVE_MOTOR_PORT = 5;
     int FRONT_LEFT_DRIVE_MOTOR_PORT = 6;
