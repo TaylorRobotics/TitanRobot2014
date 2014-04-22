@@ -21,6 +21,7 @@ public class AutonomousRunner implements RobotParameters {
     private final RobotDrive robotDrive;
     private final TitanSpeedController pickupMotor;
     private final TitanSpeedController hammerMotor;
+    private final TitanSpeedController shoulderMotor;
 
     public AutonomousRunner(TitanRobot pRobot) {
         robot = pRobot;
@@ -30,6 +31,7 @@ public class AutonomousRunner implements RobotParameters {
         robotDrive = componentRegistry.getRobotDrive();
         pickupMotor = componentRegistry.getPickupMotor();
         hammerMotor = componentRegistry.getHammerMotor();
+        shoulderMotor = componentRegistry.getShoulderMotor();
     }
 
     public void run() {
@@ -68,51 +70,77 @@ public class AutonomousRunner implements RobotParameters {
     }
 
     private void runAutonomousMode2(boolean pShoot) {
-        // was 550
+        /* Keep shoulder up, pull in ball and keep */
         for (int count = 0; count < 550; count++) {
-            pickupMotor.set(PICKUP_MOTOR_SPEED);
-            if (pickupMotor.isHardLimitReached()) {
-                break;
-            }
-            robotDrive.drive(0.0, 0.0);
+            if (robot.isAutonomous() && robot.isEnabled()) {
+                shoulderMotor.set(-0.4);
+                pickupMotor.set(PICKUP_MOTOR_SPEED);
+                if (pickupMotor.isHardLimitReached()) {
+                    break;
+                }
+                robotDrive.drive(0.0, 0.0);
 
-            /* Feed watchdog to prevent shutdown and then wait */
-            Watchdog.getInstance().feed();
-            Timer.delay(AUTONOMOUS_LOOP_DELAY);
+                /* Feed watchdog to prevent shutdown and then wait */
+                Watchdog.getInstance().feed();
+                Timer.delay(AUTONOMOUS_LOOP_DELAY);
+            }
         }
 // was 175
+        /* Keep shoulder up and drive forward */
         for (int count = 0; count < 300; count++) {
-            if (!robot.isAutonomous() || !robot.isEnabled()) {
-                break;
-            }
-            pickupMotor.set(PICKUP_MOTOR_SPEED);
-            robotDrive.drive(-0.4, 0.0);
+            if (robot.isAutonomous() && robot.isEnabled()) {
+                shoulderMotor.set(-0.4);
+                pickupMotor.set(PICKUP_MOTOR_SPEED);
+                robotDrive.drive(-0.4, 0.0);
 
-            /* Feed watchdog to prevent shutdown and then wait */
-            Watchdog.getInstance().feed();
-            Timer.delay(AUTONOMOUS_LOOP_DELAY);
+                /* Feed watchdog to prevent shutdown and then wait */
+                Watchdog.getInstance().feed();
+                Timer.delay(AUTONOMOUS_LOOP_DELAY);
+            }
         }
 
+        /* Stop drive and keep shoulder up and ball */
+        for (int count = 0; count < 100; count++) {
+            if (robot.isAutonomous() && robot.isEnabled()) {
+                shoulderMotor.set(-0.15);
+                pickupMotor.set(PICKUP_MOTOR_SPEED);
+                robotDrive.drive(0.0, 0.0);
+            }
+        }
+
+        /* Keep shoulder up and roll ball out */
+        pickupMotor.setNonTimedOperation();
         for (int count = 0; count < 75; count++) {
-            if (!robot.isAutonomous() || !robot.isEnabled()) {
-                break;
+            if (robot.isAutonomous() && robot.isEnabled()) {
+                shoulderMotor.set(-0.15);
+                pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
+                robotDrive.drive(0.0, 0.0);
             }
-            robotDrive.drive(0.0, 0.0);
-            if (pShoot) {
-            pickupMotor.setTimedOperation(PICKUP_MOTOR_FIRE_TIME);
-            pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
-            hammerMotor.set(HAMMER_FIRE_SPEED);
-            }
-
-            /* Feed watchdog to prevent shutdown and then wait */
-            Watchdog.getInstance().feed();
-            Timer.delay(AUTONOMOUS_LOOP_DELAY);
         }
 
+        /* Shoot the ball */
+        pickupMotor.setTimedOperation(PICKUP_MOTOR_FIRE_TIME);
+        for (int count = 0; count < 500; count++) {
+            if (robot.isAutonomous() && robot.isEnabled()) {
+                shoulderMotor.set(-0.15);
+                if (pShoot) {
+                    pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
+                    hammerMotor.set(HAMMER_FIRE_SPEED);
+                }
+                robotDrive.drive(0.0, 0.0);
+
+                /* Feed watchdog to prevent shutdown and then wait */
+                Watchdog.getInstance().feed();
+                Timer.delay(AUTONOMOUS_LOOP_DELAY);
+            }
+        }
+
+        /* Stop all motors */
         while (robot.isAutonomous() && robot.isEnabled()) {
-            robotDrive.drive(0.0, 0.0);
-            hammerMotor.set(0.0);
+            shoulderMotor.set(0.0);
             pickupMotor.set(0.0);
+            hammerMotor.set(0.0);
+            robotDrive.drive(0.0, 0.0);
 
             /* Feed watchdog to prevent shutdown and then wait */
             Watchdog.getInstance().feed();

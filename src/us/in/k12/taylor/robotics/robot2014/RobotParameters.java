@@ -130,7 +130,7 @@ public interface RobotParameters {
     double HAMMER_FIRE_LIMIT = 400.0;
 
     /* Auto Shoot mode constants */
-    double AUTO_SHOOT_DISTANCE = 100.0;
+    double AUTO_SHOOT_DISTANCE = 10.0;
     double AUTO_SHOOT_DISTANCE_TOLERANCE = 6.0;
 
     /* Shoulder motor constants */
