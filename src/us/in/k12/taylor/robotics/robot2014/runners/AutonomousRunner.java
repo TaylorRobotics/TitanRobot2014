@@ -73,7 +73,7 @@ public class AutonomousRunner implements RobotParameters {
         /* Keep shoulder up, pull in ball and keep */
         for (int count = 0; count < 550; count++) {
             if (robot.isAutonomous() && robot.isEnabled()) {
-                shoulderMotor.set(-0.4);
+                shoulderMotor.set(0.4);
                 pickupMotor.set(PICKUP_MOTOR_SPEED);
                 if (pickupMotor.isHardLimitReached()) {
                     break;
@@ -89,7 +89,7 @@ public class AutonomousRunner implements RobotParameters {
         /* Keep shoulder up and drive forward */
         for (int count = 0; count < 300; count++) {
             if (robot.isAutonomous() && robot.isEnabled()) {
-                shoulderMotor.set(-0.4);
+                shoulderMotor.set(0.4);
                 pickupMotor.set(PICKUP_MOTOR_SPEED);
                 robotDrive.drive(-0.4, 0.0);
 
@@ -102,7 +102,7 @@ public class AutonomousRunner implements RobotParameters {
         /* Stop drive and keep shoulder up and ball */
         for (int count = 0; count < 100; count++) {
             if (robot.isAutonomous() && robot.isEnabled()) {
-                shoulderMotor.set(-0.15);
+                shoulderMotor.set(0.15);
                 pickupMotor.set(PICKUP_MOTOR_SPEED);
                 robotDrive.drive(0.0, 0.0);
             }
@@ -112,7 +112,7 @@ public class AutonomousRunner implements RobotParameters {
         pickupMotor.setNonTimedOperation();
         for (int count = 0; count < 75; count++) {
             if (robot.isAutonomous() && robot.isEnabled()) {
-                shoulderMotor.set(-0.15);
+                shoulderMotor.set(0.15);
                 pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
                 robotDrive.drive(0.0, 0.0);
             }
@@ -122,7 +122,7 @@ public class AutonomousRunner implements RobotParameters {
         pickupMotor.setTimedOperation(PICKUP_MOTOR_FIRE_TIME);
         for (int count = 0; count < 500; count++) {
             if (robot.isAutonomous() && robot.isEnabled()) {
-                shoulderMotor.set(-0.15);
+                shoulderMotor.set(0.15);
                 if (pShoot) {
                     pickupMotor.set(PICKUP_MOTOR_FIRE_SPEED);
                     hammerMotor.set(HAMMER_FIRE_SPEED);
