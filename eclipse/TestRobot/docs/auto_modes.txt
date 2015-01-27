@@ -1,0 +1,8 @@
+0 - Dead (do nothing)
+1 - Step 1B (Drop 1 barrel hook, and drive forward)
+2 - Step 2B (Drop both barrel hooks, and drive forward)
+3 - Main 1 tote (Grab 1 tote from side, turn 90 degrees, drive to autozone)
+4 - Main 1 B (Pick up barrel, turn, drive to autozone)
+5 - Main 1 tote 1B (Pick up barrel, drive, pick up tote, turn, drive to autozone)
+6 - Main 2 tote 1b (Pick up one tote, drive, pick up barrel, drive pick up tote, turn, drive to autozone)
+7 - Robot 6 ft (Drive forward 6 ft into autozone)
