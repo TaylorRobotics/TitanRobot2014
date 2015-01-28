@@ -10,8 +10,8 @@ public class JoystickStore {
     public static final int LIFT_DOWN_BUTTON = 4;  // On operator joystick  (Change to RAISE_FORK_BUTTON)
     public static final int LIFT_UP_BUTTON = 5;    // On operator joystick  (Change to LOWER_FORK_BUTTON)
 
-    public static final int SLOW_SPEED_BUTTON = 1; // On left driver joystick
-    public static final int FAST_SPEED_BUTTON = 1; // On right driver joystick
+    public static final int SLOW_SPEED_BUTTON = 1; // On left driver joystick  (Change to DRIVE_SLOW_BUTTON)
+    public static final int FAST_SPEED_BUTTON = 1; // On right driver joystick (Change to DRIVE_FAST_BUTTON)
 
     private Joystick leftDriveJoystick = null;
     private Joystick rightDriveJoystick = null;
