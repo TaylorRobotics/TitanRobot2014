@@ -1,8 +1,16 @@
 package org.usfirst.frc.team1760.robot;
 
+import org.usfirst.frc.team1760.robot.autonomous.AutonomousMode;
+import org.usfirst.frc.team1760.robot.autonomous.AutonomousModeFactory;
+import org.usfirst.frc.team1760.robot.components.JoystickStore;
+import org.usfirst.frc.team1760.robot.components.MotorStore;
+import org.usfirst.frc.team1760.robot.components.SolenoidStore;
+import org.usfirst.frc.team1760.robot.components.SwitchStore;
+import org.usfirst.frc.team1760.robot.operations.ElevatorOperator;
+import org.usfirst.frc.team1760.robot.operations.LiftOperator;
+import org.usfirst.frc.team1760.robot.operations.TankDriveOperator;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 /**
@@ -13,50 +21,73 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
  * directory.
  */
 public class TitanRobot extends IterativeRobot {
-	RobotDrive myRobot;
-	Joystick stick;
-	int autoLoopCounter;
-	
-    /**
+	private MotorStore motorStore;
+	private JoystickStore joystickStore;
+	private SolenoidStore solenoidStore;
+	private SwitchStore switchStore;
+	private TankDriveOperator tankDriveOperator = null;
+	private LiftOperator liftOperator = null;
+	private ElevatorOperator elevatorOperator = null;
+	private AutonomousMode autonomousMode = null;
+
+	/**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-    	myRobot = new RobotDrive(0,1);
-    	stick = new Joystick(0);
+		motorStore = new MotorStore();
+		joystickStore = new JoystickStore();
+		solenoidStore = new SolenoidStore();
+		switchStore = new SwitchStore();
     }
-    
+
+    public MotorStore getMotorStore() {
+    	return motorStore;
+    }
+
+    public JoystickStore getJoystickStore() {
+    	return joystickStore;
+    }
+
+    public SolenoidStore getSolenoidStore() {
+    	return solenoidStore;
+    }
+
+    public SwitchStore getSwitchStore() {
+    	return switchStore;
+    }
+
     /**
      * This function is run once each time the robot enters autonomous mode
      */
     public void autonomousInit() {
-    	autoLoopCounter = 0;
+    	autonomousMode = new AutonomousModeFactory(this).create();
+    	autonomousMode.autonomousInit();
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-    	if(autoLoopCounter < 100) //Check if we've completed 100 loops (approximately 2 seconds)
-		{
-			myRobot.drive(-0.5, 0.0); 	// drive forwards half speed
-			autoLoopCounter++;
-			} else {
-			myRobot.drive(0.0, 0.0); 	// stop robot
-		}
+    	autonomousMode.autonomousPeriodic();
     }
     
     /**
      * This function is called once each time the robot enters tele-operated mode
      */
     public void teleopInit(){
+    	tankDriveOperator = new TankDriveOperator(this);
+    	liftOperator = new LiftOperator(this);
+    	elevatorOperator = new ElevatorOperator(this);
     }
 
     /**
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        myRobot.arcadeDrive(stick);
+    	tankDriveOperator.periodic();
+    	liftOperator.periodic();
+    	elevatorOperator.periodic();
     }
     
     /**
