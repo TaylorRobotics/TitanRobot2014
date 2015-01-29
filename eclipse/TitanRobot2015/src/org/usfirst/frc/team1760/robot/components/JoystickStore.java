@@ -7,19 +7,19 @@ public class JoystickStore {
     public static final int RIGHT_DRIVE_JOYSTICK = 2;
     public static final int OPERATOR_JOYSTICK = 3;
 
-    public static final int LIFT_DOWN_BUTTON = 4;  // On operator joystick  (Change to RAISE_FORK_BUTTON)
-    public static final int LIFT_UP_BUTTON = 5;    // On operator joystick  (Change to LOWER_FORK_BUTTON)
+    public static final int RAISE_TOTE_BUTTON = 4;  // On operator joystick
+    public static final int LOWER_TOTE_BUTTON = 5;    // On operator joystick
 
-    public static final int SLOW_SPEED_BUTTON = 1; // On left driver joystick  (Change to DRIVE_SLOW_BUTTON)
-    public static final int FAST_SPEED_BUTTON = 1; // On right driver joystick (Change to DRIVE_FAST_BUTTON)
+    public static final int DRIVE_SLOW_BUTTON = 1; // On left driver joystick
+    public static final int DRIVE_FAST_BUTTON = 1; // On right driver joystick
 
     private Joystick leftDriveJoystick = null;
     private Joystick rightDriveJoystick = null;
     private Joystick operatorJoystick = null;
-    private JoystickButton liftDownButton = null;
-    private JoystickButton liftUpButton = null;
-	private JoystickButton slowSpeedButton = null;
-	private JoystickButton fastSpeedButton = null;
+    private JoystickButton raiseToteButton = null;
+    private JoystickButton lowerToteButton = null;
+	private JoystickButton driveSlowButton = null;
+	private JoystickButton driveFastButton = null;
 
     public synchronized Joystick getLeftDriveJoystick() {
     	if (leftDriveJoystick == null) {
@@ -42,32 +42,32 @@ public class JoystickStore {
 		return operatorJoystick;
 	}
 
-	public synchronized JoystickButton getLiftDownButton() {
-		if (liftDownButton == null) {
-			 liftDownButton = new JoystickButton(rightDriveJoystick, LIFT_DOWN_BUTTON, false);
+	public synchronized JoystickButton getRaiseToteButton() {
+		if (raiseToteButton == null) {
+			 raiseToteButton = new JoystickButton(rightDriveJoystick, RAISE_TOTE_BUTTON, false);
 		}
-		return liftDownButton;
+		return raiseToteButton;
 	}
 
-	public synchronized JoystickButton getLiftUpButton() {
-		if (liftUpButton == null) {
-			 liftUpButton = new JoystickButton(rightDriveJoystick, LIFT_UP_BUTTON, false);
+	public synchronized JoystickButton getLowerToteButton() {
+		if (lowerToteButton == null) {
+			 lowerToteButton = new JoystickButton(rightDriveJoystick, LOWER_TOTE_BUTTON, false);
 		}
-		return liftUpButton;
+		return lowerToteButton;
 	}
 
-	public synchronized JoystickButton getSlowSpeedButton() {
-		if (slowSpeedButton == null) {
-			slowSpeedButton = new JoystickButton(leftDriveJoystick, SLOW_SPEED_BUTTON, false);
+	public synchronized JoystickButton getDriveSlowButton() {
+		if (driveSlowButton == null) {
+			driveSlowButton = new JoystickButton(leftDriveJoystick, DRIVE_SLOW_BUTTON, false);
 		}
-		return slowSpeedButton;
+		return driveSlowButton;
 	}
 
-	public synchronized JoystickButton getFastSpeedButton() {
-		if (fastSpeedButton == null) {
-			fastSpeedButton = new JoystickButton(rightDriveJoystick, FAST_SPEED_BUTTON, false);
+	public synchronized JoystickButton getDriveFastButton() {
+		if (driveFastButton == null) {
+			driveFastButton = new JoystickButton(rightDriveJoystick, DRIVE_FAST_BUTTON, false);
 		}
-		return fastSpeedButton;
+		return driveFastButton;
 	}
 
 }

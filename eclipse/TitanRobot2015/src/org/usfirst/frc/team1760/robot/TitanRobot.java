@@ -6,8 +6,8 @@ import org.usfirst.frc.team1760.robot.components.JoystickStore;
 import org.usfirst.frc.team1760.robot.components.MotorStore;
 import org.usfirst.frc.team1760.robot.components.SolenoidStore;
 import org.usfirst.frc.team1760.robot.components.SwitchStore;
-import org.usfirst.frc.team1760.robot.operations.ElevatorOperator;
-import org.usfirst.frc.team1760.robot.operations.LiftOperator;
+import org.usfirst.frc.team1760.robot.operations.ForkLiftOperator;
+import org.usfirst.frc.team1760.robot.operations.ToteLiftOperator;
 import org.usfirst.frc.team1760.robot.operations.TankDriveOperator;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -25,9 +25,11 @@ public class TitanRobot extends IterativeRobot {
 	private JoystickStore joystickStore;
 	private SolenoidStore solenoidStore;
 	private SwitchStore switchStore;
+
 	private TankDriveOperator tankDriveOperator = null;
-	private LiftOperator liftOperator = null;
-	private ElevatorOperator elevatorOperator = null;
+	private ToteLiftOperator toteLiftOperator = null;
+	private ForkLiftOperator forkLiftOperator = null;
+
 	private AutonomousMode autonomousMode = null;
 
 	/**
@@ -39,6 +41,7 @@ public class TitanRobot extends IterativeRobot {
 		joystickStore = new JoystickStore();
 		solenoidStore = new SolenoidStore();
 		switchStore = new SwitchStore();
+		solenoidStore.getToteLiftSolenoid();  // Start compressor by getting any solenoid
     }
 
     public MotorStore getMotorStore() {
@@ -77,8 +80,8 @@ public class TitanRobot extends IterativeRobot {
      */
     public void teleopInit(){
     	tankDriveOperator = new TankDriveOperator(this);
-    	liftOperator = new LiftOperator(this);
-    	elevatorOperator = new ElevatorOperator(this);
+    	toteLiftOperator = new ToteLiftOperator(this);
+    	forkLiftOperator = new ForkLiftOperator(this);
     }
 
     /**
@@ -86,8 +89,8 @@ public class TitanRobot extends IterativeRobot {
      */
     public void teleopPeriodic() {
     	tankDriveOperator.periodic();
-    	liftOperator.periodic();
-    	elevatorOperator.periodic();
+    	toteLiftOperator.periodic();
+    	forkLiftOperator.periodic();
     }
     
     /**

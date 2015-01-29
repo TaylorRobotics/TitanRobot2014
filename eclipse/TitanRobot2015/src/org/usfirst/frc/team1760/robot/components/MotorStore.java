@@ -8,10 +8,10 @@ public class MotorStore {
 	public static final int REAR_LEFT_DRIVE_MOTOR_CHANNEL = 1;
 	public static final int FRONT_RIGHT_DRIVE_MOTOR_CHANNEL = 2;
 	public static final int REAR_RIGHT_DRIVE_MOTOR_CHANNEL = 3;
-	public static final int ELEVATOR_MOTOR_CHANNEL = 4;
+	public static final int FORK_LIFT_MOTOR_CHANNEL = 4;
 
 	private RobotDrive robotDrive = null;
-	private Victor elevatorMotor = null;
+	private Victor forkLiftMotor = null;
 
 	public synchronized RobotDrive getRobotDrive(boolean pForward) {
 		if (robotDrive == null) {
@@ -25,11 +25,11 @@ public class MotorStore {
         return robotDrive;
 	}
 
-	public synchronized Victor getElevatorMotor() {
-		if (elevatorMotor == null) {
-			elevatorMotor = new Victor(ELEVATOR_MOTOR_CHANNEL);
+	public synchronized Victor getForkLiftMotor() {
+		if (forkLiftMotor == null) {
+			forkLiftMotor = new Victor(FORK_LIFT_MOTOR_CHANNEL);
 		}
-		return elevatorMotor;
+		return forkLiftMotor;
 	}
 
 	

@@ -3,7 +3,7 @@ package org.usfirst.frc.team1760.robot.components;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
- * @author Taylor Robotics 2014
+ * @author Taylor Robotics 2015
  */
 public class JoystickButton extends Switch {
     private final Joystick joystick;

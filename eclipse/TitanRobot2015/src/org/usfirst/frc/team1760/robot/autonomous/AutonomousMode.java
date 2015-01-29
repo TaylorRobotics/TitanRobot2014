@@ -3,7 +3,7 @@ package org.usfirst.frc.team1760.robot.autonomous;
 import org.usfirst.frc.team1760.robot.TitanRobot;
 
 public abstract class AutonomousMode {
-	private TitanRobot robot;
+	protected TitanRobot robot;
 
 	public AutonomousMode(TitanRobot pRobot) {
 		robot = pRobot;
