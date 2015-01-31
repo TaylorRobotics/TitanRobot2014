@@ -58,18 +58,34 @@ public class TitanRobot extends IterativeRobot {
 		solenoidStore.getToteLiftSolenoid();
     }
 
+    /**
+     * Gets the store for motor based components.
+     * @return The MotorStore holding defined motor based components
+     */
     public MotorStore getMotorStore() {
     	return motorStore;
     }
 
+    /**
+     * Gets the store for Joystick and Joystick buttons.
+     * @return The JoystickStore holding defined Joysticks and Joystick buttons
+     */
     public JoystickStore getJoystickStore() {
     	return joystickStore;
     }
 
+    /**
+     * Gets the store holding defined pneumatic Solenoids.
+     * @return The SolenoidStore holding defined pneumatic Solenoids
+     */
     public SolenoidStore getSolenoidStore() {
     	return solenoidStore;
     }
 
+    /**
+     * Gets the store holding defined Switches
+     * @return The SwitchStore holding defined switches
+     */
     public SwitchStore getSwitchStore() {
     	return switchStore;
     }
