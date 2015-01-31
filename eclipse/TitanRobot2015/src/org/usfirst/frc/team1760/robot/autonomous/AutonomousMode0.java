@@ -14,6 +14,9 @@ public class AutonomousMode0 extends AutonomousMode {
 		super(pRobot);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.usfirst.frc.team1760.robot.autonomous.AutonomousMode#periodic()
+	 */
 	@Override
 	public void periodic() {
 		// Nothing to do in Dead Mode

@@ -23,6 +23,9 @@ public class AutonomousMode7 extends AutonomousMode {
 		driveTime = new TimeLimit(DRIVE_TIME);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.usfirst.frc.team1760.robot.autonomous.AutonomousMode#periodic()
+	 */
 	@Override
 	public void periodic() {
 		if (driveTime.isTimeLimitReached()) {
