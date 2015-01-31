@@ -1,7 +1,7 @@
 package us.in.k12.taylor.robotics.robot2014.components;
 
 /**
- * @author Taylor Robotics 2014
+ * @author Taylor Robotics 2015
  */
 public class TimeLimit {
     private long finishTime;
