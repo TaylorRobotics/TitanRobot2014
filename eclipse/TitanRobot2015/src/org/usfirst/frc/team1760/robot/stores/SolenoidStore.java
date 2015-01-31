@@ -16,6 +16,10 @@ public class SolenoidStore {
 	private DoubleSolenoid toteLiftSolenoid = null;
 	private DoubleSolenoid forkLiftBrakeSolenoid = null;
 
+	/**
+	 * Gets the DoubleSolenoid for the tote lift.
+	 * @return The DoubleSolenoid for the tote lift.
+	 */
 	public synchronized DoubleSolenoid getToteLiftSolenoid() {
 		if (toteLiftSolenoid == null) {
 			toteLiftSolenoid = new DoubleSolenoid(TOTE_LIFT_SOLENOID_FORWARD_CHANNEL, TOTE_LIFT_SOLENOID_REVERSE_CHANNEL);
@@ -23,6 +27,10 @@ public class SolenoidStore {
 		return toteLiftSolenoid;
 	}
 
+	/**
+	 * Gets the DoubleSolenoid for the fork lift.
+	 * @return The DoubleSolenoid for the fork lift brak.
+	 */
 	public synchronized DoubleSolenoid getForkLiftBrakeSolenoid() {
 		if (forkLiftBrakeSolenoid == null) {
 			forkLiftBrakeSolenoid = new DoubleSolenoid(FORK_LIFT_BRAKE_ON_CHANNEL, FORK_LIFT_BRAKE_OFF_CHANNEL);

@@ -18,6 +18,11 @@ public class MotorStore {
 	private RobotDrive robotDrive = null;
 	private Victor forkLiftMotor = null;
 
+	/**
+	 * Gets the RobotDrive to control movement of the robot
+	 * @param pForward Indicates that the robot should drive in the forward direction, otherwise drive direction is reversed
+	 * @return The RobotDrive for the robot
+	 */
 	public synchronized RobotDrive getRobotDrive(boolean pForward) {
 		if (robotDrive == null) {
 			robotDrive = new RobotDrive(FRONT_LEFT_DRIVE_MOTOR_CHANNEL, REAR_LEFT_DRIVE_MOTOR_CHANNEL, FRONT_RIGHT_DRIVE_MOTOR_CHANNEL, REAR_RIGHT_DRIVE_MOTOR_CHANNEL);
@@ -30,6 +35,10 @@ public class MotorStore {
         return robotDrive;
 	}
 
+	/**
+	 * Gets the SpeedController for the fork lift motor.
+	 * @return The SpeedController for the fork lift motor
+	 */
 	public synchronized Victor getForkLiftMotor() {
 		if (forkLiftMotor == null) {
 			forkLiftMotor = new Victor(FORK_LIFT_MOTOR_CHANNEL);
