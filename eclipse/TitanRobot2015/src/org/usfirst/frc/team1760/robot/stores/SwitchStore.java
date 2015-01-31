@@ -23,6 +23,10 @@ public class SwitchStore {
 	private DigitalInputSwitch autonomousSwitch2 = null;
 	private DigitalInputSwitch autonomousSwitch3 = null;
 
+	/**
+	 * Gets the fork lift upper limit switch.
+	 * @return The DigitalInputSwitch serving as the fork lift upper limit switch
+	 */
 	public synchronized DigitalInputSwitch getForkLiftUpperLimitSwitch() {
 		if (forkLiftUpperLimitSwitch == null) {
 			forkLiftUpperLimitSwitch = new DigitalInputSwitch(FORK_LIFT_UPPER_LIMIT_SWITCH_CHANNEL, Switch.NORMALLY_CLOSED);
@@ -30,6 +34,10 @@ public class SwitchStore {
 		return forkLiftUpperLimitSwitch;
 	}
 
+	/**
+	 * Gets the fork lift lower limit switch.
+	 * @return The DigitalInputSwitch serving as the fork lift lower limit switch
+	 */
 	public synchronized DigitalInputSwitch getForkLiftLowerLimitSwitch() {
 		if (forkLiftLowerLimitSwitch == null) {
 			forkLiftLowerLimitSwitch = new DigitalInputSwitch(FORK_LIFT_LOWER_LIMIT_SWITCH_CHANNEL, Switch.NORMALLY_CLOSED);
@@ -37,6 +45,10 @@ public class SwitchStore {
 		return forkLiftLowerLimitSwitch;
 	}
 
+	/**
+	 * Gets the fork lift middle limit switch.
+	 * @return The DigitalInputSwitch serving as the fork lift middle limit switch
+	 */
 	public synchronized DigitalInputSwitch getForkLiftMiddleLimitSwitch() {
 		if (forkLiftMiddleLimitSwitch == null) {
 			forkLiftMiddleLimitSwitch = new DigitalInputSwitch(FORK_LIFT_MIDDLE_LIMIT_SWITCH_CHANNEL, Switch.NORMALLY_CLOSED);
@@ -44,6 +56,11 @@ public class SwitchStore {
 		return forkLiftMiddleLimitSwitch;
 	}
 
+
+	/**
+	 * Gets the left-most autonomous mode switch.
+	 * @return The DigitalInputSwitch serving as the left-most autonomous mode switch
+	 */
 	public synchronized DigitalInputSwitch getAutonomousSwitch1() {
 		if (autonomousSwitch1 == null) {
 			autonomousSwitch1 = new DigitalInputSwitch(AUTONOMOUS_SWITCH_1_CHANNEL, Switch.NORMALLY_OPEN);
@@ -51,6 +68,10 @@ public class SwitchStore {
 		return autonomousSwitch1;
 	}
 
+	/**
+	 * Gets the middle autonomous mode switch.
+	 * @return The DigitalInputSwitch serving as the middle autonomous mode switch
+	 */
 	public synchronized DigitalInputSwitch getAutonomousSwitch2() {
 		if (autonomousSwitch2 == null) {
 			autonomousSwitch2 = new DigitalInputSwitch(AUTONOMOUS_SWITCH_2_CHANNEL, Switch.NORMALLY_OPEN);
@@ -58,6 +79,10 @@ public class SwitchStore {
 		return autonomousSwitch2;
 	}
 
+	/**
+	 * Gets the right-most autonomous mode switch.
+	 * @return The DigitalInputSwitch serving as the right-most autonomous mode switch
+	 */
 	public synchronized DigitalInputSwitch getAutonomousSwitch3() {
 		if (autonomousSwitch3 == null) {
 			autonomousSwitch3 = new DigitalInputSwitch(AUTONOMOUS_SWITCH_3_CHANNEL, Switch.NORMALLY_OPEN);
