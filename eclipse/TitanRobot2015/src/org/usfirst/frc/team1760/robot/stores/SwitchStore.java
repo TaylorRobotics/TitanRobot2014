@@ -4,6 +4,8 @@ import org.usfirst.frc.team1760.robot.components.DigitalInputSwitch;
 import org.usfirst.frc.team1760.robot.components.Switch;
 
 /**
+ * This class holds switch components defined for robot operation.
+ * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class SwitchStore {

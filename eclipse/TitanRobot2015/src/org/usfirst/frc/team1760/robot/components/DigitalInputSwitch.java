@@ -3,6 +3,8 @@ package org.usfirst.frc.team1760.robot.components;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
+ * This class provides access to a switch connected to a digital input port.
+ * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class DigitalInputSwitch extends Switch {

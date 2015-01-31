@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 
 /**
+ * This class handles oepration of the fork lift.
+ * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class ForkLiftOperator {

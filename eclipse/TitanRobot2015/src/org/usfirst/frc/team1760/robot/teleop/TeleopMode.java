@@ -2,34 +2,43 @@ package org.usfirst.frc.team1760.robot.teleop;
 
 import org.usfirst.frc.team1760.robot.TitanRobot;
 
+/**
+ * This class handles Telop operations.
+ * 
+ * @author Robo-Titans Team 1760 Taylor High School 2015
+ *
+ */
 public class TeleopMode {
-	protected TitanRobot robot;
+	/**
+	 * The TitanRobot.
+	 */
+	private TitanRobot robot;
 
 	/**
 	 * The class instance to handle TankDrive operations.
 	 */
-	private TankDriveOperator tankDriveOperator = null;
+	private TankDriveOperator tankDriveOperator;
+
 	/**
 	 * The class instance to handle tote lift operations.
 	 */
-	private ToteLiftOperator toteLiftOperator = null;
+	private ToteLiftOperator toteLiftOperator;
+
 	/**
 	 * The class instance to handle fork lift operations.
 	 */
-	private ForkLiftOperator forkLiftOperator = null;
-
-	public TeleopMode(TitanRobot pRobot) {
-		robot = pRobot;
-	}
+	private ForkLiftOperator forkLiftOperator;
 
 	/**
-     * This function is run once each time the robot enters teleop mode
-     */
-    public void teleopInit() {
+	 * Creates a TelopMode instance for controlling the Robot in Teleop.
+	 * @param pRobot The TitanRobot instance
+	 */
+	public TeleopMode(TitanRobot pRobot) {
+		robot = pRobot;
     	tankDriveOperator = new TankDriveOperator(robot);
     	toteLiftOperator = new ToteLiftOperator(robot);
     	forkLiftOperator = new ForkLiftOperator(robot);
-    }
+	}
 
     /**
      * This function is called periodically during teleop

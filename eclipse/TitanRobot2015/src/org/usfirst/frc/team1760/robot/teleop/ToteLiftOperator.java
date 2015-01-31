@@ -7,6 +7,8 @@ import org.usfirst.frc.team1760.robot.components.TimeLimit;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
+ * This class handles the operation of the tote lift.
+ * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class ToteLiftOperator {

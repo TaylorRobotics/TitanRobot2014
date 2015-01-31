@@ -4,6 +4,8 @@ import org.usfirst.frc.team1760.robot.TitanRobot;
 import org.usfirst.frc.team1760.robot.components.Switch;
 
 /**
+ * This factory creates the specific AutonomousMode object based upon the autonomous switch settings.
+ * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class AutonomousModeFactory {
@@ -19,6 +21,10 @@ public class AutonomousModeFactory {
 		autonomousSwitch3 = robot.getSwitchStore().getAutonomousSwitch3();
 	}
 
+	/**
+	 * Creates and returns the the specific AutonomousMode object based upon the autonomous switch settings.
+	 * @return THe AutonomousMode used for the current settings of the autonomous switches
+	 */
 	public AutonomousMode create() {
 		AutonomousMode autonomousMode;
 		switch(getMode()) {
@@ -50,6 +56,10 @@ public class AutonomousModeFactory {
 		return autonomousMode;
 	}
 
+	/**
+	 * Get the autonomous mode by reading the autonomous switches
+	 * @return The autonomous mode selected by the current settings of the autonomous switches
+	 */
 	private int getMode() {
         int autonomousMode = 0;
         if (autonomousSwitch3.isSwitchOn()) {

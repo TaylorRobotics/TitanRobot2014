@@ -3,6 +3,8 @@ package org.usfirst.frc.team1760.robot.stores;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
+ * This class holds pneumatic solenoid components defined for robot operation.
+ * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class SolenoidStore {

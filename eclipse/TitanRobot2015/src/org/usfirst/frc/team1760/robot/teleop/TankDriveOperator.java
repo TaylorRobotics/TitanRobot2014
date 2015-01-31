@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
+ * This class handles the TankDrive operation.
+ * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class TankDriveOperator {

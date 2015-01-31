@@ -5,6 +5,8 @@ import org.usfirst.frc.team1760.robot.components.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
+ * This class holds Joysticks and Joystick buttons defined for robot operation.
+ * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class JoystickStore {

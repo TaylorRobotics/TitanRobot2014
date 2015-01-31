@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 
 /**
+ * This class holds motor base components defined for robot operation.
+ * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class MotorStore {

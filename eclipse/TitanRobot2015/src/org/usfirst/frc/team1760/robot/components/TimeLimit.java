@@ -1,6 +1,8 @@
 package org.usfirst.frc.team1760.robot.components;
 
 /**
+ * This class indicates if the amount of time since the limit was set has been reached.
+ * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class TimeLimit {
