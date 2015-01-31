@@ -7,7 +7,7 @@ import org.usfirst.frc.team1760.robot.components.TimeLimit;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
- * @author Robo-Titans Team 1790 Taylor High School 2015
+ * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class ToteLiftOperator {
 	public static final long SOLENOID_ON_LAG = 3000;  // 3 turn off solenoid

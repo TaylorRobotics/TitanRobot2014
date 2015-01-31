@@ -3,7 +3,7 @@ package org.usfirst.frc.team1760.robot.stores;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
- * @author Robo-Titans Team 1790 Taylor High School 2015
+ * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class SolenoidStore {
 	public static final int TOTE_LIFT_SOLENOID_FORWARD_CHANNEL = 1;

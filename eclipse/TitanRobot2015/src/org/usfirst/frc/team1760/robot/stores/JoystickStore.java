@@ -5,7 +5,7 @@ import org.usfirst.frc.team1760.robot.components.JoystickButton;
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
- * @author Robo-Titans Team 1790 Taylor High School 2015
+ * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class JoystickStore {
     public static final int LEFT_DRIVE_JOYSTICK = 0;

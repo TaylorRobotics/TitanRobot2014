@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
- * @author Robo-Titans Team 1790 Taylor High School 2015
+ * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class TankDriveOperator {
 	public static final int FORWARD = 0;

@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 
 /**
- * @author Robo-Titans Team 1790 Taylor High School 2015
+ * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class MotorStore {
 	public static final int FRONT_LEFT_DRIVE_MOTOR_CHANNEL = 0;
