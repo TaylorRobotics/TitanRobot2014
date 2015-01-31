@@ -2,6 +2,9 @@ package org.usfirst.frc.team1760.robot.autonomous;
 
 import org.usfirst.frc.team1760.robot.TitanRobot;
 
+/**
+ * @author Robo-Titans Team 1790 Taylor High School 2015
+ */
 public class AutonomousMode5 extends AutonomousMode {
 
 	public AutonomousMode5(TitanRobot pRobot) {

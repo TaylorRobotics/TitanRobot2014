@@ -3,6 +3,9 @@ package org.usfirst.frc.team1760.robot.stores;
 import org.usfirst.frc.team1760.robot.components.DigitalInputSwitch;
 import org.usfirst.frc.team1760.robot.components.Switch;
 
+/**
+ * @author Robo-Titans Team 1790 Taylor High School 2015
+ */
 public class SwitchStore {
 	public static final int FORK_LIFT_UPPER_LIMIT_SWITCH_CHANNEL = 0;
 	public static final int FORK_LIFT_LOWER_LIMIT_SWITCH_CHANNEL = 1;

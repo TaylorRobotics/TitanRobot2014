@@ -3,7 +3,7 @@ package org.usfirst.frc.team1760.robot.components;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
- * @author Taylor Robotics 2015
+ * @author Robo-Titans Team 1790 Taylor High School 2015
  */
 public class DigitalInputSwitch extends Switch {
 	private final DigitalInput digitalInput;

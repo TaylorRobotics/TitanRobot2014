@@ -8,6 +8,9 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 
+/**
+ * @author Robo-Titans Team 1790 Taylor High School 2015
+ */
 public class ForkLiftOperator {
 	private TitanRobot robot;
 	private SpeedController forkLiftMotor;
@@ -48,7 +51,6 @@ public class ForkLiftOperator {
 	    }
 
 	    if (speed == 0.0) {
-	    	System.out.println("STOP");
 	    	forkLiftBrakeSolenoid.set(DoubleSolenoid.Value.kForward);
         	forkLiftMotor.set(0.0);
 	    }
@@ -56,6 +58,5 @@ public class ForkLiftOperator {
 	    	forkLiftBrakeSolenoid.set(DoubleSolenoid.Value.kReverse);
         	forkLiftMotor.set(speed);
 	    }
-//		forkLiftBrakeSolenoid.set(DoubleSolenoid.Value.kOff);
 	}
 }
