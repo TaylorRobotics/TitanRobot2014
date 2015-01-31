@@ -2,13 +2,13 @@ package org.usfirst.frc.team1760.robot;
 
 import org.usfirst.frc.team1760.robot.autonomous.AutonomousMode;
 import org.usfirst.frc.team1760.robot.autonomous.AutonomousModeFactory;
-import org.usfirst.frc.team1760.robot.components.JoystickStore;
-import org.usfirst.frc.team1760.robot.components.MotorStore;
-import org.usfirst.frc.team1760.robot.components.SolenoidStore;
-import org.usfirst.frc.team1760.robot.components.SwitchStore;
 import org.usfirst.frc.team1760.robot.operations.ForkLiftOperator;
 import org.usfirst.frc.team1760.robot.operations.ToteLiftOperator;
 import org.usfirst.frc.team1760.robot.operations.TankDriveOperator;
+import org.usfirst.frc.team1760.robot.stores.JoystickStore;
+import org.usfirst.frc.team1760.robot.stores.MotorStore;
+import org.usfirst.frc.team1760.robot.stores.SolenoidStore;
+import org.usfirst.frc.team1760.robot.stores.SwitchStore;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;

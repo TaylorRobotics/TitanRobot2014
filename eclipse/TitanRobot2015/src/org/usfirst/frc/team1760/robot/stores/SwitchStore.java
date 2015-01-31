@@ -1,4 +1,7 @@
-package org.usfirst.frc.team1760.robot.components;
+package org.usfirst.frc.team1760.robot.stores;
+
+import org.usfirst.frc.team1760.robot.components.DigitalInputSwitch;
+import org.usfirst.frc.team1760.robot.components.Switch;
 
 public class SwitchStore {
 	public static final int FORK_LIFT_UPPER_LIMIT_SWITCH_CHANNEL = 0;

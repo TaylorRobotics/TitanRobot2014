@@ -1,4 +1,6 @@
-package org.usfirst.frc.team1760.robot.components;
+package org.usfirst.frc.team1760.robot.stores;
+
+import org.usfirst.frc.team1760.robot.components.JoystickButton;
 
 import edu.wpi.first.wpilibj.Joystick;
 

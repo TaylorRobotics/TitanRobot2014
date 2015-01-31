@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1760.robot.components;
+package org.usfirst.frc.team1760.robot.stores;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
