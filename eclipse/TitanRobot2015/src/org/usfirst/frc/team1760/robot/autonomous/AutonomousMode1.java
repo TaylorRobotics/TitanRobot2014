@@ -12,12 +12,7 @@ public class AutonomousMode1 extends AutonomousMode {
 	}
 
 	@Override
-	public void autonomousInit() {
-		// Nothing to init for Dead Mode
-	}
-
-	@Override
-	public void autonomousPeriodic() {
+	public void periodic() {
 		// Nothing to do in Dead Mode
 	}
 

@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1760.robot.operations;
+package org.usfirst.frc.team1760.robot.teleop;
 
 import org.usfirst.frc.team1760.robot.TitanRobot;
 import org.usfirst.frc.team1760.robot.components.JoystickButton;

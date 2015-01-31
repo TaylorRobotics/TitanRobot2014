@@ -12,14 +12,9 @@ public abstract class AutonomousMode {
 		robot = pRobot;
 	}
 
-	/**
-     * This function is run once each time the robot enters autonomous mode
-     */
-    public abstract void autonomousInit();
-
     /**
      * This function is called periodically during autonomous
      */
-    public abstract void autonomousPeriodic();
+    public abstract void periodic();
 
 }
