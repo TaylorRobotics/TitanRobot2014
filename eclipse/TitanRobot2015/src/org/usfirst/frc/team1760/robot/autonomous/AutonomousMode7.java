@@ -4,6 +4,7 @@ import org.usfirst.frc.team1760.robot.TitanRobot;
 
 /**
  * This class handles Autonomous mode 7 operations.
+ * Autonomous Mode 7 will drive forward 6 ft into auto zone.
  * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
