@@ -91,35 +91,35 @@ public class TitanRobot extends IterativeRobot {
     }
 
     /**
-     * This function is run once each time the robot enters autonomous mode
+     * This method is run once each time the robot enters autonomous mode
      */
     public void autonomousInit() {
     	autonomousMode = new AutonomousModeFactory(this).create();
     }
 
     /**
-     * This function is called periodically during autonomous
+     * This method is called periodically during autonomous
      */
     public void autonomousPeriodic() {
     	autonomousMode.periodic();
     }
     
     /**
-     * This function is called once each time the robot enters tele-operated mode
+     * This method is called once each time the robot enters tele-operated mode
      */
     public void teleopInit(){
     	teleopMode = new TeleopMode(this);
     }
 
     /**
-     * This function is called periodically during operator control
+     * This method is called periodically during operator control
      */
     public void teleopPeriodic() {
     	teleopMode.teleopPeriodic();
     }
     
     /**
-     * This function is called periodically during test mode
+     * This method is called periodically during test mode
      */
     public void testPeriodic() {
     	LiveWindow.run();
