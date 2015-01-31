@@ -3,12 +3,12 @@ package org.usfirst.frc.team1760.robot.components;
 import edu.wpi.first.wpilibj.Joystick;
 
 public class JoystickStore {
-    public static final int LEFT_DRIVE_JOYSTICK = 1;
-    public static final int RIGHT_DRIVE_JOYSTICK = 2;
-    public static final int OPERATOR_JOYSTICK = 3;
+    public static final int LEFT_DRIVE_JOYSTICK = 0;
+    public static final int RIGHT_DRIVE_JOYSTICK = 1;
+    public static final int OPERATOR_JOYSTICK = 2;
 
-    public static final int RAISE_TOTE_BUTTON = 4;  // On operator joystick
-    public static final int LOWER_TOTE_BUTTON = 5;    // On operator joystick
+    public static final int LOWER_TOTE_BUTTON = 4;    // On operator joystick
+    public static final int RAISE_TOTE_BUTTON = 5;  // On operator joystick
 
     public static final int DRIVE_SLOW_BUTTON = 1; // On left driver joystick
     public static final int DRIVE_FAST_BUTTON = 1; // On right driver joystick

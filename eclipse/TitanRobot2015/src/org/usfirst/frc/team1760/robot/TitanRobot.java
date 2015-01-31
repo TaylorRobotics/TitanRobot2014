@@ -91,6 +91,7 @@ public class TitanRobot extends IterativeRobot {
     	tankDriveOperator.periodic();
     	toteLiftOperator.periodic();
     	forkLiftOperator.periodic();
+    	tankDriveOperator.periodic();
     }
     
     /**

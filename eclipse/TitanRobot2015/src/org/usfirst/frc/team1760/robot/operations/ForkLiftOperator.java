@@ -3,6 +3,7 @@ package org.usfirst.frc.team1760.robot.operations;
 import org.usfirst.frc.team1760.robot.TitanRobot;
 import org.usfirst.frc.team1760.robot.components.Switch;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -12,6 +13,7 @@ public class ForkLiftOperator {
 	private Joystick operatorJoystick;
 	private Switch forkLiftUpperLimitSwitch;
 	private Switch forkLiftLowerLimitSwitch;
+	private DoubleSolenoid forkLiftBrakeSolenoid;
 
 	public ForkLiftOperator(TitanRobot pRobot) {
 		robot = pRobot;
@@ -19,28 +21,32 @@ public class ForkLiftOperator {
 		operatorJoystick = robot.getJoystickStore().getOperatorJoystick();
 		forkLiftUpperLimitSwitch = robot.getSwitchStore().getForkLiftUpperLimitSwitch();
 		forkLiftLowerLimitSwitch = robot.getSwitchStore().getForkListLowerLimitSwitch();
+		forkLiftBrakeSolenoid = robot.getSolenoidStore().getForkLiftBrakeSolenoid();
 	}
 
 	public void periodic() {
         double speed = 0.0;
 	    double y = operatorJoystick.getY();
-	    speed = y * y;
+	    speed = y * Math.abs(y);
 	    if ((speed >= -0.05) && (speed <= 0.05)) {
-	    	forkLiftMotor.set(0.0);
-	    	// Apply Brake
+	    	speed = 0.0;
+	    }
+	    else if ((speed > 0.0) && forkLiftUpperLimitSwitch.isSwitchOn()) {
+    		speed = 0.0;
+        }
+        else if ((speed < 0.0) && forkLiftLowerLimitSwitch.isSwitchOn()) {
+           	speed = 0.0;
+        }
+
+	    if (speed == 0.0) {
+	    	System.out.println("STOP");
+	    	forkLiftBrakeSolenoid.set(DoubleSolenoid.Value.kForward);
+        	forkLiftMotor.set(0.0);
 	    }
 	    else {
-	    	//release brake
-	        if ((speed > 0.0) && forkLiftUpperLimitSwitch.isSwitchOn()) {
-	            	forkLiftMotor.set(0.0);
-	        }
-	        else if ((speed < 0.0) && forkLiftLowerLimitSwitch.isSwitchOn()) {
-	            	forkLiftMotor.set(0.0);
-	        }
-	        else {
-		        forkLiftMotor.set(speed);
-	        }
-        }
+	    	forkLiftBrakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+        	forkLiftMotor.set(speed);
+	    }
+//		forkLiftBrakeSolenoid.set(DoubleSolenoid.Value.kOff);
 	}
-	// Solenoid off? (need to keep brake state?)
 }

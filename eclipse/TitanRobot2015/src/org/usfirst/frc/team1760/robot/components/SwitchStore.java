@@ -15,14 +15,14 @@ public class SwitchStore {
 
 	public synchronized DigitalInputSwitch getForkLiftUpperLimitSwitch() {
 		if (forkLiftUpperLimitSwitch == null) {
-			forkLiftUpperLimitSwitch = new DigitalInputSwitch(FORK_LIFT_UPPER_LIMIT_SWITCH_CHANNEL, Switch.NORMALLY_OPEN);
+			forkLiftUpperLimitSwitch = new DigitalInputSwitch(FORK_LIFT_UPPER_LIMIT_SWITCH_CHANNEL, Switch.NORMALLY_CLOSED);
 		}
 		return forkLiftUpperLimitSwitch;
 	}
 
 	public synchronized DigitalInputSwitch getForkListLowerLimitSwitch() {
 		if (forkListLowerLimitSwitch == null) {
-			forkListLowerLimitSwitch = new DigitalInputSwitch(FORK_LIFT_LOWER_LIMIT_SWITCH_CHANNEL, Switch.NORMALLY_OPEN);
+			forkListLowerLimitSwitch = new DigitalInputSwitch(FORK_LIFT_LOWER_LIMIT_SWITCH_CHANNEL, Switch.NORMALLY_CLOSED);
 		}
 		return forkListLowerLimitSwitch;
 	}
