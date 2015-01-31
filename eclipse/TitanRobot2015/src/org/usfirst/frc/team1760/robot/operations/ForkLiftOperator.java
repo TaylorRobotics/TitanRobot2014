@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1760.robot.operations;
 
 import org.usfirst.frc.team1760.robot.TitanRobot;
+import org.usfirst.frc.team1760.robot.components.JoystickButton;
 import org.usfirst.frc.team1760.robot.components.Switch;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -13,6 +14,8 @@ public class ForkLiftOperator {
 	private Joystick operatorJoystick;
 	private Switch forkLiftUpperLimitSwitch;
 	private Switch forkLiftLowerLimitSwitch;
+	private Switch forkLiftMiddleLimitSwitch;
+	private JoystickButton stopForkAtMiddleButton;
 	private DoubleSolenoid forkLiftBrakeSolenoid;
 
 	public ForkLiftOperator(TitanRobot pRobot) {
@@ -20,8 +23,10 @@ public class ForkLiftOperator {
 		forkLiftMotor = robot.getMotorStore().getForkLiftMotor();
 		operatorJoystick = robot.getJoystickStore().getOperatorJoystick();
 		forkLiftUpperLimitSwitch = robot.getSwitchStore().getForkLiftUpperLimitSwitch();
-		forkLiftLowerLimitSwitch = robot.getSwitchStore().getForkListLowerLimitSwitch();
+		forkLiftLowerLimitSwitch = robot.getSwitchStore().getForkLiftLowerLimitSwitch();
+		forkLiftMiddleLimitSwitch = robot.getSwitchStore().getForkLiftMiddleLimitSwitch();
 		forkLiftBrakeSolenoid = robot.getSolenoidStore().getForkLiftBrakeSolenoid();
+		stopForkAtMiddleButton = robot.getJoystickStore().getStopForkAtMiddleButton();
 	}
 
 	public void periodic() {
@@ -37,6 +42,10 @@ public class ForkLiftOperator {
         else if ((speed < 0.0) && forkLiftLowerLimitSwitch.isSwitchOn()) {
            	speed = 0.0;
         }
+
+	    if (forkLiftMiddleLimitSwitch.isSwitchOn() && stopForkAtMiddleButton.isSwitchOn()) {
+	    	speed = 0.0;
+	    }
 
 	    if (speed == 0.0) {
 	    	System.out.println("STOP");

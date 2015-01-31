@@ -15,6 +15,8 @@ public class JoystickStore {
     public static final int DRIVE_SLOW_BUTTON = 1; // On left driver joystick
     public static final int DRIVE_FAST_BUTTON = 1; // On right driver joystick
 
+    public static final int STOP_FORK_AT_MIDDLE_BUTTON = 1; // On operator joystick
+
     private Joystick leftDriveJoystick = null;
     private Joystick rightDriveJoystick = null;
     private Joystick operatorJoystick = null;
@@ -22,6 +24,7 @@ public class JoystickStore {
     private JoystickButton lowerToteButton = null;
 	private JoystickButton driveSlowButton = null;
 	private JoystickButton driveFastButton = null;
+	private JoystickButton stopForkAtMiddleButton = null;
 
     public synchronized Joystick getLeftDriveJoystick() {
     	if (leftDriveJoystick == null) {
@@ -70,6 +73,13 @@ public class JoystickStore {
 			driveFastButton = new JoystickButton(rightDriveJoystick, DRIVE_FAST_BUTTON, false);
 		}
 		return driveFastButton;
+	}
+
+	public synchronized JoystickButton getStopForkAtMiddleButton() {
+		if (stopForkAtMiddleButton == null) {
+			stopForkAtMiddleButton = new JoystickButton(operatorJoystick, STOP_FORK_AT_MIDDLE_BUTTON, false);
+		}
+		return stopForkAtMiddleButton;
 	}
 
 }
