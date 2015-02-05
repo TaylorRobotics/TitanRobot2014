@@ -28,7 +28,7 @@ public class TankDriveOperator {
 
 	public TankDriveOperator(TitanRobot pRobot) {
 		robot = pRobot;
-		direction = FORWARD;
+		direction = REVERSE;
 		speedFactor = DEFAULT_SPEED_FACTOR;
 		leftDriveJoystick = robot.getJoystickStore().getLeftDriveJoystick();
 		rightDriveJoystick = robot.getJoystickStore().getRightDriveJoystick();
@@ -48,6 +48,6 @@ public class TankDriveOperator {
 			speedFactor = DEFAULT_SPEED_FACTOR;
 		}
 		robotDrive.setMaxOutput(speedFactor);
-		robotDrive.tankDrive(rightDriveJoystick, leftDriveJoystick);
+		robotDrive.tankDrive(leftDriveJoystick, rightDriveJoystick);
 	}
 }
