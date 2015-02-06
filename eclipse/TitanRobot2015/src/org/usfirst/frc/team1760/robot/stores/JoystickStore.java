@@ -92,7 +92,7 @@ public class JoystickStore {
 	 */
 	public synchronized JoystickButton getDriveSlowButton() {
 		if (driveSlowButton == null) {
-			driveSlowButton = new JoystickButton(leftDriveJoystick, DRIVE_SLOW_BUTTON, false);
+			driveSlowButton = new JoystickButton(rightDriveJoystick, DRIVE_SLOW_BUTTON, false);
 		}
 		return driveSlowButton;
 	}
@@ -103,7 +103,7 @@ public class JoystickStore {
 	 */
 	public synchronized JoystickButton getDriveFastButton() {
 		if (driveFastButton == null) {
-			driveFastButton = new JoystickButton(rightDriveJoystick, DRIVE_FAST_BUTTON, false);
+			driveFastButton = new JoystickButton(leftDriveJoystick, DRIVE_FAST_BUTTON, false);
 		}
 		return driveFastButton;
 	}
