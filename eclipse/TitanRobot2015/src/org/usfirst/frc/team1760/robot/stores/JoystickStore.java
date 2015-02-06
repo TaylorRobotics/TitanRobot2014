@@ -14,8 +14,8 @@ public class JoystickStore {
     public static final int RIGHT_DRIVE_JOYSTICK = 1;
     public static final int OPERATOR_JOYSTICK = 2;
 
-    public static final int LOWER_TOTE_BUTTON = 4;    // On operator joystick
-    public static final int RAISE_TOTE_BUTTON = 5;  // On operator joystick
+    public static final int LOWER_TOTE_BUTTON = 4;    // On left driver joystick
+    public static final int RAISE_TOTE_BUTTON = 5;  // On left driver joystick
 
     public static final int DRIVE_SLOW_BUTTON = 1; // On left driver joystick
     public static final int DRIVE_FAST_BUTTON = 1; // On right driver joystick
@@ -70,7 +70,7 @@ public class JoystickStore {
      */
 	public synchronized JoystickButton getRaiseToteButton() {
 		if (raiseToteButton == null) {
-			 raiseToteButton = new JoystickButton(rightDriveJoystick, RAISE_TOTE_BUTTON, false);
+			 raiseToteButton = new JoystickButton(leftDriveJoystick, RAISE_TOTE_BUTTON, false);
 		}
 		return raiseToteButton;
 	}
@@ -81,7 +81,7 @@ public class JoystickStore {
      */
 	public synchronized JoystickButton getLowerToteButton() {
 		if (lowerToteButton == null) {
-			 lowerToteButton = new JoystickButton(rightDriveJoystick, LOWER_TOTE_BUTTON, false);
+			 lowerToteButton = new JoystickButton(leftDriveJoystick, LOWER_TOTE_BUTTON, false);
 		}
 		return lowerToteButton;
 	}
