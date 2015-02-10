@@ -75,7 +75,7 @@ public class JoystickStore {
      */
 	public synchronized JoystickButton getRaiseToteButton() {
 		if (raiseToteButton == null) {
-			 raiseToteButton = new JoystickButton(leftDriveJoystick, RAISE_TOTE_BUTTON, false);
+			 raiseToteButton = new JoystickButton(getLeftDriveJoystick(), RAISE_TOTE_BUTTON, false);
 		}
 		return raiseToteButton;
 	}
@@ -86,7 +86,7 @@ public class JoystickStore {
      */
 	public synchronized JoystickButton getLowerToteButton() {
 		if (lowerToteButton == null) {
-			 lowerToteButton = new JoystickButton(leftDriveJoystick, LOWER_TOTE_BUTTON, false);
+			 lowerToteButton = new JoystickButton(getLeftDriveJoystick(), LOWER_TOTE_BUTTON, false);
 		}
 		return lowerToteButton;
 	}
@@ -97,7 +97,7 @@ public class JoystickStore {
      */
 	public synchronized JoystickButton getRaiseTailLiftButton() {
 		if (raiseTailLiftButton == null) {
-			 raiseTailLiftButton = new JoystickButton(leftDriveJoystick, RAISE_TAIL_LIFT_BUTTON, false);
+			 raiseTailLiftButton = new JoystickButton(getOperatorJoystick(), RAISE_TAIL_LIFT_BUTTON, false);
 		}
 		return raiseTailLiftButton;
 	}
@@ -108,7 +108,7 @@ public class JoystickStore {
      */
 	public synchronized JoystickButton getLowerTailLiftButton() {
 		if (lowerTailLiftButton == null) {
-			 lowerTailLiftButton = new JoystickButton(leftDriveJoystick, LOWER_TAIL_LIFT_BUTTON, false);
+			 lowerTailLiftButton = new JoystickButton(getOperatorJoystick(), LOWER_TAIL_LIFT_BUTTON, false);
 		}
 		return lowerTailLiftButton;
 	}
@@ -119,7 +119,7 @@ public class JoystickStore {
 	 */
 	public synchronized JoystickButton getDriveSlowButton() {
 		if (driveSlowButton == null) {
-			driveSlowButton = new JoystickButton(rightDriveJoystick, DRIVE_SLOW_BUTTON, false);
+			driveSlowButton = new JoystickButton(getRightDriveJoystick(), DRIVE_SLOW_BUTTON, false);
 		}
 		return driveSlowButton;
 	}
@@ -130,7 +130,7 @@ public class JoystickStore {
 	 */
 	public synchronized JoystickButton getDriveFastButton() {
 		if (driveFastButton == null) {
-			driveFastButton = new JoystickButton(leftDriveJoystick, DRIVE_FAST_BUTTON, false);
+			driveFastButton = new JoystickButton(getLeftDriveJoystick(), DRIVE_FAST_BUTTON, false);
 		}
 		return driveFastButton;
 	}
@@ -142,7 +142,7 @@ public class JoystickStore {
 	 */
 	public synchronized JoystickButton getStopForkAtMiddleButton() {
 		if (stopForkAtMiddleButton == null) {
-			stopForkAtMiddleButton = new JoystickButton(operatorJoystick, STOP_FORK_AT_MIDDLE_BUTTON, false);
+			stopForkAtMiddleButton = new JoystickButton(getOperatorJoystick(), STOP_FORK_AT_MIDDLE_BUTTON, false);
 		}
 		return stopForkAtMiddleButton;
 	}
