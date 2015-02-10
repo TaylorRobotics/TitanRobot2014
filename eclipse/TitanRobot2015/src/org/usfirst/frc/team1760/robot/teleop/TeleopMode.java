@@ -25,6 +25,11 @@ public class TeleopMode {
 	private ToteLiftOperator toteLiftOperator;
 
 	/**
+	 * The class instance to handle tail lift operations.
+	 */
+	private TailLiftOperator tailLiftOperator;
+
+	/**
 	 * The class instance to handle fork lift operations.
 	 */
 	private ForkLiftOperator forkLiftOperator;
@@ -37,6 +42,7 @@ public class TeleopMode {
 		robot = pRobot;
     	tankDriveOperator = new TankDriveOperator(robot);
     	toteLiftOperator = new ToteLiftOperator(robot);
+    	tailLiftOperator = new TailLiftOperator(robot);
     	forkLiftOperator = new ForkLiftOperator(robot);
 	}
 
@@ -46,6 +52,7 @@ public class TeleopMode {
     public  void teleopPeriodic() {
     	tankDriveOperator.periodic();
     	toteLiftOperator.periodic();
+    	tailLiftOperator.periodic();
     	forkLiftOperator.periodic();
     }
 }

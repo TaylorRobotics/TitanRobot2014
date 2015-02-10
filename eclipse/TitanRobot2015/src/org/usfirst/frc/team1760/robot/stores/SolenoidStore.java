@@ -8,16 +8,18 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class SolenoidStore {
-	public static final int TOTE_LIFT_SOLENOID_FORWARD_CHANNEL = 1;
 	public static final int TOTE_LIFT_SOLENOID_REVERSE_CHANNEL = 0;
+	public static final int TOTE_LIFT_SOLENOID_FORWARD_CHANNEL = 1;
+	public static final int BULLDOZER_SOLENOID_REVERSE_CHANNEL = 2;
+	public static final int BULLDOZER_SOLENOID_FORWARD_CHANNEL = 3;
+	public static final int TAIL_LIFT_SOLENOID_REVERSE_CHANNEL = 4;
+	public static final int TAIL_LIFT_SOLENOID_FORWARD_CHANNEL = 5;
 	public static final int FORK_LIFT_BRAKE_ON_CHANNEL = 6;
 	public static final int FORK_LIFT_BRAKE_OFF_CHANNEL = 7;
-	public static final int BULLDOZER_SOLENOID_FORWARD_CHANNEL = 3;
-	public static final int BULLDOZER_SOLENOID_REVERSE_CHANNEL = 2;
-
 	private DoubleSolenoid toteLiftSolenoid = null;
 	private DoubleSolenoid forkLiftBrakeSolenoid = null;
 	private DoubleSolenoid bulldozerSolenoid = null;
+	private DoubleSolenoid tailLiftSolenoid = null;
 
 	/**
 	 * Gets the DoubleSolenoid for the tote lift.
@@ -28,6 +30,17 @@ public class SolenoidStore {
 			toteLiftSolenoid = new DoubleSolenoid(TOTE_LIFT_SOLENOID_FORWARD_CHANNEL, TOTE_LIFT_SOLENOID_REVERSE_CHANNEL);
 		}
 		return toteLiftSolenoid;
+	}
+
+	/**
+	 * Gets the DoubleSolenoid for the tail lift.
+	 * @return The DoubleSolenoid for the tail lift.
+	 */
+	public synchronized DoubleSolenoid getTailLiftSolenoid() {
+		if (tailLiftSolenoid == null) {
+			tailLiftSolenoid = new DoubleSolenoid(TAIL_LIFT_SOLENOID_FORWARD_CHANNEL, TAIL_LIFT_SOLENOID_REVERSE_CHANNEL);
+		}
+		return tailLiftSolenoid;
 	}
 
 	/**

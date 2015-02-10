@@ -22,6 +22,9 @@ public class JoystickStore {
 
     public static final int STOP_FORK_AT_MIDDLE_BUTTON = 1; // On operator joystick
 
+    public static final int LOWER_TAIL_LIFT_BUTTON = 4;  // On operator joystick
+    public static final int RAISE_TAIL_LIFT_BUTTON = 5;  // On operator joystick
+
     private Joystick leftDriveJoystick = null;
     private Joystick rightDriveJoystick = null;
     private Joystick operatorJoystick = null;
@@ -30,6 +33,8 @@ public class JoystickStore {
 	private JoystickButton driveSlowButton = null;
 	private JoystickButton driveFastButton = null;
 	private JoystickButton stopForkAtMiddleButton = null;
+	private JoystickButton lowerTailLiftButton = null;
+	private JoystickButton raiseTailLiftButton = null;
 
 	/**
 	 * Gets the left drive Joystick.
@@ -84,6 +89,28 @@ public class JoystickStore {
 			 lowerToteButton = new JoystickButton(leftDriveJoystick, LOWER_TOTE_BUTTON, false);
 		}
 		return lowerToteButton;
+	}
+
+    /**
+     * Gets the JoystickButton that indicates when the tail lift is to be raised.
+     * @return The JoystickButton that indicates when the tail lift is to be raised
+     */
+	public synchronized JoystickButton getRaiseTailLiftButton() {
+		if (raiseTailLiftButton == null) {
+			 raiseTailLiftButton = new JoystickButton(leftDriveJoystick, RAISE_TAIL_LIFT_BUTTON, false);
+		}
+		return raiseTailLiftButton;
+	}
+
+    /**
+     * Gets the JoystickButton that indicates when the tail lift is to be lowered.
+     * @return The JoystickButton that indicates when the tail lift is to be lowered
+     */
+	public synchronized JoystickButton getLowerTailLiftButton() {
+		if (lowerTailLiftButton == null) {
+			 lowerTailLiftButton = new JoystickButton(leftDriveJoystick, LOWER_TAIL_LIFT_BUTTON, false);
+		}
+		return lowerTailLiftButton;
 	}
 
 	/**
