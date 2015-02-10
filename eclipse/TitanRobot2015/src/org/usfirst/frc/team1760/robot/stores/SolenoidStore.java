@@ -10,11 +10,14 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 public class SolenoidStore {
 	public static final int TOTE_LIFT_SOLENOID_FORWARD_CHANNEL = 1;
 	public static final int TOTE_LIFT_SOLENOID_REVERSE_CHANNEL = 0;
-	public static final int FORK_LIFT_BRAKE_ON_CHANNEL = 2;
-	public static final int FORK_LIFT_BRAKE_OFF_CHANNEL = 3;
+	public static final int FORK_LIFT_BRAKE_ON_CHANNEL = 6;
+	public static final int FORK_LIFT_BRAKE_OFF_CHANNEL = 7;
+	public static final int BULLDOZER_SOLENOID_FORWARD_CHANNEL = 3;
+	public static final int BULLDOZER_SOLENOID_REVERSE_CHANNEL = 2;
 
 	private DoubleSolenoid toteLiftSolenoid = null;
 	private DoubleSolenoid forkLiftBrakeSolenoid = null;
+	private DoubleSolenoid bulldozerSolenoid = null;
 
 	/**
 	 * Gets the DoubleSolenoid for the tote lift.
@@ -29,7 +32,7 @@ public class SolenoidStore {
 
 	/**
 	 * Gets the DoubleSolenoid for the fork lift.
-	 * @return The DoubleSolenoid for the fork lift brak.
+	 * @return The DoubleSolenoid for the fork lift brake.
 	 */
 	public synchronized DoubleSolenoid getForkLiftBrakeSolenoid() {
 		if (forkLiftBrakeSolenoid == null) {
@@ -38,4 +41,14 @@ public class SolenoidStore {
 		return forkLiftBrakeSolenoid;
 	}
 	
+	/**
+	 * Gets the DoubleSolenoid for the bulldozer.
+	 * @return The DoubleSolenoid for the bulldozer.
+	 */
+	public synchronized DoubleSolenoid getBulldozerSolenoid() {
+		if (bulldozerSolenoid == null) {
+			bulldozerSolenoid = new DoubleSolenoid(BULLDOZER_SOLENOID_FORWARD_CHANNEL, BULLDOZER_SOLENOID_REVERSE_CHANNEL);
+		}
+		return bulldozerSolenoid;
+	}
 }
