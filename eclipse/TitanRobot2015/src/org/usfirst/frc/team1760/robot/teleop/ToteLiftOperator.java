@@ -17,7 +17,7 @@ public class ToteLiftOperator {
 	public static final int LIFT_STEP_2 = 2;
 	public static final int LOWER_STEP_1 = 3;
 	public static final int LOWER_STEP_2 = 4;
-	public static final long TOTE_LIFT_DELAY = 1500;
+	public static final long TOTE_LIFT_DELAY = 2500;
 	public static final long BULLDOZER_DELAY = 1000;
 
 	private TitanRobot robot;

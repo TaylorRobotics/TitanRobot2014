@@ -31,11 +31,11 @@ public class TailLiftOperator {
 
 	public void periodic() {
         if (raiseTailLiftButton.isSwitchOn()) {
-        	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
+        	tailLiftSolenoid.set(DoubleSolenoid.Value.kReverse);
         	timeLimit.setTimeLimit(SOLENOID_ON_LAG);
         }
         else if (lowerTailLiftButton.isSwitchOn()) {
-        	tailLiftSolenoid.set(DoubleSolenoid.Value.kReverse);
+        	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
         	timeLimit.setTimeLimit(SOLENOID_ON_LAG);
         }
         else if (timeLimit.isTimeLimitReached()) {
