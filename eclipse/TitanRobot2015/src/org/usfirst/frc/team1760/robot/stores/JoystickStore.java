@@ -25,6 +25,9 @@ public class JoystickStore {
     public static final int LOWER_TAIL_LIFT_BUTTON = 4;  // On operator joystick
     public static final int RAISE_TAIL_LIFT_BUTTON = 5;  // On operator joystick
 
+    public static final int LOWER_DRAGON_TAIL_BUTTON = 2;  // On left driver joystick
+    public static final int RAISE_DRAGON_TAIL_BUTTON = 3;  // On left driver joystick
+
     private Joystick leftDriveJoystick = null;
     private Joystick rightDriveJoystick = null;
     private Joystick operatorJoystick = null;
@@ -35,6 +38,8 @@ public class JoystickStore {
 	private JoystickButton stopForkAtMiddleButton = null;
 	private JoystickButton lowerTailLiftButton = null;
 	private JoystickButton raiseTailLiftButton = null;
+	private JoystickButton lowerDragonTailButton = null;
+	private JoystickButton raiseDragonTailButton = null;
 
 	/**
 	 * Gets the left drive Joystick.
@@ -111,6 +116,28 @@ public class JoystickStore {
 			 lowerTailLiftButton = new JoystickButton(getOperatorJoystick(), LOWER_TAIL_LIFT_BUTTON, false);
 		}
 		return lowerTailLiftButton;
+	}
+
+    /**
+     * Gets the JoystickButton that indicates when the tail lift is to be raised.
+     * @return The JoystickButton that indicates when the tail lift is to be raised
+     */
+	public synchronized JoystickButton getRaiseDragonTailButton() {
+		if (raiseDragonTailButton == null) {
+			 raiseDragonTailButton = new JoystickButton(getLeftDriveJoystick(), RAISE_DRAGON_TAIL_BUTTON, false);
+		}
+		return raiseDragonTailButton;
+	}
+
+    /**
+     * Gets the JoystickButton that indicates when the tail lift is to be lowered.
+     * @return The JoystickButton that indicates when the tail lift is to be lowered
+     */
+	public synchronized JoystickButton getLowerDragonTailButton() {
+		if (lowerDragonTailButton == null) {
+			 lowerDragonTailButton = new JoystickButton(getLeftDriveJoystick(), LOWER_DRAGON_TAIL_BUTTON, false);
+		}
+		return lowerDragonTailButton;
 	}
 
 	/**

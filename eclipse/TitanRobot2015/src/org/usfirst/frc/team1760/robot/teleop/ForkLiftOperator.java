@@ -5,7 +5,6 @@ import org.usfirst.frc.team1760.robot.components.JoystickButton;
 import org.usfirst.frc.team1760.robot.components.Switch;
 import org.usfirst.frc.team1760.robot.components.TimeLimit;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -23,7 +22,6 @@ public class ForkLiftOperator {
 	private Switch forkLiftLowerLimitSwitch;
 	private Switch forkLiftMiddleLimitSwitch;
 	private JoystickButton stopForkAtMiddleButton;
-	private DoubleSolenoid forkLiftBrakeSolenoid;
 	private TimeLimit middleHoldLimit;
 
 	public ForkLiftOperator(TitanRobot pRobot) {
@@ -33,7 +31,6 @@ public class ForkLiftOperator {
 		forkLiftUpperLimitSwitch = robot.getSwitchStore().getForkLiftUpperLimitSwitch();
 		forkLiftLowerLimitSwitch = robot.getSwitchStore().getForkLiftLowerLimitSwitch();
 		forkLiftMiddleLimitSwitch = robot.getSwitchStore().getForkLiftMiddleLimitSwitch();
-		forkLiftBrakeSolenoid = robot.getSolenoidStore().getForkLiftBrakeSolenoid();
 		stopForkAtMiddleButton = robot.getJoystickStore().getStopForkAtMiddleButton();
 		middleHoldLimit = new TimeLimit();
 	}
@@ -65,11 +62,9 @@ public class ForkLiftOperator {
         }
 
 	    if (speed == 0.0) {
-	    	forkLiftBrakeSolenoid.set(DoubleSolenoid.Value.kForward);
         	forkLiftMotor.set(0.0);
 	    }
 	    else {
-	    	forkLiftBrakeSolenoid.set(DoubleSolenoid.Value.kReverse);
         	forkLiftMotor.set(speed);
 	    }
 	}

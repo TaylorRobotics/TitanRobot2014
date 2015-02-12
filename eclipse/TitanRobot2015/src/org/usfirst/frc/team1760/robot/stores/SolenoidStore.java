@@ -14,12 +14,12 @@ public class SolenoidStore {
 	public static final int BULLDOZER_SOLENOID_FORWARD_CHANNEL = 3;
 	public static final int TAIL_LIFT_SOLENOID_REVERSE_CHANNEL = 4;
 	public static final int TAIL_LIFT_SOLENOID_FORWARD_CHANNEL = 5;
-	public static final int FORK_LIFT_BRAKE_ON_CHANNEL = 6;
-	public static final int FORK_LIFT_BRAKE_OFF_CHANNEL = 7;
+	public static final int DRAGON_TAIL_REVERSE_CHANNEL = 6;
+	public static final int DRAGON_TAIL_FORWARD_CHANNEL = 7;
 	private DoubleSolenoid toteLiftSolenoid = null;
-	private DoubleSolenoid forkLiftBrakeSolenoid = null;
 	private DoubleSolenoid bulldozerSolenoid = null;
 	private DoubleSolenoid tailLiftSolenoid = null;
+	private DoubleSolenoid dragonTailSolenoid = null;
 
 	/**
 	 * Gets the DoubleSolenoid for the tote lift.
@@ -47,11 +47,11 @@ public class SolenoidStore {
 	 * Gets the DoubleSolenoid for the fork lift.
 	 * @return The DoubleSolenoid for the fork lift brake.
 	 */
-	public synchronized DoubleSolenoid getForkLiftBrakeSolenoid() {
-		if (forkLiftBrakeSolenoid == null) {
-			forkLiftBrakeSolenoid = new DoubleSolenoid(FORK_LIFT_BRAKE_ON_CHANNEL, FORK_LIFT_BRAKE_OFF_CHANNEL);
+	public synchronized DoubleSolenoid getDragonTailSolenoid() {
+		if (dragonTailSolenoid == null) {
+			dragonTailSolenoid = new DoubleSolenoid(DRAGON_TAIL_FORWARD_CHANNEL, DRAGON_TAIL_REVERSE_CHANNEL);
 		}
-		return forkLiftBrakeSolenoid;
+		return dragonTailSolenoid;
 	}
 	
 	/**

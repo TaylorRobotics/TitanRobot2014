@@ -39,20 +39,18 @@ public class ToteLiftOperator {
 	}
 
 	public void periodic() {
-		switch(state) {
-			case NONE:
-			if (raiseToteButton.isSwitchOn() && raiseToteButton.getStateChange()) {
-				state = LIFT_STEP_1;
-	        	toteLiftSolenoid.set(DoubleSolenoid.Value.kForward);
-	        	timeLimit.setTimeLimit(TOTE_LIFT_DELAY);
-			}
-			else if (lowerToteButton.isSwitchOn() && lowerToteButton.getStateChange()) {
-				state = LOWER_STEP_1;
-	        	bulldozerSolenoid.set(DoubleSolenoid.Value.kReverse);
-	        	timeLimit.setTimeLimit(BULLDOZER_DELAY);
-			}
-			break;
+		if (raiseToteButton.isSwitchOn() && raiseToteButton.getStateChange()) {
+			state = LIFT_STEP_1;
+        	toteLiftSolenoid.set(DoubleSolenoid.Value.kForward);
+        	timeLimit.setTimeLimit(TOTE_LIFT_DELAY);
+		}
+		else if (lowerToteButton.isSwitchOn() && lowerToteButton.getStateChange()) {
+			state = LOWER_STEP_1;
+        	bulldozerSolenoid.set(DoubleSolenoid.Value.kReverse);
+        	timeLimit.setTimeLimit(BULLDOZER_DELAY);
+		}
 
+		switch(state) {
 			case LIFT_STEP_1:
 			if (timeLimit.isTimeLimitReached()) {
 				state = LIFT_STEP_2;
