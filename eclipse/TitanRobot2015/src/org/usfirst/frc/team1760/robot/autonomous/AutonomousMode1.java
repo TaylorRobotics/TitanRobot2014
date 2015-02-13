@@ -15,9 +15,6 @@ import edu.wpi.first.wpilibj.SpeedController;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class AutonomousMode1 extends AutonomousMode {
-	public static final int FORWARD = 0;
-	public static final int REVERSE = 1;
-
 	public static final int DRIVING_BACKWARD = 0;
 	public static final int DROPPING_DRAGON_TAIL = 1;
 	public static final int RAISING_DRAGON_TAIL = 2;
@@ -43,11 +40,9 @@ public class AutonomousMode1 extends AutonomousMode {
 
 	private int mode;
 	private TimeLimit modeTimeLimit;
-	private int direction;
 
 	public AutonomousMode1(TitanRobot pRobot) {
 		super(pRobot);
-		direction = FORWARD;
 	    dragonTailSolenoid = robot.getSolenoidStore().getDragonTailSolenoid();
 	    tailLiftSolenoid = robot.getSolenoidStore().getTailLiftSolenoid();
 		mode = DRIVING_BACKWARD;
@@ -55,7 +50,7 @@ public class AutonomousMode1 extends AutonomousMode {
     	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
     	forkLiftMotor = robot.getMotorStore().getForkLiftMotor();
 		forkLiftUpperLimitSwitch = robot.getSwitchStore().getForkLiftUpperLimitSwitch();
-		robotDrive = robot.getMotorStore().getRobotDrive(direction == FORWARD);
+		robotDrive = robot.getMotorStore().getRobotDrive(true);
 	}
 
 	/* (non-Javadoc)
