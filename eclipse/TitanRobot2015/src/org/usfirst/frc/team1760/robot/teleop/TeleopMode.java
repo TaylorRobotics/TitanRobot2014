@@ -40,6 +40,11 @@ public class TeleopMode {
 	private ForkLiftOperator forkLiftOperator;
 
 	/**
+	 * The class instance to handle camera position operations.
+	 */
+	private CameraPositionOperator cameraPositionOperator;
+
+	/**
 	 * Creates a TelopMode instance for controlling the Robot in Teleop.
 	 * @param pRobot The TitanRobot instance
 	 */
@@ -50,6 +55,7 @@ public class TeleopMode {
     	tailLiftOperator = new TailLiftOperator(robot);
     	dragonTailOperator = new DragonTailOperator(robot);
     	forkLiftOperator = new ForkLiftOperator(robot);
+    	cameraPositionOperator = new CameraPositionOperator(robot);
 	}
 
     /**
@@ -61,5 +67,6 @@ public class TeleopMode {
     	tailLiftOperator.periodic();
     	forkLiftOperator.periodic();
     	dragonTailOperator.periodic();
+    	cameraPositionOperator.periodic();
     }
 }

@@ -4,6 +4,7 @@ import org.usfirst.frc.team1760.robot.autonomous.AutonomousMode;
 import org.usfirst.frc.team1760.robot.autonomous.AutonomousModeFactory;
 import org.usfirst.frc.team1760.robot.stores.JoystickStore;
 import org.usfirst.frc.team1760.robot.stores.MotorStore;
+import org.usfirst.frc.team1760.robot.stores.ServoStore;
 import org.usfirst.frc.team1760.robot.stores.SolenoidStore;
 import org.usfirst.frc.team1760.robot.stores.SwitchStore;
 import org.usfirst.frc.team1760.robot.teleop.TeleopMode;
@@ -35,6 +36,10 @@ public class TitanRobot extends IterativeRobot {
 	 */
 	private SwitchStore switchStore;
 	/**
+	 * The component store for servo based components.
+	 */
+	private ServoStore servoStore;
+	/**
 	 * The instance for running autonomouse mode.
 	 */
 	private AutonomousMode autonomousMode = null;
@@ -53,6 +58,7 @@ public class TitanRobot extends IterativeRobot {
 		joystickStore = new JoystickStore();
 		solenoidStore = new SolenoidStore();
 		switchStore = new SwitchStore();
+		servoStore = new ServoStore();
 
 		/* Turn on compressor by getting any pneumatics solenoid */
 		solenoidStore.getToteLiftSolenoid();
@@ -88,6 +94,14 @@ public class TitanRobot extends IterativeRobot {
      */
     public SwitchStore getSwitchStore() {
     	return switchStore;
+    }
+
+    /**
+     * Gets the store holding defined Servos
+     * @return The ServoStore holding defined Servos
+     */
+    public ServoStore getServoStore() {
+    	return servoStore;
     }
 
     /**
