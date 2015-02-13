@@ -71,7 +71,7 @@ public class AutonomousModeFactory {
         if (autonomousSwitch3.isSwitchOn()) {
             autonomousMode |= 0x4;
         }
-System.out.println("Mode: " + autonomousMode + " selected.");
+
 		return autonomousMode;
 	}
 }
