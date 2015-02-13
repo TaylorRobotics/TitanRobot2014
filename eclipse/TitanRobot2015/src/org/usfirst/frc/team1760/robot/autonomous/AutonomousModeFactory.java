@@ -62,16 +62,16 @@ public class AutonomousModeFactory {
 	 */
 	private int getMode() {
         int autonomousMode = 0;
-        if (autonomousSwitch3.isSwitchOn()) {
+        if (autonomousSwitch1.isSwitchOn()) {
             autonomousMode |= 0x1;
         }
         if (autonomousSwitch2.isSwitchOn()) {
             autonomousMode |= 0x2;
         }
-        if (autonomousSwitch1.isSwitchOn()) {
+        if (autonomousSwitch3.isSwitchOn()) {
             autonomousMode |= 0x4;
         }
-
+System.out.println("Mode: " + autonomousMode + " selected.");
 		return autonomousMode;
 	}
 }

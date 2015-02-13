@@ -30,6 +30,11 @@ public class TeleopMode {
 	private TailLiftOperator tailLiftOperator;
 
 	/**
+	 * The class instance to handle dragon tail operations.
+	 */
+	private DragonTailOperator dragonTailOperator;
+
+	/**
 	 * The class instance to handle fork lift operations.
 	 */
 	private ForkLiftOperator forkLiftOperator;
@@ -43,6 +48,7 @@ public class TeleopMode {
     	tankDriveOperator = new TankDriveOperator(robot);
     	toteLiftOperator = new ToteLiftOperator(robot);
     	tailLiftOperator = new TailLiftOperator(robot);
+    	dragonTailOperator = new DragonTailOperator(robot);
     	forkLiftOperator = new ForkLiftOperator(robot);
 	}
 
@@ -54,5 +60,6 @@ public class TeleopMode {
     	toteLiftOperator.periodic();
     	tailLiftOperator.periodic();
     	forkLiftOperator.periodic();
+    	dragonTailOperator.periodic();
     }
 }
