@@ -43,14 +43,14 @@ public class AutonomousMode1 extends AutonomousMode {
 
 	public AutonomousMode1(TitanRobot pRobot) {
 		super(pRobot);
+		robotDrive = robot.getMotorStore().getRobotDrive(true);
 	    dragonTailSolenoid = robot.getSolenoidStore().getDragonTailSolenoid();
 	    tailLiftSolenoid = robot.getSolenoidStore().getTailLiftSolenoid();
-		mode = DRIVING_BACKWARD;
-		modeTimeLimit = new TimeLimit(DRIVE_BACKWARD_TIME);
     	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
     	forkLiftMotor = robot.getMotorStore().getForkLiftMotor();
 		forkLiftUpperLimitSwitch = robot.getSwitchStore().getForkLiftUpperLimitSwitch();
-		robotDrive = robot.getMotorStore().getRobotDrive(true);
+		mode = DRIVING_BACKWARD;
+		modeTimeLimit = new TimeLimit(DRIVE_BACKWARD_TIME);
 	}
 
 	/* (non-Javadoc)
@@ -109,5 +109,4 @@ public class AutonomousMode1 extends AutonomousMode {
 		robotDrive.drive(driveSpeed, 0.0);
 		forkLiftMotor.set(forkSpeed);
 	}
-
 }
