@@ -13,49 +13,39 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class AutonomousMode4 extends AutonomousMode {
-
-	public static final int FORWARD = 0;
-	public static final int REVERSE = 1;
-
 	public static final int DRIVING_BACKWARD = 0;
 	public static final int DRIVING_WAIT = 1;
 	public static final int DRIVING_FORWARD = 3;
-	public static final int DRIVING_ARC = 4;
+	public static final int DRIVING_TURN = 4;
 	public static final int DRIVING_LIFT_WAIT = 5;
 	public static final int COMPLETE = 44;
 
 	public static final long DRIVE_BACKWARD_TIME = 100;
 	public static final long DRIVE_WAIT_TIME = 100;
 	public static final long DRIVE_FORWARD_TIME = 4000;
-	public static final long DRIVE_ARC_TIME = 2300;
+	public static final long DRIVE_TURN_TIME = 2300;
 	public static final long DRIVE_LIFT_WAIT_TIME = 200;
 
 	public static final double DRIVE_BACKWARD_SPEED = -0.00;
-	public static final double DRIVE_WAIT_SPEED = 0.00;
 	public static final double DRIVE_FORWARD_SPEED = 0.45;
-	public static final double DRIVE_ARC_SPEED = 0.750;
-	public static final double DRIVE_LIFT_WAIT_SPEED = 0.00;
+	public static final double LEFT_DRIVE_TURN_SPEED = -0.45;
+	public static final double RIGHT_DRIVE_TURN_SPEED = 0.45;
 
-	private TimeLimit driveBackwardTimeLimit;
-	private TimeLimit driveWaitTimeLimit;
-	private TimeLimit driveForwardTimeLimit;
-	private TimeLimit driveArcTimeLimit;
-	private TimeLimit driveLiftTimeLimit;
-	
+	private TimeLimit driveTimeLimit;
+
+	private RobotDrive robotDrive;
 	private DoubleSolenoid tailLiftSolenoid;
-	private int drive_mode;
-	private int direction;
+	private int driveMode;
 	
 	public AutonomousMode4(TitanRobot pRobot) {
 		super(pRobot);
-		direction = FORWARD;
+		robotDrive = robot.getMotorStore().getRobotDrive(true);
 	    tailLiftSolenoid = robot.getSolenoidStore().getTailLiftSolenoid();
-		drive_mode = DRIVING_BACKWARD;
-		driveBackwardTimeLimit = new TimeLimit(DRIVE_BACKWARD_TIME);
-		driveWaitTimeLimit = new TimeLimit();
-		driveForwardTimeLimit = new TimeLimit();
-		driveArcTimeLimit = new TimeLimit();
-		driveLiftTimeLimit = new TimeLimit();
+
+	    /* Start drive mode */
+	    driveMode = DRIVING_BACKWARD;
+		driveTimeLimit = new TimeLimit(DRIVE_BACKWARD_TIME);
+    	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/* (non-Javadoc)
@@ -63,69 +53,59 @@ public class AutonomousMode4 extends AutonomousMode {
 	 */
 	@Override
 	public void periodic() {
-		// Insert autonomous code for mode 4 here
-		
-		RobotDrive robotDrive = robot.getMotorStore().getRobotDrive(direction == FORWARD);
-		double speed = 0.0;
-		if (drive_mode == DRIVING_BACKWARD) {
-        	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
-			if (driveBackwardTimeLimit.isTimeLimitReached()) {
-				drive_mode = DRIVING_WAIT;
-				driveWaitTimeLimit.setTimeLimit(DRIVE_WAIT_TIME);
+		double leftSpeed = 0.0;
+		double rightSpeed = 0.0;
+
+		if (driveMode == DRIVING_BACKWARD) {
+			if (driveTimeLimit.isTimeLimitReached()) {
+	        	tailLiftSolenoid.set(DoubleSolenoid.Value.kReverse); // synch this with the drive
+				driveMode = DRIVING_WAIT;
+				driveTimeLimit.setTimeLimit(DRIVE_WAIT_TIME);
 			}
 			else {
-				speed = DRIVE_BACKWARD_SPEED;
+				leftSpeed = DRIVE_BACKWARD_SPEED;
+				rightSpeed = DRIVE_BACKWARD_SPEED;
 			}
 		}
 
-		if (drive_mode == DRIVING_WAIT) {
-        	tailLiftSolenoid.set(DoubleSolenoid.Value.kReverse); // synch this with the drive
-			if (driveWaitTimeLimit.isTimeLimitReached()) {
-				drive_mode = DRIVING_FORWARD;
-				driveForwardTimeLimit.setTimeLimit(DRIVE_FORWARD_TIME);
-			}
-			else {
-				speed = DRIVE_WAIT_SPEED;
+		if (driveMode == DRIVING_WAIT) {
+			if (driveTimeLimit.isTimeLimitReached()) {
+				driveMode = DRIVING_FORWARD;
+				driveTimeLimit.setTimeLimit(DRIVE_FORWARD_TIME);
 			}
 		}
 
-		if (drive_mode == DRIVING_FORWARD) {
-			if (driveForwardTimeLimit.isTimeLimitReached()) {
-				drive_mode = DRIVING_ARC;
-				driveArcTimeLimit.setTimeLimit(DRIVE_ARC_TIME);
+		if (driveMode == DRIVING_FORWARD) {
+			if (driveTimeLimit.isTimeLimitReached()) {
+				driveMode = DRIVING_TURN;
+				driveTimeLimit.setTimeLimit(DRIVE_TURN_TIME);
 			}
 			else {
-				speed = DRIVE_FORWARD_SPEED;
+				leftSpeed = DRIVE_FORWARD_SPEED;
+				rightSpeed = DRIVE_FORWARD_SPEED;
 			}
 		}
 
-		if (drive_mode == DRIVING_ARC) {
-			if (driveArcTimeLimit.isTimeLimitReached()) {
-				drive_mode = DRIVING_LIFT_WAIT;
-				driveLiftTimeLimit.setTimeLimit(DRIVE_LIFT_WAIT_TIME);
+		if (driveMode == DRIVING_TURN) {
+			if (driveTimeLimit.isTimeLimitReached()) {
 	        	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
+				driveMode = DRIVING_LIFT_WAIT;
+				driveTimeLimit.setTimeLimit(DRIVE_LIFT_WAIT_TIME);
 			}
 			else {
-				speed = DRIVE_ARC_SPEED;
+				leftSpeed = LEFT_DRIVE_TURN_SPEED;
+				rightSpeed = RIGHT_DRIVE_TURN_SPEED;
 			}
 		}
 		
-		if (drive_mode == DRIVING_LIFT_WAIT) {
-			if (driveLiftTimeLimit.isTimeLimitReached()) {
-				drive_mode = COMPLETE;
+		if (driveMode == DRIVING_LIFT_WAIT) {
+			if (driveTimeLimit.isTimeLimitReached()) {
+				driveMode = COMPLETE;
 	        	tailLiftSolenoid.set(DoubleSolenoid.Value.kOff);
-			}
-			else {
-				speed = DRIVE_LIFT_WAIT_SPEED;
 			}
 		}		
 		
-		if (drive_mode == DRIVING_ARC) {
-			robotDrive.tankDrive(0, speed);
-		} 
-		else {
-		    robotDrive.drive(speed, 0.0);
-		}
+	    robotDrive.tankDrive(leftSpeed, rightSpeed);
 	}
 
 }

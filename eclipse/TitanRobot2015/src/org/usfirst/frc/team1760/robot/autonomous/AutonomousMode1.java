@@ -8,48 +8,56 @@ import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
  * This class handles Autonomous mode 1 operations.
- * Autonomous 1 mode will drop 1 barrel hook, and drive forward to auto zone.
+ * Grab barrel and tote from land fill zone and drag into auto zone.
  * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class AutonomousMode1 extends AutonomousMode {
-	public static final int FORWARD = 0;
-	public static final int REVERSE = 1;
-
 	public static final int DRIVING_BACKWARD = 0;
-	public static final int DROPPING_DRAGON_TAIL = 1;
-	public static final int RAISING_DRAGON_TAIL = 2;
-	public static final int DRIVING_FORWARD = 3;
-	public static final int COMPLETE = 4;
+	public static final int DRIVING_WAIT = 1;
+	public static final int DRIVING_FORWARD = 2;
+	public static final int DRIVING_LIFT_WAIT = 3;
+	public static final int DROPPING_DRAGON_TAIL = 10;
+	public static final int WAITING_DRAGON_TAIL = 11;
+	public static final int RAISING_DRAGON_TAIL = 12;
 
-	public static final long DRIVE_BACKWARD_TIME = 500;
-	public static final long DRAGON_TAIL_DROP_TIME = 3000;
-	public static final long DRIVE_FORWARD_TIME = 1300;
-	public static final long DRAGON_TAIL_RAISE_TIME = 5000;
+	public static final int COMPLETE = 44;
 
-	public static final double DRIVE_BACKWARD_SPEED = -0.50;
-	public static final double DRIVE_FORWARD_SPEED = 1.00;
+	public static final long DRIVE_BACKWARD_TIME = 400;
+	public static final long DRIVE_WAIT_TIME = 800;
+	public static final long DRIVE_FORWARD_TIME = 1700;
+	public static final long DRIVE_LIFT_WAIT_TIME = 200;
+	public static final long DRAGON_TAIL_DROP_TIME = 700;
+	public static final long DRAGON_TAIL_WAIT_TIME = 400;
+	public static final long DRAGON_TAIL_RAISE_TIME = 300;
+	
+	public static final double DRIVE_BACKWARD_SPEED = -0.30;
+	public static final double DRIVE_FORWARD_SPEED = 0.60;
+	
+	private TimeLimit driveTimeLimit;
+	private TimeLimit dragonTailTimeLimit;
 
-	private TimeLimit driveBackwardTimeLimit;
-	private TimeLimit dragonTailDropTimeLimit;
-	private TimeLimit dragonTailRaiseTimeLimit;
-	private TimeLimit driveForwardTimeLimit;
-
+	private RobotDrive robotDrive;
 	private DoubleSolenoid dragonTailSolenoid;
 	private DoubleSolenoid tailLiftSolenoid;
-	private int mode;
-	private int direction;
+	private int driveMode;
+	private int dragonTailMode;
 
 	public AutonomousMode1(TitanRobot pRobot) {
 		super(pRobot);
-		direction = FORWARD;
+		robotDrive = robot.getMotorStore().getRobotDrive(true);
 	    dragonTailSolenoid = robot.getSolenoidStore().getDragonTailSolenoid();
 	    tailLiftSolenoid = robot.getSolenoidStore().getTailLiftSolenoid();
-		mode = DRIVING_BACKWARD;
-		driveBackwardTimeLimit = new TimeLimit(DRIVE_BACKWARD_TIME);
-		dragonTailDropTimeLimit = new TimeLimit();
-		dragonTailRaiseTimeLimit = new TimeLimit();
-		driveForwardTimeLimit = new TimeLimit();
+
+	    /* Starting drive mode */
+	    driveMode = DRIVING_BACKWARD;
+		driveTimeLimit = new TimeLimit(DRIVE_BACKWARD_TIME);
+    	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
+
+    	/* Starting Dragon Tail mode */
+    	dragonTailMode = DROPPING_DRAGON_TAIL;
+		dragonTailTimeLimit = new TimeLimit(DRAGON_TAIL_DROP_TIME);
+    	dragonTailSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 
 	/* (non-Javadoc)
@@ -57,46 +65,61 @@ public class AutonomousMode1 extends AutonomousMode {
 	 */
 	@Override
 	public void periodic() {
-		RobotDrive robotDrive = robot.getMotorStore().getRobotDrive(direction == FORWARD);
 		double speed = 0.0;
-		if (mode == DRIVING_BACKWARD) {
-			if (driveBackwardTimeLimit.isTimeLimitReached()) {
-				mode = DROPPING_DRAGON_TAIL;
-				dragonTailDropTimeLimit.setTimeLimit(DRAGON_TAIL_DROP_TIME);
+
+		if (driveMode == DRIVING_BACKWARD) {
+			if (driveTimeLimit.isTimeLimitReached()) {
+	        	tailLiftSolenoid.set(DoubleSolenoid.Value.kReverse);
+				driveMode = DRIVING_WAIT;
+				driveTimeLimit.setTimeLimit(DRIVE_WAIT_TIME);
 			}
 			else {
 				speed = DRIVE_BACKWARD_SPEED;
 			}
 		}
-		if (mode == DROPPING_DRAGON_TAIL) {
-        	dragonTailSolenoid.set(DoubleSolenoid.Value.kReverse);
-        	tailLiftSolenoid.set(DoubleSolenoid.Value.kReverse);
-			if (dragonTailDropTimeLimit.isTimeLimitReached()) {
-				mode = DRIVING_FORWARD;
-				driveForwardTimeLimit.setTimeLimit(DRIVE_FORWARD_TIME);
+		if (driveMode == DRIVING_WAIT) {
+			if (driveTimeLimit.isTimeLimitReached()) {
+				driveMode = DRIVING_FORWARD;
+				driveTimeLimit.setTimeLimit(DRIVE_FORWARD_TIME);
 			}
 		}
-		if (mode == DRIVING_FORWARD) {
-			if (driveForwardTimeLimit.isTimeLimitReached()) {
-				mode = RAISING_DRAGON_TAIL;
-				dragonTailRaiseTimeLimit.setTimeLimit(DRAGON_TAIL_RAISE_TIME);
+		if (driveMode == DRIVING_FORWARD) {
+			if (driveTimeLimit.isTimeLimitReached()) {
 	        	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
+				driveMode = DRIVING_LIFT_WAIT;
+				driveTimeLimit.setTimeLimit(DRIVE_LIFT_WAIT_TIME);
 			}
 			else {
 				speed = DRIVE_FORWARD_SPEED;
 			}
 		}
-		if (mode == RAISING_DRAGON_TAIL) {
-			if (dragonTailRaiseTimeLimit.isTimeLimitReached()) {
-				mode = COMPLETE;
+		if (driveMode == DRIVING_LIFT_WAIT) {
+			if (driveTimeLimit.isTimeLimitReached()) {
 	        	tailLiftSolenoid.set(DoubleSolenoid.Value.kOff);
-	        	dragonTailSolenoid.set(DoubleSolenoid.Value.kOff);
-			}
-			else {
-	        	dragonTailSolenoid.set(DoubleSolenoid.Value.kForward);
-				
+				driveMode = COMPLETE;
 			}
 		}
+
+		if (dragonTailMode == DROPPING_DRAGON_TAIL) {
+			if (dragonTailTimeLimit.isTimeLimitReached()) {
+				dragonTailMode = WAITING_DRAGON_TAIL;
+				dragonTailTimeLimit.setTimeLimit(DRAGON_TAIL_WAIT_TIME);
+			}
+		}
+		if (dragonTailMode == WAITING_DRAGON_TAIL) {
+			if (dragonTailTimeLimit.isTimeLimitReached()) {
+				dragonTailMode = RAISING_DRAGON_TAIL;
+				dragonTailTimeLimit.setTimeLimit(DRAGON_TAIL_RAISE_TIME);
+	        	dragonTailSolenoid.set(DoubleSolenoid.Value.kForward);
+			}
+		}
+		if (dragonTailMode == RAISING_DRAGON_TAIL) {
+			if (dragonTailTimeLimit.isTimeLimitReached()) {
+				dragonTailMode = COMPLETE;
+	        	dragonTailSolenoid.set(DoubleSolenoid.Value.kOff);
+			}
+		}
+
 		robotDrive.drive(speed, 0.0);
 	}
 

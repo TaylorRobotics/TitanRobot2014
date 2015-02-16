@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.Servo;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class ServoStore {
-	public static final int HORIZONTAL_CAMERA_SERVO_CHANNEL = 9;
-	public static final int VERTICAL_CAMERA_SERVO_CHANNEL = 10;
+	public static final int HORIZONTAL_CAMERA_SERVO_CHANNEL = 7;
+	public static final int VERTICAL_CAMERA_SERVO_CHANNEL = 8;
 
 	private Servo verticalCameraServo = null;
 	private Servo horizontalCameraServo = null;

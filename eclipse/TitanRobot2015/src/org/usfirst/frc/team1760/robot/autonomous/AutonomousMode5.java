@@ -4,8 +4,6 @@ import org.usfirst.frc.team1760.robot.TitanRobot;
 import org.usfirst.frc.team1760.robot.components.Switch;
 import org.usfirst.frc.team1760.robot.components.TimeLimit;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -21,46 +19,48 @@ public class AutonomousMode5 extends AutonomousMode {
 	public static final int REVERSE = 1;
 
 	public static final int DRIVING_FORWARD = 0;
-	public static final int DRIVING_WAIT = 1;
-	public static final int DRIVING_BACKWARD = 3;
-	public static final int DRIVING_ARC = 4;
+	public static final int LIFTING_FORK = 1;
+	public static final int DRIVING_BACKWARD = 2;
+	public static final int DRIVING_TURN = 3;
 	public static final int COMPLETE = 44;
 
-	public static final long DRIVE_FORWARD_TIME = 100;
-	public static final long DRIVE_WAIT_TIME = 2000;
+	public static final long DRIVE_FORWARD_TIME = 0;
+	public static final long LIFTING_FORK_TIME = 2000;
 	public static final long DRIVE_BACKWARD_TIME = 1800;
-	public static final long DRIVE_ARC_TIME = 1800;
+	public static final long DRIVE_TURNING_TIME = 1800;
 
 	public static final double DRIVE_FORWARD_SPEED = 0.00;
-	public static final double DRIVE_WAIT_SPEED = 0.00;
-	public static final double DRIVE_BACKWARD_SPEED = -0.45;
-	public static final double DRIVE_ARC_SPEED = -0.75;
+
+	public static final double DRIVE_BACKWARD_BEGIN_SPEED = -0.35;
+	public static final double DRIVE_BACKWARD_STEP_SPEED = -0.002;
+	public static final long DRIVE_BACKWARD_STEP_INTERVAL = 10; // ms
+	public static final double DRIVE_BACKWARD_END_SPEED = -0.50;
+	
+	public static final double LEFT_DRIVE_TURN_SPEED = -0.45;
+	public static final double RIGHT_DRIVE_TURN_SPEED = 0.45;
+
 	public static final double FORK_SPEED = 0.50;
 
-	private TimeLimit driveBackwardTimeLimit;
-	private TimeLimit driveWaitTimeLimit;
-	private TimeLimit driveForwardTimeLimit;
-	private TimeLimit driveArcTimeLimit;
+	private TimeLimit timeLimit;
+	private TimeLimit backwardStepIntervalTimeLimit;
 	
+	private RobotDrive robotDrive;
 	private SpeedController forkLiftMotor;
 	private Switch forkLiftUpperLimitSwitch;
-	private Switch forkLiftLowerLimitSwitch;
 
-	private int drive_mode;
-	private int direction;
-	
+	private int driveMode;
+	private double backwardSpeed = 0.0;
+
 	public AutonomousMode5(TitanRobot pRobot) {
 		super(pRobot);
-		direction = FORWARD;
-		drive_mode = DRIVING_FORWARD;
-		driveBackwardTimeLimit = new TimeLimit(DRIVE_FORWARD_TIME);
-		driveWaitTimeLimit = new TimeLimit();
-		driveForwardTimeLimit = new TimeLimit();
-		driveArcTimeLimit = new TimeLimit();
+		robotDrive = robot.getMotorStore().getRobotDrive(true);
 		forkLiftMotor = robot.getMotorStore().getForkLiftMotor();
 		forkLiftUpperLimitSwitch = robot.getSwitchStore().getForkLiftUpperLimitSwitch();
-		forkLiftLowerLimitSwitch = robot.getSwitchStore().getForkLiftLowerLimitSwitch();
-		
+		backwardStepIntervalTimeLimit = new TimeLimit();
+
+		/* Start drive mode */
+		driveMode = DRIVING_FORWARD;
+		timeLimit = new TimeLimit(DRIVE_FORWARD_TIME);
 	}
 
 	/* (non-Javadoc)
@@ -68,61 +68,64 @@ public class AutonomousMode5 extends AutonomousMode {
 	 */
 	@Override
 	public void periodic() {
-		// Insert autonomous code for mode 5 here
-		
-		RobotDrive robotDrive = robot.getMotorStore().getRobotDrive(direction == FORWARD);
-		double speed = 0.0;
+		double leftSpeed = 0.0;
+		double rightSpeed = 0.0;
 		double forkSpeed = 0.0;
-		if (drive_mode == DRIVING_FORWARD) {
-			if (driveForwardTimeLimit.isTimeLimitReached()) {
-				drive_mode = DRIVING_WAIT;
-				driveWaitTimeLimit.setTimeLimit(DRIVE_WAIT_TIME);
+
+		if (driveMode == DRIVING_FORWARD) {
+			if (timeLimit.isTimeLimitReached()) {
+				driveMode = LIFTING_FORK;
+				timeLimit.setTimeLimit(LIFTING_FORK_TIME);
 			}
 			else {
-				speed = DRIVE_FORWARD_SPEED;
+				leftSpeed = DRIVE_FORWARD_SPEED;
+				rightSpeed = DRIVE_FORWARD_SPEED;
 			}
 		}
 
-		if (drive_mode == DRIVING_WAIT) {
-			if (driveWaitTimeLimit.isTimeLimitReached()) {
-				drive_mode = DRIVING_BACKWARD;
-				driveBackwardTimeLimit.setTimeLimit(DRIVE_BACKWARD_TIME);
+		if (driveMode == LIFTING_FORK) {
+			if (timeLimit.isTimeLimitReached()) {
+				driveMode = DRIVING_BACKWARD;
+				timeLimit.setTimeLimit(DRIVE_BACKWARD_TIME);
+				backwardSpeed = DRIVE_BACKWARD_BEGIN_SPEED;
+				backwardStepIntervalTimeLimit.setTimeLimit(DRIVE_BACKWARD_STEP_INTERVAL);
 			}
-			else {
-				speed = DRIVE_WAIT_SPEED;
+			else if (!forkLiftUpperLimitSwitch.isSwitchOn()) {
 				forkSpeed = FORK_SPEED;
-				if ((forkSpeed > 0.0) && forkLiftUpperLimitSwitch.isSwitchOn()) {
-	        		forkSpeed = 0.0;
-	            }
 			}
 		}
 
-		if (drive_mode == DRIVING_BACKWARD) {
-			if (driveBackwardTimeLimit.isTimeLimitReached()) {
-				drive_mode = DRIVING_ARC;
-				driveArcTimeLimit.setTimeLimit(DRIVE_ARC_TIME);
+		if (driveMode == DRIVING_BACKWARD) {
+			if (timeLimit.isTimeLimitReached()) {
+				driveMode = DRIVING_TURN;
+				timeLimit.setTimeLimit(DRIVE_TURNING_TIME);
 			}
 			else {
-				speed = DRIVE_BACKWARD_SPEED;
+				if (backwardStepIntervalTimeLimit.isTimeLimitReached()) {
+					backwardSpeed = backwardSpeed + DRIVE_BACKWARD_STEP_SPEED;
+					if (backwardSpeed < DRIVE_BACKWARD_END_SPEED) {
+						backwardSpeed = DRIVE_BACKWARD_END_SPEED;
+					}
+					else {
+						backwardStepIntervalTimeLimit.setTimeLimit(DRIVE_BACKWARD_STEP_INTERVAL);
+					}
+				}
+				leftSpeed = backwardSpeed;
+				rightSpeed = backwardSpeed;
 			}
 		}
 
-		if (drive_mode == DRIVING_ARC) {
-			if (driveArcTimeLimit.isTimeLimitReached()) {
-				drive_mode = COMPLETE;
+		if (driveMode == DRIVING_TURN) {
+			if (timeLimit.isTimeLimitReached()) {
+				driveMode = COMPLETE;
 			}
 			else {
-				speed = DRIVE_ARC_SPEED;
+				leftSpeed = LEFT_DRIVE_TURN_SPEED;
+				rightSpeed = RIGHT_DRIVE_TURN_SPEED;
 			}
 		}
 		
-		if (drive_mode == DRIVING_ARC) {
-			robotDrive.tankDrive(0, speed);
-		} 
-		else {
-		    robotDrive.drive(speed, 0.0);
-		}
-
+	    robotDrive.tankDrive(leftSpeed, rightSpeed);
     	forkLiftMotor.set(forkSpeed);
 	}
 

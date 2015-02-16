@@ -15,6 +15,7 @@ public class SwitchStore {
 	public static final int AUTONOMOUS_SWITCH_1_CHANNEL = 3;
 	public static final int AUTONOMOUS_SWITCH_2_CHANNEL = 4;
 	public static final int AUTONOMOUS_SWITCH_3_CHANNEL = 5;
+	public static final int AUTONOMOUS_RAMP_MODE_SWITCH_CHANNEL = 6;
 
 	private DigitalInputSwitch forkLiftUpperLimitSwitch = null;
 	private DigitalInputSwitch forkLiftLowerLimitSwitch = null;
@@ -22,6 +23,7 @@ public class SwitchStore {
 	private DigitalInputSwitch autonomousSwitch1 = null;
 	private DigitalInputSwitch autonomousSwitch2 = null;
 	private DigitalInputSwitch autonomousSwitch3 = null;
+	private DigitalInputSwitch autonomousRampModeSwitch = null;
 
 	/**
 	 * Gets the fork lift upper limit switch.
@@ -88,6 +90,17 @@ public class SwitchStore {
 			autonomousSwitch3 = new DigitalInputSwitch(AUTONOMOUS_SWITCH_3_CHANNEL, Switch.NORMALLY_OPEN);
 		}
 		return autonomousSwitch3;
+	}
+
+	/**
+	 * Gets the ramp mode autonomous switch.
+	 * @return The DigitalInputSwitch serving as the ramp mode autonomous switch
+	 */
+	public synchronized DigitalInputSwitch getAutonomousRampModeSwitch() {
+		if (autonomousRampModeSwitch == null) {
+			autonomousRampModeSwitch = new DigitalInputSwitch(AUTONOMOUS_RAMP_MODE_SWITCH_CHANNEL, Switch.NORMALLY_OPEN);
+		}
+		return autonomousRampModeSwitch;
 	}
 
 }

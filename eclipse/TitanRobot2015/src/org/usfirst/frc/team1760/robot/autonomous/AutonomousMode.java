@@ -10,12 +10,18 @@ import org.usfirst.frc.team1760.robot.TitanRobot;
  */
 public abstract class AutonomousMode {
 	protected TitanRobot robot;
+	private boolean rampMode;
 
 	public AutonomousMode(TitanRobot pRobot) {
 		robot = pRobot;
+		rampMode = robot.getSwitchStore().getAutonomousRampModeSwitch().isSwitchOn();
 	}
 
-    /**
+	public boolean isRampMode() {
+		return rampMode;
+	}
+
+	/**
      * This method is called periodically during autonomous and provides the
      * appropriate autonomous behavior based upon the autonomous mode selected by the
      * autonmous switches.
