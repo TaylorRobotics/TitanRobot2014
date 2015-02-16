@@ -24,7 +24,7 @@ public abstract class AutonomousMode {
 	/**
      * This method is called periodically during autonomous and provides the
      * appropriate autonomous behavior based upon the autonomous mode selected by the
-     * autonmous switches.
+     * autonomous switches.
      */
     public abstract void periodic();
 

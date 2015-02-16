@@ -20,6 +20,9 @@ public class JoystickStore {
     public static final int DRIVE_SLOW_BUTTON = 1; // On left driver joystick
     public static final int DRIVE_FAST_BUTTON = 1; // On right driver joystick
 
+    public static final int DRIVE_FORWARD_BUTTON = 6;  // On left driver joystick
+    public static final int DRIVE_BACKWARD_BUTTON = 7; // On left driver joystick
+
     public static final int STOP_FORK_AT_MIDDLE_BUTTON = 1; // On operator joystick
 
     public static final int LOWER_TAIL_LIFT_BUTTON = 4;  // On operator joystick
@@ -40,6 +43,8 @@ public class JoystickStore {
 	private JoystickButton raiseTailLiftButton = null;
 	private JoystickButton lowerDragonTailButton = null;
 	private JoystickButton raiseDragonTailButton = null;
+	private JoystickButton driveForwardButton = null;
+	private JoystickButton driveBackwardButton = null;
 
 	/**
 	 * Gets the left drive Joystick.
@@ -160,6 +165,28 @@ public class JoystickStore {
 			driveFastButton = new JoystickButton(getLeftDriveJoystick(), DRIVE_FAST_BUTTON, false);
 		}
 		return driveFastButton;
+	}
+
+	/**
+	 * Gets the JoystickButton that indicates that drive operation should be in the forward direction.
+	 * @return The JoystickButton that indicates that drive operation should be in the forward direction
+	 */
+	public synchronized JoystickButton getDriveForwardButton() {
+		if (driveForwardButton == null) {
+			driveForwardButton = new JoystickButton(getLeftDriveJoystick(), DRIVE_FORWARD_BUTTON, false);
+		}
+		return driveForwardButton;
+	}
+
+	/**
+	 * Gets the JoystickButton that indicates that drive operation should be in the backward direction.
+	 * @return The JoystickButton that indicates that drive operation should be in the backward direction
+	 */
+	public synchronized JoystickButton getDriveBackwardButton() {
+		if (driveBackwardButton == null) {
+			driveBackwardButton = new JoystickButton(getLeftDriveJoystick(), DRIVE_BACKWARD_BUTTON, false);
+		}
+		return driveBackwardButton;
 	}
 
 	/**

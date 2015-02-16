@@ -25,6 +25,8 @@ public class TankDriveOperator {
 	private Joystick rightDriveJoystick;
 	private JoystickButton driveSlowButton;
 	private JoystickButton driveFastButton;
+	private JoystickButton driveForwardButton;
+	private JoystickButton driveBackwardButton;
 
 	public TankDriveOperator(TitanRobot pRobot) {
 		robot = pRobot;
@@ -34,10 +36,19 @@ public class TankDriveOperator {
 		rightDriveJoystick = robot.getJoystickStore().getRightDriveJoystick();
 		driveSlowButton = robot.getJoystickStore().getDriveSlowButton();
 		driveFastButton = robot.getJoystickStore().getDriveFastButton();
+		driveForwardButton = robot.getJoystickStore().getDriveForwardButton();
+		driveBackwardButton = robot.getJoystickStore().getDriveBackwardButton();
 	}
 
 	public void periodic() {
+		if (driveForwardButton.isSwitchOn()) {
+			direction = FORWARD;
+		}
+		else if (driveBackwardButton.isSwitchOn()) {
+			direction = REVERSE;
+		}
 		RobotDrive robotDrive = robot.getMotorStore().getRobotDrive(direction == FORWARD);
+
 		if (driveSlowButton.isSwitchOn()) {
 			speedFactor = SLOW_SPEED_FACTOR;
 		}
@@ -48,6 +59,12 @@ public class TankDriveOperator {
 			speedFactor = DEFAULT_SPEED_FACTOR;
 		}
 		robotDrive.setMaxOutput(speedFactor);
-		robotDrive.tankDrive(leftDriveJoystick, rightDriveJoystick);
+
+		if (direction == FORWARD) {
+			robotDrive.tankDrive(rightDriveJoystick, leftDriveJoystick);
+		}
+		else {
+			robotDrive.tankDrive(leftDriveJoystick, rightDriveJoystick);
+		}
 	}
 }
