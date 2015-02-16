@@ -60,8 +60,8 @@ public class SwitchStore {
 
 
 	/**
-	 * Gets the left-most autonomous mode switch.
-	 * @return The DigitalInputSwitch serving as the left-most autonomous mode switch
+	 * Gets the right-most autonomous mode switch.
+	 * @return The DigitalInputSwitch serving as the right-most autonomous mode switch
 	 */
 	public synchronized DigitalInputSwitch getAutonomousSwitch1() {
 		if (autonomousSwitch1 == null) {
@@ -82,8 +82,8 @@ public class SwitchStore {
 	}
 
 	/**
-	 * Gets the right-most autonomous mode switch.
-	 * @return The DigitalInputSwitch serving as the right-most autonomous mode switch
+	 * Gets the left-most autonomous mode switch.
+	 * @return The DigitalInputSwitch serving as the left-most autonomous mode switch
 	 */
 	public synchronized DigitalInputSwitch getAutonomousSwitch3() {
 		if (autonomousSwitch3 == null) {
