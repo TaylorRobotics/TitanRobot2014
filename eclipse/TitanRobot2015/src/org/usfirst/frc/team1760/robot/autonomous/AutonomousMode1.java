@@ -13,26 +13,26 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class AutonomousMode1 extends AutonomousMode {
-	public static final int DRIVING_BACKWARD = 0;
-	public static final int DRIVING_WAIT = 1;
-	public static final int DRIVING_FORWARD = 2;
-	public static final int DRIVING_LIFT_WAIT = 3;
-	public static final int DROPPING_DRAGON_TAIL = 10;
-	public static final int WAITING_DRAGON_TAIL = 11;
-	public static final int RAISING_DRAGON_TAIL = 12;
+	private static final int DRIVING_BACKWARD = 0;
+	private static final int DRIVING_WAIT = 1;
+	private static final int DRIVING_FORWARD = 2;
+	private static final int DRIVING_LIFT_WAIT = 3;
+	private static final int DROPPING_DRAGON_TAIL = 10;
+	private static final int WAITING_DRAGON_TAIL = 11;
+	private static final int RAISING_DRAGON_TAIL = 12;
 
-	public static final int COMPLETE = 44;
+	private static final int COMPLETE = 44;
 
-	public static final long DRIVE_BACKWARD_TIME = 400;
-	public static final long DRIVE_WAIT_TIME = 800;
-	public static final long DRIVE_FORWARD_TIME = 1700;
-	public static final long DRIVE_LIFT_WAIT_TIME = 200;
-	public static final long DRAGON_TAIL_DROP_TIME = 700;
-	public static final long DRAGON_TAIL_WAIT_TIME = 400;
-	public static final long DRAGON_TAIL_RAISE_TIME = 300;
+	private static final long DRIVE_BACKWARD_TIME = 400;
+	private static final long DRIVE_WAIT_TIME = 800;
+	private static final long DRIVE_FORWARD_TIME = 1700;
+	private static final long DRIVE_LIFT_WAIT_TIME = 200;
+	private static final long DRAGON_TAIL_DROP_TIME = 700;
+	private static final long DRAGON_TAIL_WAIT_TIME = 400;
+	private static final long DRAGON_TAIL_RAISE_TIME = 300;
 	
-	public static final double DRIVE_BACKWARD_SPEED = -0.30;
-	public static final double DRIVE_FORWARD_SPEED = 0.60;
+	private static final double DRIVE_BACKWARD_SPEED = -0.30;
+	private static final double DRIVE_FORWARD_SPEED = 0.60;
 	
 	private TimeLimit driveTimeLimit;
 	private TimeLimit dragonTailTimeLimit;

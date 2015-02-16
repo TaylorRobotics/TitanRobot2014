@@ -13,39 +13,33 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class AutonomousMode6 extends AutonomousMode {
+	private static final int DRIVING_BACKWARD = 0;
+	private static final int DRIVING_WAIT = 1;
+	private static final int DRIVING_FORWARD = 3;
+	private static final int DRIVING_TURN = 4;
+	private static final int DRIVING_LIFT_WAIT = 5;
+	private static final int COMPLETE = 44;
 
-	public static final int FORWARD = 0;
-	public static final int REVERSE = 1;
+	private static final long DRIVE_BACKWARD_TIME = 100;
+	private static final long DRIVE_WAIT_TIME = 300;
+	private static final long DRIVE_FORWARD_TIME = 4000;
+	private static final long DRIVE_TURNING_TIME = 2300;
+	private static final long DRIVE_LIFT_WAIT_TIME = 200;
 
-	public static final int DRIVING_BACKWARD = 0;
-	public static final int DRIVING_WAIT = 1;
-	public static final int DRIVING_FORWARD = 3;
-	public static final int DRIVING_TURN = 4;
-	public static final int DRIVING_LIFT_WAIT = 5;
-	public static final int COMPLETE = 44;
-
-	public static final long DRIVE_BACKWARD_TIME = 100;
-	public static final long DRIVE_WAIT_TIME = 300;
-	public static final long DRIVE_FORWARD_TIME = 4000;
-	public static final long DRIVE_TURNING_TIME = 2300;
-	public static final long DRIVE_LIFT_WAIT_TIME = 200;
-
-	public static final double DRIVE_BACKWARD_SPEED = -0.30;
-	public static final double DRIVE_FORWARD_SPEED = 0.30;
-	public static final double LEFT_DRIVE_TURN_SPEED = 0.50;
-	public static final double RIGHT_DRIVE_TURN_SPEED = -0.50;
+	private static final double DRIVE_BACKWARD_SPEED = -0.30;
+	private static final double DRIVE_FORWARD_SPEED = 0.30;
+	private static final double LEFT_DRIVE_TURN_SPEED = 0.50;
+	private static final double RIGHT_DRIVE_TURN_SPEED = -0.50;
 
 	private TimeLimit timeLimit;
 
 	private RobotDrive robotDrive;
 	private DoubleSolenoid tailLiftSolenoid;
 	private int drive_mode;
-	private int direction;
 	
 	public AutonomousMode6(TitanRobot pRobot) {
 		super(pRobot);
-		direction = FORWARD;
-		robotDrive = robot.getMotorStore().getRobotDrive(direction == FORWARD);
+		robotDrive = robot.getMotorStore().getRobotDrive(true);
 	    tailLiftSolenoid = robot.getSolenoidStore().getTailLiftSolenoid();
 
 	    /* Start drive mode */

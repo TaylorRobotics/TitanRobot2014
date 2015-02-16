@@ -12,8 +12,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class AutonomousMode7 extends AutonomousMode {
-	public static final long DRIVE_TIME = 1700;
-	public static final double DRIVE_SPEED = 0.30;
+	private static final long DRIVE_TIME = 1700;
+	private static final double DRIVE_SPEED = 0.30;
 	private RobotDrive robotDrive;
 	private TimeLimit driveTime;
 

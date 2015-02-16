@@ -13,23 +13,23 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class AutonomousMode4 extends AutonomousMode {
-	public static final int DRIVING_BACKWARD = 0;
-	public static final int DRIVING_WAIT = 1;
-	public static final int DRIVING_FORWARD = 3;
-	public static final int DRIVING_TURN = 4;
-	public static final int DRIVING_LIFT_WAIT = 5;
-	public static final int COMPLETE = 44;
+	private static final int DRIVING_BACKWARD = 0;
+	private static final int DRIVING_WAIT = 1;
+	private static final int DRIVING_FORWARD = 3;
+	private static final int DRIVING_TURN = 4;
+	private static final int DRIVING_LIFT_WAIT = 5;
+	private static final int COMPLETE = 44;
 
-	public static final long DRIVE_BACKWARD_TIME = 100;
-	public static final long DRIVE_WAIT_TIME = 100;
-	public static final long DRIVE_FORWARD_TIME = 4000;
-	public static final long DRIVE_TURN_TIME = 2300;
-	public static final long DRIVE_LIFT_WAIT_TIME = 200;
+	private static final long DRIVE_BACKWARD_TIME = 100;
+	private static final long DRIVE_WAIT_TIME = 100;
+	private static final long DRIVE_FORWARD_TIME = 4000;
+	private static final long DRIVE_TURN_TIME = 2300;
+	private static final long DRIVE_LIFT_WAIT_TIME = 200;
 
-	public static final double DRIVE_BACKWARD_SPEED = -0.00;
-	public static final double DRIVE_FORWARD_SPEED = 0.45;
-	public static final double LEFT_DRIVE_TURN_SPEED = -0.45;
-	public static final double RIGHT_DRIVE_TURN_SPEED = 0.45;
+	private static final double DRIVE_BACKWARD_SPEED = -0.00;
+	private static final double DRIVE_FORWARD_SPEED = 0.45;
+	private static final double LEFT_DRIVE_TURN_SPEED = -0.45;
+	private static final double RIGHT_DRIVE_TURN_SPEED = 0.45;
 
 	private TimeLimit driveTimeLimit;
 

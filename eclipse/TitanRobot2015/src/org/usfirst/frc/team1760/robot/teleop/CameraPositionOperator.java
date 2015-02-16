@@ -11,12 +11,10 @@ import edu.wpi.first.wpilibj.Servo;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class CameraPositionOperator {
-	public static final long SOLENOID_ON_LAG = 3000;  // 3 turn off solenoid
-
 	private TitanRobot robot;
-	Servo horizontalCameraServo;
-	Servo verticalCameraServo;
-	Joystick operatorJoystick;
+	private Servo horizontalCameraServo;
+	private Servo verticalCameraServo;
+	private Joystick operatorJoystick;
 
     public CameraPositionOperator(TitanRobot pRobot) {
 		robot = pRobot;

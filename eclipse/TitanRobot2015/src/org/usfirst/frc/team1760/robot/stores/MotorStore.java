@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1760.robot.stores;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 
@@ -15,8 +16,15 @@ public class MotorStore {
 	public static final int REAR_RIGHT_DRIVE_MOTOR_CHANNEL = 3;
 	public static final int FORK_LIFT_MOTOR_CHANNEL = 4;
 
+	public static final int LEFT_DRIVE_ENCODER_A_CHANNEL = -1;
+	public static final int LEFT_DRIVE_ENCODER_B_CHANNEL = -1;
+	public static final int RIGHT_DRIVE_ENCODER_A_CHANNEL = -1;
+	public static final int RIGHT_DRIVE_ENCODER_B_CHANNEL = -1;
+
 	private RobotDrive robotDrive = null;
 	private Victor forkLiftMotor = null;
+	private Encoder leftDriveEncoder = null;
+	private Encoder rightDriveEncoder = null;
 
 	/**
 	 * Gets the RobotDrive to control movement of the robot
@@ -46,5 +54,25 @@ public class MotorStore {
 		return forkLiftMotor;
 	}
 
-	
+	/**
+	 * Gets the Encoder for the left drive.
+	 * @return The Encoder for the left drive
+	 */
+	public synchronized Encoder getLeftDriveEncoder() {
+		if (leftDriveEncoder == null) {
+			leftDriveEncoder = new Encoder(LEFT_DRIVE_ENCODER_A_CHANNEL, LEFT_DRIVE_ENCODER_B_CHANNEL);
+		}
+		return leftDriveEncoder;
+	}
+
+	/**
+	 * Gets the Encoder for the right drive.
+	 * @return The Encoder for the right drive
+	 */
+	public synchronized Encoder getRightDriveEncoder() {
+		if (rightDriveEncoder == null) {
+			rightDriveEncoder = new Encoder(RIGHT_DRIVE_ENCODER_A_CHANNEL, RIGHT_DRIVE_ENCODER_B_CHANNEL);
+		}
+		return rightDriveEncoder;
+	}
 }
