@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
  * This class handles Autonomous mode 1 operations.
- * Autonomous 1 mode will grab a barrel from the step in serial mode.
+ * Autonomous 1 mode will drop 1 barrel hook, and drive forward to auto zone.
  * 
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
