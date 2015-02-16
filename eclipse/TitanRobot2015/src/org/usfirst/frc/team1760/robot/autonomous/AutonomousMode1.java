@@ -120,7 +120,7 @@ public class AutonomousMode1 extends AutonomousMode {
 			}
 		}
 
-		robotDrive.drive(speed, 0.0);
+		robotDrive.tankDrive(speed, speed);
 	}
 
 }

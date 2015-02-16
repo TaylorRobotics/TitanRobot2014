@@ -118,7 +118,7 @@ public class AutonomousMode2 extends AutonomousMode {
 			}
 		}
 
-		robotDrive.drive(speed, 0.0);
+		robotDrive.tankDrive(speed, speed);
 	}
 
 }

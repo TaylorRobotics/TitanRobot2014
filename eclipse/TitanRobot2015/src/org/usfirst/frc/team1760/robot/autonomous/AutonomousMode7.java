@@ -29,10 +29,10 @@ public class AutonomousMode7 extends AutonomousMode {
 	@Override
 	public void periodic() {
 		if (driveTime.isTimeLimitReached()) {
-			robotDrive.drive(0.0, 0.0);
+			robotDrive.tankDrive(0.0, 0.0);
 		}
 		else {
-			robotDrive.drive(DRIVE_SPEED, 0.0);
+			robotDrive.tankDrive(DRIVE_SPEED, DRIVE_SPEED);
 		}
 	}
 
