@@ -13,19 +13,14 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class AutonomousMode4 extends AutonomousMode {
-	private static final int DRIVING_BACKWARD = 0;
-	private static final int DRIVING_WAIT = 1;
-	private static final int DRIVING_FORWARD = 3;
-	private static final int DRIVING_LIFT_WAIT = 4;
+	private static final int DRIVING_FORWARD = 1;
+	private static final int DRIVING_LIFT_WAIT = 2;
 	private static final int COMPLETE = 44;
 
-	private static final long DRIVE_BACKWARD_TIME = 100;
-	private static final long DRIVE_WAIT_TIME = 100;
 	private static final long DRIVE_FORWARD_TIME_WITH_RAMP = 2700;
 	private static final long DRIVE_FORWARD_TIME_WITHOUT_RAMP = 2700;
 	private static final long DRIVE_LIFT_WAIT_TIME = 200;
 
-	private static final double DRIVE_BACKWARD_SPEED = -0.00;
 	private static final double DRIVE_FORWARD_SPEED = 0.70;
 
 	private TimeLimit driveTimeLimit;
@@ -48,8 +43,8 @@ public class AutonomousMode4 extends AutonomousMode {
 	    }
 
 	    /* Start drive mode */
-	    driveMode = DRIVING_BACKWARD;
-		driveTimeLimit = new TimeLimit(DRIVE_BACKWARD_TIME);
+	    driveMode = DRIVING_FORWARD;
+		driveTimeLimit = new TimeLimit(driveForwardTime);
     	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
 
@@ -60,24 +55,6 @@ public class AutonomousMode4 extends AutonomousMode {
 	public void periodic() {
 		double leftSpeed = 0.0;
 		double rightSpeed = 0.0;
-
-		if (driveMode == DRIVING_BACKWARD) {
-			if (driveTimeLimit.isTimeLimitReached()) {
-				driveMode = DRIVING_WAIT;
-				driveTimeLimit.setTimeLimit(DRIVE_WAIT_TIME);
-			}
-			else {
-				leftSpeed = DRIVE_BACKWARD_SPEED;
-				rightSpeed = DRIVE_BACKWARD_SPEED;
-			}
-		}
-
-		if (driveMode == DRIVING_WAIT) {
-			if (driveTimeLimit.isTimeLimitReached()) {
-				driveMode = DRIVING_FORWARD;
-				driveTimeLimit.setTimeLimit(driveForwardTime);
-			}
-		}
 
 		if (driveMode == DRIVING_FORWARD) {
 			if (driveTimeLimit.isTimeLimitReached()) {
