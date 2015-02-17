@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
  */
 public class AutonomousMode6 extends AutonomousMode {
 	private static final int DRIVING_BACKWARD = 0;
-	private static final int DRIVING_WAIT = 1;
+	private static final int TAIL_LIFT_WAIT = 1;
 	private static final int DRIVING_FORWARD = 3;
 	private static final int DRIVING_TURN = 4;
 	private static final int DRIVING_LIFT_WAIT = 5;
@@ -22,12 +22,12 @@ public class AutonomousMode6 extends AutonomousMode {
 
 	private static final long DRIVE_BACKWARD_TIME = 100;
 	private static final long DRIVE_WAIT_TIME = 300;
-	private static final long DRIVE_FORWARD_TIME = 4000;
-	private static final long DRIVE_TURNING_TIME = 2300;
+	private static final long DRIVE_FORWARD_TIME = 1900;
+	private static final long DRIVE_TURNING_TIME = 1725;
 	private static final long DRIVE_LIFT_WAIT_TIME = 200;
 
-	private static final double DRIVE_BACKWARD_SPEED = -0.30;
-	private static final double DRIVE_FORWARD_SPEED = 0.30;
+	private static final double DRIVE_BACKWARD_SPEED = -0.0;
+	private static final double DRIVE_FORWARD_SPEED = 0.70;
 	private static final double LEFT_DRIVE_TURN_SPEED = 0.50;
 	private static final double RIGHT_DRIVE_TURN_SPEED = -0.50;
 
@@ -58,7 +58,7 @@ public class AutonomousMode6 extends AutonomousMode {
 
 		if (drive_mode == DRIVING_BACKWARD) {
 			if (timeLimit.isTimeLimitReached()) {
-				drive_mode = DRIVING_WAIT;
+				drive_mode = TAIL_LIFT_WAIT;
 				timeLimit.setTimeLimit(DRIVE_WAIT_TIME);
 	        	tailLiftSolenoid.set(DoubleSolenoid.Value.kReverse); // synch this with the drive
 			}
@@ -68,7 +68,7 @@ public class AutonomousMode6 extends AutonomousMode {
 			}
 		}
 
-		if (drive_mode == DRIVING_WAIT) {
+		if (drive_mode == TAIL_LIFT_WAIT) {
 			if (timeLimit.isTimeLimitReached()) {
 				drive_mode = DRIVING_FORWARD;
 				timeLimit.setTimeLimit(DRIVE_FORWARD_TIME);
@@ -81,7 +81,7 @@ public class AutonomousMode6 extends AutonomousMode {
 				timeLimit.setTimeLimit(DRIVE_TURNING_TIME);
 			}
 			else {
-				leftSpeed = DRIVE_FORWARD_SPEED;
+				leftSpeed = DRIVE_FORWARD_SPEED + 0.025;
 				rightSpeed = DRIVE_FORWARD_SPEED;
 			}
 		}
