@@ -4,6 +4,7 @@ import org.usfirst.frc.team1760.robot.TitanRobot;
 import org.usfirst.frc.team1760.robot.components.Switch;
 import org.usfirst.frc.team1760.robot.components.TimeLimit;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 
@@ -41,6 +42,7 @@ public class AutonomousMode5 extends AutonomousMode {
 	private TimeLimit backwardStepIntervalTimeLimit;
 	
 	private RobotDrive robotDrive;
+	private DoubleSolenoid tailLiftSolenoid;
 	private SpeedController forkLiftMotor;
 	private Switch forkLiftUpperLimitSwitch;
 
@@ -57,7 +59,8 @@ public class AutonomousMode5 extends AutonomousMode {
 		/* Start drive mode */
 		driveMode = DRIVING_FORWARD;
 		timeLimit = new TimeLimit(DRIVE_FORWARD_TIME);
-	}
+    	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
 
 	/* (non-Javadoc)
 	 * @see org.usfirst.frc.team1760.robot.autonomous.AutonomousMode#periodic()
@@ -113,7 +116,8 @@ public class AutonomousMode5 extends AutonomousMode {
 
 		if (driveMode == DRIVING_TURN) {
 			if (timeLimit.isTimeLimitReached()) {
-				driveMode = COMPLETE;
+		    	tailLiftSolenoid.set(DoubleSolenoid.Value.kOff);
+		    	driveMode = COMPLETE;
 			}
 			else {
 				leftSpeed = LEFT_DRIVE_TURN_SPEED;

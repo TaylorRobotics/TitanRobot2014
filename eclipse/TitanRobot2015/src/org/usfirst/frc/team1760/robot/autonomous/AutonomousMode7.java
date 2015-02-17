@@ -3,6 +3,7 @@ package org.usfirst.frc.team1760.robot.autonomous;
 import org.usfirst.frc.team1760.robot.TitanRobot;
 import org.usfirst.frc.team1760.robot.components.TimeLimit;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
@@ -12,15 +13,25 @@ import edu.wpi.first.wpilibj.RobotDrive;
  * @author Robo-Titans Team 1760 Taylor High School 2015
  */
 public class AutonomousMode7 extends AutonomousMode {
+	private static final int DRIVING = 0;
+	private static final int COMPLETE = 44;
+
 	private static final long DRIVE_TIME = 1100;
 	private static final double DRIVE_SPEED = 0.70;
 	private RobotDrive robotDrive;
+	private DoubleSolenoid tailLiftSolenoid;
 	private TimeLimit driveTime;
+
+	private int mode;
 
 	public AutonomousMode7(TitanRobot pRobot) {
 		super(pRobot);
 		robotDrive = robot.getMotorStore().getRobotDrive(true);
+
+		/* Start driving mode */
+		mode = DRIVING;
 		driveTime = new TimeLimit(DRIVE_TIME);
+    	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
 
 	/* (non-Javadoc)
@@ -28,12 +39,20 @@ public class AutonomousMode7 extends AutonomousMode {
 	 */
 	@Override
 	public void periodic() {
-		if (driveTime.isTimeLimitReached()) {
-			robotDrive.tankDrive(0.0, 0.0);
+		double leftSpeed = 0.0;
+		double rightSpeed = 0.0;
+
+		if (mode == DRIVING) {
+			if (driveTime.isTimeLimitReached()) {
+		    	tailLiftSolenoid.set(DoubleSolenoid.Value.kOff);
+				mode = COMPLETE;
+			}
+			else {
+				leftSpeed = DRIVE_SPEED + 0.025;
+				rightSpeed = DRIVE_SPEED;
+			}
 		}
-		else {
-			robotDrive.tankDrive(DRIVE_SPEED + 0.025, DRIVE_SPEED);
-		}
+		robotDrive.tankDrive(leftSpeed, rightSpeed);
 	}
 
 }
