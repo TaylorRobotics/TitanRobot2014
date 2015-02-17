@@ -82,7 +82,7 @@ public class AutonomousMode5 extends AutonomousMode {
 		if (driveMode == LIFTING_FORK) {
 			if (timeLimit.isTimeLimitReached()) {
 				driveMode = DRIVING_BACKWARD;
-				timeLimit.setTimeLimit(DRIVE_BACKWARD_TIME + 000);  /// Only add in Ramp Mode
+				timeLimit.setTimeLimit(DRIVE_BACKWARD_TIME + 200);  /// Only add in Ramp Mode
 				backwardSpeed = DRIVE_BACKWARD_BEGIN_SPEED;
 				backwardStepIntervalTimeLimit.setTimeLimit(DRIVE_BACKWARD_STEP_INTERVAL);
 			}

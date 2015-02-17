@@ -16,20 +16,16 @@ public class AutonomousMode4 extends AutonomousMode {
 	private static final int DRIVING_BACKWARD = 0;
 	private static final int DRIVING_WAIT = 1;
 	private static final int DRIVING_FORWARD = 3;
-	private static final int DRIVING_TURN = 4;
-	private static final int DRIVING_LIFT_WAIT = 5;
+	private static final int DRIVING_LIFT_WAIT = 4;
 	private static final int COMPLETE = 44;
 
 	private static final long DRIVE_BACKWARD_TIME = 100;
 	private static final long DRIVE_WAIT_TIME = 100;
-	private static final long DRIVE_FORWARD_TIME = 4000;
-	private static final long DRIVE_TURN_TIME = 2300;
+	private static final long DRIVE_FORWARD_TIME = 2700;
 	private static final long DRIVE_LIFT_WAIT_TIME = 200;
 
 	private static final double DRIVE_BACKWARD_SPEED = -0.00;
-	private static final double DRIVE_FORWARD_SPEED = 0.45;
-	private static final double LEFT_DRIVE_TURN_SPEED = -0.45;
-	private static final double RIGHT_DRIVE_TURN_SPEED = 0.45;
+	private static final double DRIVE_FORWARD_SPEED = 0.70;
 
 	private TimeLimit driveTimeLimit;
 
@@ -58,7 +54,6 @@ public class AutonomousMode4 extends AutonomousMode {
 
 		if (driveMode == DRIVING_BACKWARD) {
 			if (driveTimeLimit.isTimeLimitReached()) {
-	        	tailLiftSolenoid.set(DoubleSolenoid.Value.kReverse); // synch this with the drive
 				driveMode = DRIVING_WAIT;
 				driveTimeLimit.setTimeLimit(DRIVE_WAIT_TIME);
 			}
@@ -77,27 +72,15 @@ public class AutonomousMode4 extends AutonomousMode {
 
 		if (driveMode == DRIVING_FORWARD) {
 			if (driveTimeLimit.isTimeLimitReached()) {
-				driveMode = DRIVING_TURN;
-				driveTimeLimit.setTimeLimit(DRIVE_TURN_TIME);
-			}
-			else {
-				leftSpeed = DRIVE_FORWARD_SPEED;
-				rightSpeed = DRIVE_FORWARD_SPEED;
-			}
-		}
-
-		if (driveMode == DRIVING_TURN) {
-			if (driveTimeLimit.isTimeLimitReached()) {
-	        	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
 				driveMode = DRIVING_LIFT_WAIT;
 				driveTimeLimit.setTimeLimit(DRIVE_LIFT_WAIT_TIME);
 			}
 			else {
-				leftSpeed = LEFT_DRIVE_TURN_SPEED;
-				rightSpeed = RIGHT_DRIVE_TURN_SPEED;
+				leftSpeed = DRIVE_FORWARD_SPEED + 0.025;
+				rightSpeed = DRIVE_FORWARD_SPEED;
 			}
 		}
-		
+
 		if (driveMode == DRIVING_LIFT_WAIT) {
 			if (driveTimeLimit.isTimeLimitReached()) {
 				driveMode = COMPLETE;
