@@ -34,7 +34,7 @@ public class CameraPositionOperator {
 		}
 		else if (operatorJoystick.getRawButton(7)) {
 			horizontalCameraServo.setAngle(100.0);
-			verticalCameraServo.setAngle(45.0);
+			verticalCameraServo.setAngle(60.0);
 		}
 		else if (operatorJoystick.getRawButton(10)) {
 			horizontalCameraServo.setAngle(100.0);

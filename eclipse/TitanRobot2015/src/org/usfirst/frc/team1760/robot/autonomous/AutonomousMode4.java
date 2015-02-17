@@ -21,13 +21,15 @@ public class AutonomousMode4 extends AutonomousMode {
 
 	private static final long DRIVE_BACKWARD_TIME = 100;
 	private static final long DRIVE_WAIT_TIME = 100;
-	private static final long DRIVE_FORWARD_TIME = 2700;
+	private static final long DRIVE_FORWARD_TIME_WITH_RAMP = 2700;
+	private static final long DRIVE_FORWARD_TIME_WITHOUT_RAMP = 2700;
 	private static final long DRIVE_LIFT_WAIT_TIME = 200;
 
 	private static final double DRIVE_BACKWARD_SPEED = -0.00;
 	private static final double DRIVE_FORWARD_SPEED = 0.70;
 
 	private TimeLimit driveTimeLimit;
+	private long driveForwardTime;
 
 	private RobotDrive robotDrive;
 	private DoubleSolenoid tailLiftSolenoid;
@@ -37,6 +39,13 @@ public class AutonomousMode4 extends AutonomousMode {
 		super(pRobot);
 		robotDrive = robot.getMotorStore().getRobotDrive(true);
 	    tailLiftSolenoid = robot.getSolenoidStore().getTailLiftSolenoid();
+
+	    if (isRampMode()) {
+	    	driveForwardTime = DRIVE_FORWARD_TIME_WITH_RAMP;
+	    }
+	    else {
+	    	driveForwardTime = DRIVE_FORWARD_TIME_WITHOUT_RAMP;
+	    }
 
 	    /* Start drive mode */
 	    driveMode = DRIVING_BACKWARD;
@@ -66,7 +75,7 @@ public class AutonomousMode4 extends AutonomousMode {
 		if (driveMode == DRIVING_WAIT) {
 			if (driveTimeLimit.isTimeLimitReached()) {
 				driveMode = DRIVING_FORWARD;
-				driveTimeLimit.setTimeLimit(DRIVE_FORWARD_TIME);
+				driveTimeLimit.setTimeLimit(driveForwardTime);
 			}
 		}
 

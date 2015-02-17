@@ -15,6 +15,7 @@ public abstract class AutonomousMode {
 	public AutonomousMode(TitanRobot pRobot) {
 		robot = pRobot;
 		rampMode = robot.getSwitchStore().getAutonomousRampModeSwitch().isSwitchOn();
+		System.out.println("Ramp Mode: " + rampMode);
 	}
 
 	public boolean isRampMode() {

@@ -16,21 +16,30 @@ public class AutonomousMode7 extends AutonomousMode {
 	private static final int DRIVING = 0;
 	private static final int COMPLETE = 44;
 
-	private static final long DRIVE_TIME = 1100;
+	private static final long DRIVE_FORWARD_TIME_WITH_RAMP = 1100;
+	private static final long DRIVE_FORWARD_TIME_WITHOUT_RAMP = 1100;
 	private static final double DRIVE_SPEED = 0.70;
 	private RobotDrive robotDrive;
 	private DoubleSolenoid tailLiftSolenoid;
 	private TimeLimit driveTime;
 
 	private int mode;
+	private long driveForwardTime;
 
 	public AutonomousMode7(TitanRobot pRobot) {
 		super(pRobot);
 		robotDrive = robot.getMotorStore().getRobotDrive(true);
 
+	    if (isRampMode()) {
+	    	driveForwardTime = DRIVE_FORWARD_TIME_WITH_RAMP;
+	    }
+	    else {
+	    	driveForwardTime = DRIVE_FORWARD_TIME_WITHOUT_RAMP;
+	    }
+
 		/* Start driving mode */
 		mode = DRIVING;
-		driveTime = new TimeLimit(DRIVE_TIME);
+		driveTime = new TimeLimit(driveForwardTime);
     	tailLiftSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
 

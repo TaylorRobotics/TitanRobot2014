@@ -29,11 +29,11 @@ public class AutonomousMode1 extends AutonomousMode {
 	private static final long DRIVE_FORWARD_TIME_WITHOUT_RAMP = 1700;
 	private static final long DRIVE_LIFT_WAIT_TIME = 200;
 	private static final long DRAGON_TAIL_DROP_TIME = 700;
-	private static final long DRAGON_TAIL_WAIT_TIME = 400;
+	private static final long DRAGON_TAIL_WAIT_TIME = 800;
 	private static final long DRAGON_TAIL_RAISE_TIME = 300;
 	
 	private static final double DRIVE_BACKWARD_SPEED = -0.45;
-	private static final double DRIVE_FORWARD_SPEED = 0.60;
+	private static final double DRIVE_FORWARD_SPEED = 0.70;
 	
 	private TimeLimit driveTimeLimit;
 	private TimeLimit dragonTailTimeLimit;
