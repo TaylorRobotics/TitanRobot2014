@@ -21,19 +21,19 @@ public class AutonomousMode5 extends AutonomousMode {
 	private static final int COMPLETE = 44;
 
 	private static final long DRIVE_FORWARD_TIME = 0;
-	private static final long LIFTING_FORK_TIME = 2000;
-	private static final long DRIVE_BACKWARD_TIME = 1800;
-	private static final long DRIVE_TURNING_TIME = 1800;
+	private static final long LIFTING_FORK_TIME = 3000;
+	private static final long DRIVE_BACKWARD_TIME = 2000;
+	private static final long DRIVE_TURNING_TIME = 2200;
 
 	private static final double DRIVE_FORWARD_SPEED = 0.00;
 
 	private static final double DRIVE_BACKWARD_BEGIN_SPEED = -0.35;
-	private static final double DRIVE_BACKWARD_STEP_SPEED = -0.002;
+	private static final double DRIVE_BACKWARD_STEP_SPEED = -0.01;
 	private static final long DRIVE_BACKWARD_STEP_INTERVAL = 10; // ms
-	private static final double DRIVE_BACKWARD_END_SPEED = -0.50;
+	private static final double DRIVE_BACKWARD_END_SPEED = -0.70;
 	
-	private static final double LEFT_DRIVE_TURN_SPEED = -0.45;
-	private static final double RIGHT_DRIVE_TURN_SPEED = 0.45;
+	private static final double LEFT_DRIVE_TURN_SPEED = -0.50;
+	private static final double RIGHT_DRIVE_TURN_SPEED = 0.50;
 
 	private static final double FORK_SPEED = 0.50;
 
@@ -82,7 +82,7 @@ public class AutonomousMode5 extends AutonomousMode {
 		if (driveMode == LIFTING_FORK) {
 			if (timeLimit.isTimeLimitReached()) {
 				driveMode = DRIVING_BACKWARD;
-				timeLimit.setTimeLimit(DRIVE_BACKWARD_TIME);
+				timeLimit.setTimeLimit(DRIVE_BACKWARD_TIME + 000);  /// Only add in Ramp Mode
 				backwardSpeed = DRIVE_BACKWARD_BEGIN_SPEED;
 				backwardStepIntervalTimeLimit.setTimeLimit(DRIVE_BACKWARD_STEP_INTERVAL);
 			}
