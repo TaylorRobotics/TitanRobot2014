@@ -25,7 +25,8 @@ public class AutonomousMode2 extends AutonomousMode {
 
 	private static final long DRIVE_BACKWARD_TIME = 400;
 	private static final long DRIVE_WAIT_TIME = 800;
-	private static final long DRIVE_FORWARD_TIME = 1700;
+	private static final long DRIVE_FORWARD_TIME_WITH_RAMP = 1700;
+	private static final long DRIVE_FORWARD_TIME_WITHOUT_RAMP = 1700;
 	private static final long DRIVE_LIFT_WAIT_TIME = 200;
 	private static final long DRAGON_TAIL_DROP_TIME = 700;
 	private static final long DRAGON_TAIL_WAIT_TIME = 800;
@@ -36,6 +37,7 @@ public class AutonomousMode2 extends AutonomousMode {
 	
 	private TimeLimit driveTimeLimit;
 	private TimeLimit dragonTailTimeLimit;
+	private long driveForwardTime;
 
 	private RobotDrive robotDrive;
 	private DoubleSolenoid dragonTailSolenoid;
@@ -48,6 +50,13 @@ public class AutonomousMode2 extends AutonomousMode {
 		robotDrive = robot.getMotorStore().getRobotDrive(true);
 	    dragonTailSolenoid = robot.getSolenoidStore().getDragonTailSolenoid();
 	    tailLiftSolenoid = robot.getSolenoidStore().getTailLiftSolenoid();
+
+	    if (isRampMode()) {
+	    	driveForwardTime = DRIVE_FORWARD_TIME_WITH_RAMP;
+	    }
+	    else {
+	    	driveForwardTime = DRIVE_FORWARD_TIME_WITHOUT_RAMP;
+	    }
 
 	    /* Starting drive mode */
 	    driveMode = DRIVING_BACKWARD;
@@ -79,7 +88,7 @@ public class AutonomousMode2 extends AutonomousMode {
 		if (driveMode == DRIVING_WAIT) {
 			if (driveTimeLimit.isTimeLimitReached()) {
 				driveMode = DRIVING_FORWARD;
-				driveTimeLimit.setTimeLimit(DRIVE_FORWARD_TIME);
+				driveTimeLimit.setTimeLimit(driveForwardTime);
 			}
 		}
 		if (driveMode == DRIVING_FORWARD) {

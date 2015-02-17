@@ -23,7 +23,8 @@ public class AutonomousMode5 extends AutonomousMode {
 
 	private static final long DRIVE_FORWARD_TIME = 0;
 	private static final long LIFTING_FORK_TIME = 3000;
-	private static final long DRIVE_BACKWARD_TIME = 2000;
+	private static final long DRIVE_BACKWARD_TIME_WITH_RAMP = 2200;
+	private static final long DRIVE_BACKWARD_TIME_WITHOUT_RAMP = 2000;
 	private static final long DRIVE_TURNING_TIME = 2200;
 
 	private static final double DRIVE_FORWARD_SPEED = 0.00;
@@ -40,6 +41,7 @@ public class AutonomousMode5 extends AutonomousMode {
 
 	private TimeLimit timeLimit;
 	private TimeLimit backwardStepIntervalTimeLimit;
+	private long driveBackwardTime;
 	
 	private RobotDrive robotDrive;
 	private DoubleSolenoid tailLiftSolenoid;
@@ -55,6 +57,13 @@ public class AutonomousMode5 extends AutonomousMode {
 		forkLiftMotor = robot.getMotorStore().getForkLiftMotor();
 		forkLiftUpperLimitSwitch = robot.getSwitchStore().getForkLiftUpperLimitSwitch();
 		backwardStepIntervalTimeLimit = new TimeLimit();
+
+		if (isRampMode()) {
+	    	driveBackwardTime = DRIVE_BACKWARD_TIME_WITH_RAMP;
+	    }
+	    else {
+	    	driveBackwardTime = DRIVE_BACKWARD_TIME_WITHOUT_RAMP;
+	    }
 
 		/* Start drive mode */
 		driveMode = DRIVING_FORWARD;
@@ -85,7 +94,7 @@ public class AutonomousMode5 extends AutonomousMode {
 		if (driveMode == LIFTING_FORK) {
 			if (timeLimit.isTimeLimitReached()) {
 				driveMode = DRIVING_BACKWARD;
-				timeLimit.setTimeLimit(DRIVE_BACKWARD_TIME + 200);  /// Only add in Ramp Mode
+				timeLimit.setTimeLimit(driveBackwardTime);
 				backwardSpeed = DRIVE_BACKWARD_BEGIN_SPEED;
 				backwardStepIntervalTimeLimit.setTimeLimit(DRIVE_BACKWARD_STEP_INTERVAL);
 			}
