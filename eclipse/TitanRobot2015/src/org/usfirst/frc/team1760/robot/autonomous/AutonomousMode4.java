@@ -17,7 +17,7 @@ public class AutonomousMode4 extends AutonomousMode {
 	private static final int DRIVING_LIFT_WAIT = 2;
 	private static final int COMPLETE = 44;
 
-	private static final long DRIVE_FORWARD_TIME_WITH_RAMP = 2700;
+	private static final long DRIVE_FORWARD_TIME_WITH_RAMP = 2925;
 	private static final long DRIVE_FORWARD_TIME_WITHOUT_RAMP = 2700;
 	private static final long DRIVE_LIFT_WAIT_TIME = 200;
 

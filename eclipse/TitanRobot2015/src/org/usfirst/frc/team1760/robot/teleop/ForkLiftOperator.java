@@ -15,6 +15,8 @@ import edu.wpi.first.wpilibj.SpeedController;
  */
 public class ForkLiftOperator {
 	public static final int MIDDLE_HOLD_TIME = 2000;
+	public static final double DIRECTION_NORMAL = 1.0;
+	public static final double DIRECTION_REVERSE = -1.0;
 	private TitanRobot robot;
 	private SpeedController forkLiftMotor;
 	private Joystick operatorJoystick;
@@ -23,6 +25,7 @@ public class ForkLiftOperator {
 	private Switch forkLiftMiddleLimitSwitch;
 	private JoystickButton stopForkAtMiddleButton;
 	private TimeLimit middleHoldLimit;
+	private double direction;
 
 	public ForkLiftOperator(TitanRobot pRobot) {
 		robot = pRobot;
@@ -33,12 +36,13 @@ public class ForkLiftOperator {
 		forkLiftMiddleLimitSwitch = robot.getSwitchStore().getForkLiftMiddleLimitSwitch();
 		stopForkAtMiddleButton = robot.getJoystickStore().getStopForkAtMiddleButton();
 		middleHoldLimit = new TimeLimit();
+		direction = DIRECTION_REVERSE;
 	}
 
 	public void periodic() {
         double speed = 0.0;
         if (middleHoldLimit.isTimeLimitReached()) {
-    	    double y = operatorJoystick.getY();
+    	    double y = operatorJoystick.getY() * direction;
     	    speed = y * Math.abs(y);
     	    if ((speed >= -0.05) && (speed <= 0.05)) {
     	    	speed = 0.0;

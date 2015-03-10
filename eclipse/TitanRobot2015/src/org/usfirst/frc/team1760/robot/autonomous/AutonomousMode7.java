@@ -28,6 +28,7 @@ public class AutonomousMode7 extends AutonomousMode {
 
 	public AutonomousMode7(TitanRobot pRobot) {
 		super(pRobot);
+		tailLiftSolenoid = robot.getSolenoidStore().getTailLiftSolenoid();
 		robotDrive = robot.getMotorStore().getRobotDrive(true);
 
 	    if (isRampMode()) {

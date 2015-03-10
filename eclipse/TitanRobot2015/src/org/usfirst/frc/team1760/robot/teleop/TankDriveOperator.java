@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj.RobotDrive;
 public class TankDriveOperator {
 	public static final int FORWARD = 0;
 	public static final int REVERSE = 1;
-	public static final double SLOW_SPEED_FACTOR = 0.5;
-	public static final double DEFAULT_SPEED_FACTOR = 0.75;
+	public static final double SLOW_SPEED_FACTOR = 0.3;  // Was 0.5
+	public static final double DEFAULT_SPEED_FACTOR = 0.5;  // Was 0.75
 	public static final double FAST_SPEED_FACTOR = 1.0;
 
 	private TitanRobot robot;
